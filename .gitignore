@@ -10,7 +10,8 @@
 *.dll
 *.dylib
 
-src/*.o
+obj/*.o
+bin/*
 
 # Qt-es
 

@@ -10,8 +10,6 @@
 *.dll
 *.dylib
 
-obj/*.o
-bin/*
 Makefile #main.pro 
 
 # Qt-es

@@ -9,7 +9,7 @@ Règles du jeu : https://ludos.brussels/ludo-cocof/opac_css/doc_num.php?explnum_
 ``` 
 qmake
 make
-./main
+./bin/main
 
 # Regénérer projet
 make distclean

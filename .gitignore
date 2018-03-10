@@ -10,6 +10,8 @@
 *.dll
 *.dylib
 
+src/*.o
+
 # Qt-es
 
 /.qmake.cache

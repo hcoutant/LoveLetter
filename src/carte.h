@@ -8,7 +8,7 @@ class Carte {
 		std::string nom;
 		int valeur;
 	public:
-		Carte();
+		Carte(std::string nom, int valeur);
 		~Carte();
 };
 

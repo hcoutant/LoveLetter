@@ -18,8 +18,8 @@ make distclean
 ## Auteurs
 
 * Coutant Hugo  
-* Diallo Thieddho   
-*    
-*     
+* Diallo Elhadj Thieddho   
+* Mousaoui Mohamed  
+
 
 

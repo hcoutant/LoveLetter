@@ -13,4 +13,4 @@ class Carte {
 		~Carte();
 };
 
-#endif // !__CARTE_H__
+#endif

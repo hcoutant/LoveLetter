@@ -6,9 +6,10 @@
 class Carte {
 	private:
 		std::string nom;
+		std::string description;
 		int valeur;
 	public:
-		Carte(std::string nom, int valeur);
+		Carte(std::string nom, int valeur, std::string description);
 		~Carte();
 };
 

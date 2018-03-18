@@ -1,5 +1,5 @@
-#ifndef __JEU_H__
-#define __JEU_H__
+#ifndef JEU_H__
+#define JEU_H__
 
 #include <vector>
 

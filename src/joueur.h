@@ -1,5 +1,5 @@
-#ifndef __JOUEUR_H__
-#define __JOUEUR_H__
+#ifndef JOUEUR_H__
+#define JOUEUR_H__
 
 #include "jeu.h"
 #include "carte.h"

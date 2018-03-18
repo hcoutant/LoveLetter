@@ -1,7 +1,6 @@
 #ifndef __COMPTESSE_H__
 #define __COMPTESSE_H__
 
-#include "../../jeu.h"
 #include "../carte.h"
 
 

@@ -2,7 +2,6 @@
 #define __PRINCESSE_H__
 
 #include "../carte.h"
-#include "../../jeu.h"
 
 class Princesse : Carte {
         public:

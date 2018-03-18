@@ -1,7 +1,6 @@
 #ifndef __GARDE_H__
 #define __GARDE_H__
 
-#include "../../jeu.h"
 #include "../carte.h"
 
 class Garde : Carte {

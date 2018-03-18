@@ -1,7 +1,6 @@
 #ifndef __BARON_H__
 #define __BARON_H__
 
-#include "../../jeu.h"
 #include "../carte.h"
 
 class Baron : Carte {

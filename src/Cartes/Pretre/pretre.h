@@ -1,7 +1,6 @@
 #ifndef __PRETRE_H__
 #define __PRETRE_H__
 
-#include "../../jeu.h"
 #include "../carte.h"
 
 class Pretre : Carte {

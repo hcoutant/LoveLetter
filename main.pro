@@ -1,6 +1,6 @@
 HEADERS += src/jeu.h src/joueur.h src/carte.h  
 
-SOURCES += src/main.cpp src/jeu.cpp src/carte.cpp 
+SOURCES += src/main.cpp src/jeu.cpp src/joueur.cpp src/carte.cpp 
 
 DESTDIR += bin/
 

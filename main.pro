@@ -10,8 +10,7 @@ HEADERS += src/jeu.h \
            src/Cartes/Roi/roi.h \
            src/Cartes/Servante/servante.h
 
-SOURCES += src/jeu.cpp \
-           src/main.cpp \
+SOURCES += src/main.cpp \
            src/Cartes/Baron/baron.cpp \
            src/Cartes/Comtesse/comtesse.cpp \
            src/Cartes/Garde/garde.cpp \

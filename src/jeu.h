@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Cartes/carte.h"
+#include "carte.h"
 #include "joueur.h"
 
 class Jeu {

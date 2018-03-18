@@ -2,7 +2,7 @@
 #define __JOUEUR_H__
 
 #include "jeu.h"
-#include "Cartes/carte.h"
+#include "carte.h"
 
 class Jeu; //Eviter les inclusions cyclique 
 class Carte;

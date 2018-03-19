@@ -7,6 +7,7 @@ Joueur::Joueur(std::string nm)
 	est_protege = false;
 	c1 = nullptr;
 	c2 = nullptr;
+	j = nullptr;
 }
 
 Joueur::~Joueur() {}

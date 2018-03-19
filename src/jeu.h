@@ -2,6 +2,9 @@
 #define JEU_H__
 
 #include <vector>
+#include <cassert>
+#include <algorithm>
+#include <ctime>
 
 #include "carte.h"
 #include "joueur.h"

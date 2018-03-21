@@ -3,11 +3,25 @@
 
 #include <string>
 
+typedef enum {
+	BARON,
+	PRINCE,
+	ROI,
+	SERVANTE,
+	COMTESSE,
+	GARDE,
+	PRINCESSE,
+	PRETRE
+} type_carte;
+
 class Carte {
 	protected:
 		std::string nom;
 		std::string description;
-        int valeur;
+	        int valeur;
+		type_carte type;
+	public:
+		type_carte getType();
 };
 
 class Baron : public Carte {

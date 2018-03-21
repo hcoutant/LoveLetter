@@ -17,6 +17,7 @@ class Jeu {
 	public:
 		Jeu(Joueur* j1, Joueur* j2, Joueur *j3 = nullptr, Joueur *j4 = nullptr);
 		~Jeu();
+		void action(Joueur *j1, Joueur *j2, Carte* c);
 };
 
 #endif

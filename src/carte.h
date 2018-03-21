@@ -13,7 +13,7 @@ class Carte {
 	protected:
 		std::string nom;
 		std::string description;
-		int valeur;
+        int valeur;
 };
 
 class Baron : public Carte {

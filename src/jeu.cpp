@@ -35,18 +35,18 @@ Jeu::Jeu(Joueur* j1, Joueur* j2, Joueur* j3, Joueur* j4)
 
 	if(joueurs.size() > 2)
 	{
-		defausse.push_back(pile.back());
-		defausse.pop_back();
+		laisse.push_back(pile.back());
+		pile.pop_back();
 	}
 	else
 	{
-		defausse.push_back(pile.back());
-		defausse.pop_back();
-		defausse.push_back(pile.back());
-                defausse.pop_back();
-		defausse.push_back(pile.back());
-                defausse.pop_back();
-		defausse.push_back(pile.back());
-                defausse.pop_back();
+		laisse.push_back(pile.back());
+		pile.pop_back();
+		laisse.push_back(pile.back());
+                pile.pop_back();
+		laisse.push_back(pile.back());
+                pile.pop_back();
+		laisse.push_back(pile.back());
+                pile.pop_back();
 	}
 }

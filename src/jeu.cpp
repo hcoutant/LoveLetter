@@ -51,3 +51,7 @@ Jeu::Jeu(Joueur* j1, Joueur* j2, Joueur* j3, Joueur* j4)
 	}
 }
 
+void Jeu::action(Joueur *j1, Joueur *j2, Carte* c)
+{
+	//TODO
+}

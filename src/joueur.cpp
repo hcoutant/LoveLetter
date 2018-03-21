@@ -12,14 +12,29 @@ Joueur::Joueur(std::string nm)
 
 Joueur::~Joueur() {}
 
-void Joueur::ajouter_jeu(Jeu* je) {} //TODO!!
+void Joueur::ajouter_jeu(Jeu* je) 
+{
+	j = je;
+} 
 
 void Joueur::jouer_carte_mg(Joueur *jo) 
 {
+	j->action(this,jo,c1);
 }
 
 void Joueur::jouer_carte_md(Joueur *jo)
 {
+	j->action(this,jo,c2);
+}
+
+bool Joueur::estVivant()
+{
+	return en_vie;
+}
+
+bool Joueur::estProtege()
+{
+	return est_protege;
 }
 
 

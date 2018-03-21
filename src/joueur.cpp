@@ -13,3 +13,13 @@ Joueur::Joueur(std::string nm)
 Joueur::~Joueur() {}
 
 void Joueur::ajouter_jeu(Jeu* je) {} //TODO!!
+
+void Joueur::jouer_carte_mg(Joueur *jo) 
+{
+}
+
+void Joueur::jouer_carte_md(Joueur *jo)
+{
+}
+
+

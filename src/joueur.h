@@ -20,6 +20,8 @@ class Joueur {
 		Joueur(std::string nom);
 		~Joueur();
 		void ajouter_jeu(Jeu* j);
+		void jouer_carte_mg(Joueur* jo);
+		void jouer_carte_md(Joueur* jo);
 };
 
 #endif

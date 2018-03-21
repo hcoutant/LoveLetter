@@ -10,8 +10,6 @@ Baron::Baron()
 
 Baron::~Baron() {}
 
-void Baron::action(Jeu* j, Joueur *jo) {} //TODO
-
 
 Prince::Prince()
 {
@@ -23,7 +21,6 @@ Prince::Prince()
 
 Prince::~Prince(){}
 
-void Prince::action(Jeu* j, Joueur* jo) {} //TODO
 
 
 Roi::Roi()
@@ -35,7 +32,6 @@ Roi::Roi()
 
 Roi::~Roi() {}
 
-void Roi::action(Jeu* j, Joueur *jo) {} //TODO
 
 Servante::Servante()
 {
@@ -45,8 +41,6 @@ Servante::Servante()
 }
 
 Servante::~Servante(){}
-
-void Servante::action(Jeu* j, Joueur *jo) {} //TODO
 
 
 Comtesse::Comtesse()
@@ -59,7 +53,6 @@ Comtesse::Comtesse()
 
 Comtesse::~Comtesse() {}
 
-void Comtesse::action(Jeu* j, Joueur *jo) {} //TODO
 
 Garde::Garde()
 {
@@ -71,7 +64,6 @@ Garde::Garde()
 
 Garde::~Garde() {}
 
-void Garde::action(Jeu* j, Joueur *jo) {} //TODO
 
 Princesse::Princesse()
 {
@@ -82,7 +74,6 @@ Princesse::Princesse()
 
 Princesse::~Princesse() {}
 
-void Princesse::action(Jeu* j, Joueur *jo) {} //TODO
 
 
 Pretre::Pretre()
@@ -94,4 +85,3 @@ Pretre::Pretre()
 
 Pretre::~Pretre() {}
 
-void Pretre::action(Jeu* j, Joueur *jo) {} //TODO

@@ -9,6 +9,8 @@
 #include "carte.h"
 #include "joueur.h"
 
+class Joueur;
+
 class Jeu {
 	private:
 		std::vector<Carte*> pile; //Pas de stack (Car impossible de mélanger une stack)

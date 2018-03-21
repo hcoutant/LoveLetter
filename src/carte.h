@@ -3,12 +3,6 @@
 
 #include <string>
 
-#include "jeu.h"
-#include "joueur.h"
-
-class Jeu;
-class Joueur;
-
 class Carte {
 	protected:
 		std::string nom;

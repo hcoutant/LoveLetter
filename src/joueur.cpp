@@ -32,9 +32,18 @@ bool Joueur::estVivant()
 	return en_vie;
 }
 
+void Joueur::setVivant(bool b)
+{
+	en_vie = b;
+}
+
 bool Joueur::estProtege()
 {
 	return est_protege;
 }
 
+void Joueur::setProtege(bool b)
+{
+	est_protege = b;
+}
 

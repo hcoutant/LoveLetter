@@ -63,5 +63,30 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte* c)
 		return;
 	
 
-	switch(c->getType()){ }
+	switch(c->getType()){ 
+		case PRINCESSE:
+			
+			break;
+		case ROI:
+		
+			break;
+		case PRINCE:
+		
+			break;
+		case SERVANTE:
+	
+			break;
+		case GARDE:
+	
+			break;
+		case PRETRE:
+	
+			break;	
+		case BARON:
+
+			break;
+		case COMTESSE:
+		
+			break;
+	}
 }

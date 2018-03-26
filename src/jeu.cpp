@@ -88,7 +88,21 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
                                 return;
 
-			
+			if(j1 != j2)
+				j2->defausser();
+			else
+			{
+				if(j1->getCarteMd()->getType() == PRINCE)
+				{
+					this->defausser(j1->getCarteMg());
+					j1->setCarteMg(nullptr);
+				}
+				else
+				{
+					this->defausser(j1->getCarteMd());
+					j1->setCarteMd(nullptr);
+				}
+			}
 			break;
 		}
 		case SERVANTE: //Protection
@@ -109,7 +123,19 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 		case BARON: //Duel
 			break;
 		case COMTESSE: //Roi ou Prince en main
+		{
+			if(j1->getCarteMd()->getType() == COMTESSE)
+			{
+				this->defausser(j1->getCarteMd());
+				j1->setCarteMd(nullptr);
+			}
+			else
+			{
+				this->defausser(j1->getCarteMg());
+				j1->setCarteMg(nullptr);
+			}
 			break;
+		}
 	}
 }
 

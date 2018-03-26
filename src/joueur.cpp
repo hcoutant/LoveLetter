@@ -48,6 +48,19 @@ bool Joueur::estVivant()
 void Joueur::setVivant(bool b)
 {
 	en_vie = b;
+	if(!b)
+	{
+		if(c1 != nullptr)
+		{
+			j->defausser(c1);
+			c1 = nullptr;
+		}
+		if(c2 != nullptr)
+		{
+			j->defausser(c2);
+			c2 = nullptr;
+		}
+	}	
 }
 
 bool Joueur::estProtege()

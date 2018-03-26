@@ -47,3 +47,22 @@ void Joueur::setProtege(bool b)
 	est_protege = b;
 }
 
+Carte* Joueur::getCarteMg()
+{
+	return c1;
+}
+
+void Joueur::setCarteMg(Carte* c)
+{
+	c1 = c;
+}
+
+Carte* Joueur::getCarteMd()
+{
+	return c2;
+}
+
+void Joueur::setCarteMd(Carte* c)
+{
+	c2 = c;
+}

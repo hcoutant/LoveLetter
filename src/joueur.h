@@ -26,6 +26,12 @@ class Joueur {
 	
 		bool estProtege();
 		void setProtege(bool b);
+		
+		Carte* getCarteMg();
+		void setCarteMg(Carte* c);
+
+		Carte* getCarteMd();
+		void setCarteMd(Carte* c);
 
 };
 

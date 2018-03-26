@@ -49,6 +49,8 @@ Jeu::Jeu(Joueur* j1, Joueur* j2, Joueur* j3, Joueur* j4)
 		laisse.push_back(pile.back());
                 pile.pop_back();
 	}
+
+	tour = 0;
 }
 
 void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)

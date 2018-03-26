@@ -17,6 +17,8 @@ class Jeu {
 		std::vector<Joueur*> joueurs;
 		std::vector<Carte*> defausse; //Cartes qui ont été défaussées par les joueurs 
 		std::vector<Carte*> laisse; //Cartes laissés au début du jeu
+
+		int tour; //Donne le joueur qui doit jouer 
 	public:
 		Jeu(Joueur* j1, Joueur* j2, Joueur *j3 = nullptr, Joueur *j4 = nullptr);
 		~Jeu();

@@ -80,11 +80,11 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			b2 ? j2->setCarteMd(tmp) : j2->setCarteMg(tmp);
 			break;
 		}
-		case PRINCE:
+		case PRINCE: //Defausser
 		
 			break;
-		case SERVANTE:
-	
+		case SERVANTE: //Protection
+			j1->setProtege(true);
 			break;
 		case GARDE:
 	

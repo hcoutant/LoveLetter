@@ -5,6 +5,11 @@ type_carte Carte::getType()
 	return type;
 }
 
+int Carte::getValeur()
+{
+	return valeur;
+}
+
 Baron::Baron()
 {
         nom = "Baron";

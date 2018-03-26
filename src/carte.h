@@ -22,6 +22,7 @@ class Carte {
 		type_carte type;
 	public:
 		type_carte getType();
+		int getValeur();
 };
 
 class Baron : public Carte {

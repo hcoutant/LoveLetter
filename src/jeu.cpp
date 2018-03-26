@@ -104,3 +104,13 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			break;
 	}
 }
+
+Carte* Jeu::piocher()
+{
+	if(pile.size() == 0)
+		return nullptr;
+
+	Carte* tmp = pile.back();
+	pile.pop_back();
+	return tmp;
+}

@@ -21,6 +21,7 @@ class Jeu {
 		Jeu(Joueur* j1, Joueur* j2, Joueur *j3 = nullptr, Joueur *j4 = nullptr);
 		~Jeu();
 		void action(Joueur *j1, Joueur *j2, Carte*& c); //Le joueur j1 est l'appelant, j2 le joueur visé
+		Carte* piocher();
 };
 
 #endif

@@ -23,6 +23,7 @@ class Jeu {
 		void action(Joueur *j1, Joueur *j2, Carte*& c); //Le joueur j1 est l'appelant, j2 le joueur visé
 		Carte* piocher();
 		Carte* piocherLaisse();
+		void defausser(Carte* c);
 };
 
 #endif

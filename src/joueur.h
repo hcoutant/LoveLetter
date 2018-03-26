@@ -33,6 +33,7 @@ class Joueur {
 		Carte* getCarteMd();
 		void setCarteMd(Carte* c);
 
+		void defausser();
 };
 
 #endif

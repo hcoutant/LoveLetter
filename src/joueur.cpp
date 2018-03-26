@@ -79,3 +79,17 @@ void Joueur::setCarteMd(Carte* c)
 {
 	c2 = c;
 }
+
+void Joueur::defausser()
+{
+	if(c1 != nullptr)
+	{
+		j->defausser(c1); 
+		c1 = nullptr;
+	}
+	else
+	{
+		j->defausser(c2); 
+		c2 = nullptr;
+	}
+}

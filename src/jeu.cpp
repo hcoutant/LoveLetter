@@ -81,8 +81,16 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			break;
 		}
 		case PRINCE: //Defausser
-		
+		{
+			if(j1 != j2 && (!(j2->estVivant()) || (j2->estProtege())))
+				return;
+	
+			if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
+                                return;
+
+			
 			break;
+		}
 		case SERVANTE: //Protection
 			j1->setProtege(true);
 			break;
@@ -120,4 +128,9 @@ Carte* Jeu::piocherLaisse()
 	Carte* tmp = laisse.back();
 	laisse.pop_back();
 	return tmp;
+}
+
+void Jeu::defausser(Carte* c)
+{
+	defausse.push_back(c);
 }

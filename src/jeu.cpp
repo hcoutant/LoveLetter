@@ -121,7 +121,21 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			break;	
 		}
 		case BARON: //Duel
+		{
+			if(j1 != j2 && (!(j2->estVivant()) || (j2->estProtege())))
+                                return;
+			
+			Carte* tmp1 = j1->getCarteMd()->getType() == BARON ? j1->getCarteMg() : j1->getCarteMd();
+			Carte* tmp2 = j2->getCarteMd() == nullptr ? j2->getCarteMg() : j2->getCarteMd();
+			
+			if(tmp1->getValeur() > tmp2->getValeur())
+				j2->setVivant(false);
+			else
+				j1->setVivant(false);
+			
+		
 			break;
+		}
 		case COMTESSE: //Roi ou Prince en main
 		{
 			if(j1->getCarteMd()->getType() == COMTESSE)

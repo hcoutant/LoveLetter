@@ -174,3 +174,12 @@ void Jeu::defausser(Carte* c)
 {
 	defausse.push_back(c);
 }
+
+void Jeu::initialisation()
+{
+	for(unsigned int i = 0 ; i < joueurs.size() ; i++)
+	{
+		joueurs[i]->setVivant(true);
+		joueurs[i]->piocher();
+	}
+}

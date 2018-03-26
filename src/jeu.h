@@ -24,6 +24,8 @@ class Jeu {
 		Carte* piocher();
 		Carte* piocherLaisse();
 		void defausser(Carte* c);
+
+		void initialisation();
 };
 
 #endif

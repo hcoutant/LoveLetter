@@ -61,11 +61,25 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 		return;
 
 	switch(c->getType()){ 
-		case PRINCESSE:
+		case PRINCESSE: //Suicide
 			j1->setVivant(false);
 			break;
-		case ROI:
+		case ROI: //Swap de carte
+		{
+			if(j1 != j2 && (!(j2->estVivant()) || (j2->estProtege())))
+				return;
+	
+			if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
+				return;
+
+			bool b1 = j1->getCarteMg()->getType() == ROI;
+			bool b2 = j2->getCarteMg() == nullptr;
+			Carte *tmp = b1 ? j1->getCarteMd() : j1->getCarteMg();
+			Carte *cj2 = b2 ? j2->getCarteMd() : j2->getCarteMg();
+			b1 ? j1->setCarteMd(cj2) : j1->setCarteMg(cj2); 
+			b2 ? j2->setCarteMd(tmp) : j2->setCarteMg(tmp);
 			break;
+		}
 		case PRINCE:
 		
 			break;

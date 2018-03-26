@@ -56,19 +56,15 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 	/*Il faudrait retourner un enum en fonction du type d'erreur 
 	  Si le joueur n'est pas vivant, retourner NOT_ALIVE
 	  Si le joueur est protégé, renvoyer PROTEGE etc ... */
-	if(j1 != j2 && j2->estProtege())
-		return;
 
-	if(!(j2->estVivant()))
+	if(!(j1->estVivant()))
 		return;
-	
 
 	switch(c->getType()){ 
 		case PRINCESSE:
-			
+			j1->setVivant(false);
 			break;
 		case ROI:
-		
 			break;
 		case PRINCE:
 		

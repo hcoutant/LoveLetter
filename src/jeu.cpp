@@ -86,17 +86,21 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 		case SERVANTE: //Protection
 			j1->setProtege(true);
 			break;
-		case GARDE:
+		case GARDE: //Devine
 	
 			break;
-		case PRETRE:
-	
+		case PRETRE: //Regarde une carte
+		{
+			if(j1 != j2 && (!(j2->estVivant()) || (j2->estProtege())))
+				return;
+			
+			Carte* ca = j2->getCarteMd() ==nullptr ? j2->getCarteMg() : j2->getCarteMd();
+			c = ca;
 			break;	
-		case BARON:
-
+		}
+		case BARON: //Duel
 			break;
-		case COMTESSE:
-		
+		case COMTESSE: //Roi ou Prince en main
 			break;
 	}
 }

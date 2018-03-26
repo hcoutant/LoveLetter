@@ -19,12 +19,25 @@ void Joueur::ajouter_jeu(Jeu* je)
 
 void Joueur::jouerCarteMg(Joueur *jo) 
 {
-	j->action(this,jo,c1);
+	if(c1->getType() == PRETRE)
+	{
+		Carte* ca = new Pretre();
+		j->action(this,jo,ca);
+		//Dans ca on aura la carte de l'autre joueur
+	}
+	else //Ne pas oublier le garde
+		j->action(this,jo,c1);
 }
 
 void Joueur::jouerCarteMd(Joueur *jo)
 {
-	j->action(this,jo,c2);
+	if(c2->getType() == PRETRE)
+	{
+		Carte* ca = new Pretre();
+		j->action(this,jo,ca);
+	}
+	else
+		j->action(this,jo,c2);
 }
 
 bool Joueur::estVivant()

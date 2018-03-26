@@ -106,3 +106,12 @@ void Joueur::defausser()
 		c2 = nullptr;
 	}
 }
+
+void Joueur::piocher()
+{
+	Carte* ca = j->piocher();
+	if(c1 == nullptr)
+		this->setCarteMg(ca);
+	else
+		this->setCarteMd(ca);
+}

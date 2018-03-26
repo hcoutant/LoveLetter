@@ -34,6 +34,7 @@ class Joueur {
 		void setCarteMd(Carte* c);
 
 		void defausser();
+		void piocher();
 };
 
 #endif

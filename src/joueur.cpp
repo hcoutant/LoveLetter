@@ -17,12 +17,12 @@ void Joueur::ajouter_jeu(Jeu* je)
 	j = je;
 } 
 
-void Joueur::jouer_carte_mg(Joueur *jo) 
+void Joueur::jouerCarteMg(Joueur *jo) 
 {
 	j->action(this,jo,c1);
 }
 
-void Joueur::jouer_carte_md(Joueur *jo)
+void Joueur::jouerCarteMd(Joueur *jo)
 {
 	j->action(this,jo,c2);
 }

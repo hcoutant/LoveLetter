@@ -18,8 +18,8 @@ class Joueur {
 		Joueur(std::string nom);
 		~Joueur();
 		void ajouter_jeu(Jeu* j);
-		void jouer_carte_mg(Joueur* jo);
-		void jouer_carte_md(Joueur* jo);
+		void jouerCarteMg(Joueur* jo);
+		void jouerCarteMd(Joueur* jo);
 
 		bool estVivant();
 		void setVivant(bool b);

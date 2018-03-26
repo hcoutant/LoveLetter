@@ -114,3 +114,10 @@ Carte* Jeu::piocher()
 	pile.pop_back();
 	return tmp;
 }
+
+Carte* Jeu::piocherLaisse()
+{
+	Carte* tmp = laisse.back();
+	laisse.pop_back();
+	return tmp;
+}

@@ -144,7 +144,9 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			Carte* tmp1 = j1->getCarteMd()->getType() == BARON ? j1->getCarteMg() : j1->getCarteMd();
 			Carte* tmp2 = j2->getCarteMd() == nullptr ? j2->getCarteMg() : j2->getCarteMd();
 			
-			if(tmp1->getValeur() > tmp2->getValeur())
+			if(tmp1->getValeur() == tmp2->getValeur())
+				break;
+			else if(tmp1->getValeur() > tmp2->getValeur())
 				j2->setVivant(false);
 			else
 				j1->setVivant(false);

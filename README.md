@@ -22,6 +22,7 @@ make distclean
 * Coutant Hugo  
 * Diallo Elhadj Thieddho   
 * Mousaoui Mohamed  
-
+* Raïs Maroua 
+* Brunet Damien
 
 

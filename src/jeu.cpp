@@ -90,8 +90,13 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
                                 return;
 
+		
+
 			if(j1 != j2)
+			{
 				j2->defausser();
+				j2->piocher();
+			}
 			else
 			{
 				if(j1->getCarteMd()->getType() == PRINCE)
@@ -104,6 +109,7 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 					this->defausser(j1->getCarteMd());
 					j1->setCarteMd(nullptr);
 				}
+				j1->piocher();
 			}
 			break;
 		}

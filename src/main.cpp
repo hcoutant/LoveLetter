@@ -41,17 +41,38 @@ int main(void)
                 	std::cout << j2->getCarteMd()->affiche() << std::endl;
 
 
-		std::cin >> rep;
+		
+		
+		int ret;
+	
+		moche:
 
+		 std::cin >> rep;
+		
 		if(rep == '1')
 		{
-			joueurs[i%2]->jouerCarteMg(joueurs[(i+1)%2]);
+			ret = joueurs[i%2]->jouerCarteMg(joueurs[(i+1)%2]);
 			std::cout << "Le joueur " << i%2 <<" joue sa carte en main gauche" << std::endl;
 		}
 		else
 		{
-			joueurs[i%2]->jouerCarteMd(joueurs[(i+1)%2]);
+			ret = joueurs[i%2]->jouerCarteMd(joueurs[(i+1)%2]);
 			std::cout << "Le joueur " << i%2<<" 1 joue sa carte en main droite" << std::endl;
+		}
+		
+		if(ret != OK)
+		{
+			switch(ret) {
+				case COMT:
+					std::cout << "Vous devez jouer la comtesse" << std::endl;
+					break;
+				case DEAD:
+					std::cout << "Le joueur que vous visez n'est plus dans la partie" << std::endl;
+					break;
+				case PROT:
+					std::cout << "Le joueur que vous visez est protege" << std::endl;
+			}
+			goto moche; 
 		}
 
 		j->nextTour();

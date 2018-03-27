@@ -5,6 +5,8 @@
 
 class Jeu; //Eviter les inclusions cyclique 
 
+
+
 class Joueur {
 	private:
 		Jeu* j;
@@ -18,8 +20,10 @@ class Joueur {
 		Joueur(std::string nom);
 		~Joueur();
 		void ajouter_jeu(Jeu* j);
-		void jouerCarteMg(Joueur* jo);
-		void jouerCarteMd(Joueur* jo);
+		
+		//int, pas retour parce que ... le c++ \o/
+		int jouerCarteMg(Joueur* jo);
+		int jouerCarteMd(Joueur* jo);
 
 		bool estVivant();
 		void setVivant(bool b);

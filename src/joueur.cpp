@@ -17,33 +17,45 @@ void Joueur::ajouter_jeu(Jeu* je)
 	j = je;
 } 
 
-void Joueur::jouerCarteMg(Joueur *jo) 
+int Joueur::jouerCarteMg(Joueur *jo) 
 {
+	retour ret;
 	if(c1->getType() == PRETRE)
 	{
 		Carte* ca = new Pretre();
-		j->action(this,jo,ca);
+		ret = j->action(this,jo,ca);
 		//Dans ca on aura la carte de l'autre joueur
 	}
 	else //Ne pas oublier le garde
-		j->action(this,jo,c1);
+		ret = j->action(this,jo,c1);
 	
-	//todo vérifier que tout c'est bien passé
-	j->defausser(c1);
-	c1 = nullptr;
+	if(ret == OK)
+	{
+		j->defausser(c1);
+		c1 = nullptr;
+	}
+	
+	return ret;
 }
 
-void Joueur::jouerCarteMd(Joueur *jo)
+int Joueur::jouerCarteMd(Joueur *jo)
 {
+	retour ret;
 	if(c2->getType() == PRETRE)
 	{
 		Carte* ca = new Pretre();
-		j->action(this,jo,ca);
+		ret = j->action(this,jo,ca);
 	}
 	else
-		j->action(this,jo,c2);
-	j->defausser(c2);
-	c2 = nullptr;
+		ret = j->action(this,jo,c2);
+	
+	if(ret ==  OK)
+	{
+		j->defausser(c2);
+		c2 = nullptr;
+	}
+	
+	return ret;
 }
 
 bool Joueur::estVivant()

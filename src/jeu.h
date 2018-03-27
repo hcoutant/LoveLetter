@@ -9,14 +9,15 @@
 #include "carte.h"
 #include "joueur.h"
 
+typedef enum {
+        OK, //Retourné par acion quand tout c'est bien passé :)
+        PROT, //Retourné par action quand le joueur ciblé est protégé
+        DEAD, //Retourné par action quand le joueur ciblé n'est plus actif
+        COMT, //Retourné par action quand le joueur possède le roi/prince avec la comptesse en main
+} retour;
+
 class Joueur;
 
-typedef enum {
-	OK, //Retourné par acion quand tout c'est bien passé :)
-	PROT, //Retourné par action quand le joueur ciblé est protégé
-	DEAD, //Retourné par action quand le joueur ciblé n'est plus actif
-	COMT //Retourné par action quand le joueur possède le roi/prince avec la comptesse en main
-} retour;
 
 
 class Jeu {
@@ -30,7 +31,7 @@ class Jeu {
 	public:
 		Jeu(Joueur* j1, Joueur* j2, Joueur *j3 = nullptr, Joueur *j4 = nullptr);
 		~Jeu();
-		void action(Joueur *j1, Joueur *j2, Carte*& c); //Le joueur j1 est l'appelant, j2 le joueur visé
+		retour action(Joueur *j1, Joueur *j2, Carte*& c); //Le joueur j1 est l'appelant, j2 le joueur visé
 		Carte* piocher();
 		Carte* piocherLaisse();
 		void defausser(Carte* c);

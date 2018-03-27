@@ -53,14 +53,14 @@ Jeu::Jeu(Joueur* j1, Joueur* j2, Joueur* j3, Joueur* j4)
 	tour = 0;
 }
 
-void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
+retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 {
 	/*Il faudrait retourner un enum en fonction du type d'erreur 
 	  Si le joueur n'est pas vivant, retourner NOT_ALIVE
 	  Si le joueur est protégé, renvoyer PROTEGE etc ... */
 
 	if(!(j1->estVivant()))
-		return;
+		return DEAD;
 
 	switch(c->getType()){ 
 		case PRINCESSE: //Suicide
@@ -68,11 +68,13 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			break;
 		case ROI: //Swap de carte
 		{
-			if(j1 != j2 && (!(j2->estVivant()) || (j2->estProtege())))
-				return;
+			if(j1 != j2 && !(j2->estVivant()))
+				return DEAD;
+			if(j1 != j2 && j2->estProtege())
+				return PROT;
 	
 			if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
-				return;
+				return COMT;
 
 			bool b1 = j1->getCarteMg()->getType() == ROI;
 			bool b2 = j2->getCarteMg() == nullptr;
@@ -84,11 +86,13 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 		}
 		case PRINCE: //Defausser
 		{
-			if(j1 != j2 && (!(j2->estVivant()) || (j2->estProtege())))
-				return;
+			if(j1 != j2 && !(j2->estVivant()))
+                                return DEAD;
+                        if(j1 != j2 && j2->estProtege())
+                                return PROT;
 	
 			if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
-                                return;
+                                return COMT;
 
 		
 			if(j1 != j2)
@@ -121,7 +125,7 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			}
 			break;
 		}
-		case SERVANTE: //Protection
+		case SERVANTE: //Protection 
 			j1->setProtege(true);
 			break;
 		case GARDE: //Devine
@@ -129,17 +133,21 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			break;
 		case PRETRE: //Regarde une carte
 		{
-			if(j1 != j2 && (!(j2->estVivant()) || (j2->estProtege())))
-				return;
-			
+			if(j1 != j2 && !(j2->estVivant()))
+                                return DEAD;
+                        if(j1 != j2 && j2->estProtege())
+                                return PROT;
+
 			Carte* ca = j2->getCarteMd() ==nullptr ? j2->getCarteMg() : j2->getCarteMd();
 			c = ca;
 			break;	
 		}
 		case BARON: //Duel
 		{
-			if(j1 != j2 && (!(j2->estVivant()) || (j2->estProtege())))
-                                return;
+			if(j1 != j2 && !(j2->estVivant()))
+                                return DEAD;
+                        if(j1 != j2 && j2->estProtege())
+                                return PROT;
 			
 			Carte* tmp1 = j1->getCarteMd()->getType() == BARON ? j1->getCarteMg() : j1->getCarteMd();
 			Carte* tmp2 = j2->getCarteMd() == nullptr ? j2->getCarteMg() : j2->getCarteMd();
@@ -168,7 +176,9 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			}
 			break;
 		}
+
 	}
+	return OK;
 }
 
 Carte* Jeu::piocher()

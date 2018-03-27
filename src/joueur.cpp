@@ -97,13 +97,18 @@ void Joueur::defausser()
 {
 	if(c1 != nullptr)
 	{
+
 		j->defausser(c1); 
 		c1 = nullptr;
+		if(c1->getType() == PRINCESSE)
+			this->setVivant(false);
 	}
 	else
 	{
 		j->defausser(c2); 
 		c2 = nullptr;
+		if(c2->getType() == PRINCESSE)
+			this->setVivant(false);
 	}
 }
 

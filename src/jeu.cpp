@@ -95,6 +95,9 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			if(j1 != j2)
 			{
 				j2->defausser();
+				if(!j2->estVivant())
+					break;
+
 				j2->piocher();
 			}
 			else
@@ -109,6 +112,8 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 					this->defausser(j1->getCarteMd());
 					j1->setCarteMd(nullptr);
 				}
+				if(!j1->estVivant())
+					break;
 				j1->piocher();
 			}
 			break;

@@ -212,3 +212,11 @@ bool Jeu::finis()
 	return pile.size() == 0 || en_vie == 1;
 }
 	
+void Jeu::nextTour() {
+	
+	do{
+	tour += 1;
+	tour = tour % joueurs.size();
+	} while(!joueurs[tour]->estVivant());
+
+}

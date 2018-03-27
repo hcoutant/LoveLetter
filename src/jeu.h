@@ -29,6 +29,8 @@ class Jeu {
 
 		void initialisation();
 		bool finis(); //Retourne vrai si le jeu est finis
+
+		void nextTour();
 	
 };
 

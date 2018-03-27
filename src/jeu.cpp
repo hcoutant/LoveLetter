@@ -140,7 +140,7 @@ void Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 		}
 		case COMTESSE: //Roi ou Prince en main
 		{
-			if(j1->getCarteMd()->getType() == COMTESSE)
+			if(j1->getCarteMd() != nullptr && j1->getCarteMd()->getType() == COMTESSE)
 			{
 				this->defausser(j1->getCarteMd());
 				j1->setCarteMd(nullptr);

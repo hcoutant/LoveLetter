@@ -10,6 +10,38 @@ int Carte::getValeur()
 	return valeur;
 }
 
+std::string Carte::affiche()
+{
+	switch(type) {
+		case PRINCESSE:
+			return "Princesse";
+			break;
+		case PRINCE:
+			return "Prince";
+			break;
+		case ROI:
+			return "Roi";
+			break;
+		case BARON:
+			return "Baron";
+			break;
+		case COMTESSE:
+			return "Comtesse";
+			break;
+		case GARDE:
+			return "Garde";
+			break;
+		case SERVANTE:
+			return "Servante";
+			break;
+		case PRETRE:
+			return "Pretre";
+			break;
+	}
+	return "";
+}
+
+
 Baron::Baron()
 {
         nom = "Baron";

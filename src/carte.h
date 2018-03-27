@@ -23,6 +23,7 @@ class Carte {
 	public:
 		type_carte getType();
 		int getValeur();
+		std::string affiche();
 };
 
 class Baron : public Carte {

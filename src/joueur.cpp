@@ -138,3 +138,8 @@ void Joueur::piocher()
 	else
 		this->setCarteMd(ca);
 }
+
+std::string Joueur::getNom()
+{
+	return nom;
+}

@@ -39,6 +39,8 @@ class Joueur {
 
 		void defausser();
 		void piocher();
+
+		std::string getNom();
 };
 
 #endif

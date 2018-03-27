@@ -11,6 +11,14 @@
 
 class Joueur;
 
+typedef enum {
+	OK, //Retourné par acion quand tout c'est bien passé :)
+	PROT, //Retourné par action quand le joueur ciblé est protégé
+	DEAD, //Retourné par action quand le joueur ciblé n'est plus actif
+	COMT //Retourné par action quand le joueur possède le roi/prince avec la comptesse en main
+} retour;
+
+
 class Jeu {
 	private:
 		std::vector<Carte*> pile; //Pas de stack (Car impossible de mélanger une stack)

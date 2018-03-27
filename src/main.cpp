@@ -12,7 +12,11 @@ int main(void)
 	j1->ajouter_jeu(j);
 	j2->ajouter_jeu(j);
 
+	j->initialisation();
 	
+	std::cout << j1->getCarteMg()->getType() << std::endl;
+
+	std::cout << j2->getCarteMg()->getType() << std::endl;
 
 	return 0;
 }

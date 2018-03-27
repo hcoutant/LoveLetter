@@ -185,3 +185,14 @@ void Jeu::initialisation()
 		joueurs[i]->piocher();
 	}
 }
+
+bool Jeu::finis()
+{
+	int en_vie = 0;
+	for(unsigned int i = 0; i < joueurs.size() ; i++)
+		if(joueurs[i]->estVivant())
+			en_vie++;
+
+	return pile.size() == 0 || en_vie == 1;
+}
+	

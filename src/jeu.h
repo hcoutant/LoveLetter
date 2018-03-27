@@ -28,6 +28,8 @@ class Jeu {
 		void defausser(Carte* c);
 
 		void initialisation();
+		bool finis(); //Retourne vrai si le jeu est finis
+	
 };
 
 #endif

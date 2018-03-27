@@ -27,6 +27,10 @@ void Joueur::jouerCarteMg(Joueur *jo)
 	}
 	else //Ne pas oublier le garde
 		j->action(this,jo,c1);
+	
+	//todo vérifier que tout c'est bien passé
+	j->defausser(c1);
+	c1 = nullptr;
 }
 
 void Joueur::jouerCarteMd(Joueur *jo)
@@ -38,6 +42,8 @@ void Joueur::jouerCarteMd(Joueur *jo)
 	}
 	else
 		j->action(this,jo,c2);
+	j->defausser(c2);
+	c2 = nullptr;
 }
 
 bool Joueur::estVivant()

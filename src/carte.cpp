@@ -41,6 +41,28 @@ std::string Carte::affiche()
 	return "";
 }
 
+Carte* Carte::getTypeFromString(const std::string s)
+{
+	if(s == "Princesse") 
+		return new Princesse();
+	else if(s == "Prince")
+		return new Prince();
+	else if(s == "Roi")
+		return new Roi();
+	else if(s == "Comtesse")
+		return new Comtesse();
+	else if(s == "Garde")
+		return new Garde();
+	else if(s == "Servante")
+		return new Servante();
+	else if(s == "Pretre")
+		return new Pretre();
+	else if(s == "Baron")
+		return new Baron();
+	else
+		return nullptr;
+}
+
 
 Baron::Baron()
 {
@@ -134,4 +156,5 @@ Pretre::Pretre()
 }
 
 Pretre::~Pretre() {}
+
 

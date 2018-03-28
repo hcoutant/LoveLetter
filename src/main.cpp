@@ -47,16 +47,56 @@ int main(void)
 	
 		moche:
 
-		 std::cin >> rep;
+		std::cin >> rep;
 		
 		if(rep == '1')
 		{
-			ret = joueurs[i%2]->jouerCarteMg(joueurs[(i+1)%2]);
+			if(joueurs[i%2]->getCarteMg()->getType() == GARDE)
+			{
+				std::cout << "Veuillez entrez le nom de la carte que vous voulez comparer";
+				std::string str;
+				std::cin >> str;
+			
+				Carte* car = Carte::getTypeFromString(str);
+				
+				while(car == nullptr)
+				{
+					std::cout << "Veuillez entrez le nom de la carte que vous voulez comparer";
+					std::cin >> str;
+					car = Carte::getTypeFromString(str);
+				}
+
+		
+
+				ret = joueurs[i%2]->jouerCarteMg(joueurs[(i+1)%2],car);
+			}
+			else
+				ret = joueurs[i%2]->jouerCarteMg(joueurs[(i+1)%2]);
 			std::cout << "Le joueur " << i%2 <<" joue sa carte en main gauche" << std::endl;
 		}
 		else
 		{
-			ret = joueurs[i%2]->jouerCarteMd(joueurs[(i+1)%2]);
+			if(joueurs[i%2]->getCarteMd()->getType() == GARDE)
+                        {
+                                std::cout << "Veuillez entrez le nom de la carte que vous voulez comparer";
+                                std::string str;
+                                std::cin >> str;
+
+                                Carte* car = Carte::getTypeFromString(str);
+
+                                while(car == nullptr)
+                                {
+                                        std::cout << "Veuillez entrez le nom de la carte que vous voulez comparer";
+                                        std::cin >> str;
+                                        car = Carte::getTypeFromString(str);
+                                }
+
+
+
+                                ret = joueurs[i%2]->jouerCarteMd(joueurs[(i+1)%2],car);
+                        }
+			else
+				ret = joueurs[i%2]->jouerCarteMd(joueurs[(i+1)%2]);
 			std::cout << "Le joueur " << i%2<<" 1 joue sa carte en main droite" << std::endl;
 		}
 		

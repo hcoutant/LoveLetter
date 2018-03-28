@@ -24,6 +24,7 @@ class Carte {
 		type_carte getType();
 		int getValeur();
 		std::string affiche();
+		static Carte* getTypeFromString(std::string s);
 };
 
 class Baron : public Carte {

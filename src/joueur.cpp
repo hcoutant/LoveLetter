@@ -26,13 +26,16 @@ int Joueur::jouerCarteMg(Joueur *jo)
 		ret = j->action(this,jo,ca);
 		//Dans ca on aura la carte de l'autre joueur
 	}
-	else //Ne pas oublier le garde
+	else
 		ret = j->action(this,jo,c1);
 	
 	if(ret == OK)
 	{
-		j->defausser(c1);
-		c1 = nullptr;
+		if(this->estVivant())
+		{
+			j->defausser(c1);
+			c1 = nullptr;
+		}
 	}
 	
 	return ret;
@@ -51,12 +54,39 @@ int Joueur::jouerCarteMd(Joueur *jo)
 	
 	if(ret ==  OK)
 	{
-		j->defausser(c2);
-		c2 = nullptr;
+		if(this->estVivant())
+		{
+			j->defausser(c2);
+			c2 = nullptr;
+		}
 	}
 	
 	return ret;
 }
+
+int Joueur::jouerCarteMg(Joueur *jo, Carte* c)
+{
+	retour ret = j->action(this,jo,c1,c);
+	if(this->estVivant())
+	{
+		j->defausser(c1);
+		c1 = nullptr;
+	}
+	return ret;
+}
+
+int Joueur::jouerCarteMd(Joueur *jo, Carte* c)
+{
+	retour ret = j->action(this,jo,c2,c);
+        if(this->estVivant())
+        {
+                j->defausser(c2);
+                c2 = nullptr;
+        }
+        return ret;
+}
+
+
 
 bool Joueur::estVivant()
 {

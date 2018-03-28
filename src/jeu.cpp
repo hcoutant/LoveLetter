@@ -128,9 +128,6 @@ retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 		case SERVANTE: //Protection 
 			j1->setProtege(true);
 			break;
-		case GARDE: //Devine
-	
-			break;
 		case PRETRE: //Regarde une carte
 		{
 			if(j1 != j2 && !(j2->estVivant()))
@@ -176,10 +173,47 @@ retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			}
 			break;
 		}
+		default:
+			break;
 
 	}
 	return OK;
 }
+
+retour Jeu::action(Joueur *j1, Joueur *j2, Carte* c1, Carte* c2) //Pour Garde
+{
+	
+	if(j1 != j2 && !(j2->estVivant()))
+        	return DEAD;
+        if(j1 != j2 && j2->estProtege())
+        	return PROT;
+	
+	if(c1->getType() != GARDE)
+		return DEAD;
+	
+	if(j2->getCarteMg() == nullptr)
+	{
+		if(j2->getCarteMd()->getType() == c2->getType())
+		{
+			this->defausser(j2->getCarteMd());
+			j2->setCarteMd(nullptr);
+			j2->setVivant(false);
+		}
+	}
+	else
+	{
+		if(j2->getCarteMg()->getType() == c2->getType())
+                {
+                        this->defausser(j2->getCarteMg());
+                        j2->setCarteMg(nullptr);
+                        j2->setVivant(false);
+                }
+
+	}
+	
+	return OK;
+}
+
 
 Carte* Jeu::piocher()
 {

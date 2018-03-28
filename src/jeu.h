@@ -31,7 +31,10 @@ class Jeu {
 	public:
 		Jeu(Joueur* j1, Joueur* j2, Joueur *j3 = nullptr, Joueur *j4 = nullptr);
 		~Jeu();
+	
 		retour action(Joueur *j1, Joueur *j2, Carte*& c); //Le joueur j1 est l'appelant, j2 le joueur visé
+		retour action(Joueur *j1, Joueur *j2, Carte* c1, Carte* c2); //Pour Garde
+	
 		Carte* piocher();
 		Carte* piocherLaisse();
 		void defausser(Carte* c);

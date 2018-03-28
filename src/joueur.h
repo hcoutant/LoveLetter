@@ -25,6 +25,9 @@ class Joueur {
 		int jouerCarteMg(Joueur* jo);
 		int jouerCarteMd(Joueur* jo);
 
+		int jouerCarteMg(Joueur *jo, Carte* c);
+		int jouerCarteMd(Joueur *jo, Carte* c);
+
 		bool estVivant();
 		void setVivant(bool b);
 	

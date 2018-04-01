@@ -13,8 +13,8 @@ int main(void)
 
 	Jeu *j = new Jeu(jrs);
 	
-	j1->ajouter_jeu(j);
-	j2->ajouter_jeu(j);
+	j1->ajouterJeu(j);
+	j2->ajouterJeu(j);
 
 	j->initialisation();
 	

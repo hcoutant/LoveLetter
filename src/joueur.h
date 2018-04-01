@@ -19,7 +19,7 @@ class Joueur {
 	public:
 		Joueur(std::string nom);
 		~Joueur();
-		void ajouter_jeu(Jeu* j);
+		void ajouterJeu(Jeu* j);
 		
 		//int, pas retour parce que ... le c++ \o/
 		int jouerCarteMg(Joueur* jo);

@@ -12,7 +12,7 @@ Joueur::Joueur(std::string nm)
 
 Joueur::~Joueur() {}
 
-void Joueur::ajouter_jeu(Jeu* je) 
+void Joueur::ajouterJeu(Jeu* je) 
 {
 	j = je;
 } 

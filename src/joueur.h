@@ -13,6 +13,7 @@ class Joueur {
 		bool en_vie;
 		bool est_protege;
 		std::string nom;
+		int score;
 
 		Carte* c1;
 		Carte* c2;

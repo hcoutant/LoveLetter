@@ -8,6 +8,7 @@ Joueur::Joueur(std::string nm)
 	c1 = nullptr;
 	c2 = nullptr;
 	j = nullptr;
+	score = 0;
 }
 
 Joueur::~Joueur() {}

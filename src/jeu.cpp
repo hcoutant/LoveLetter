@@ -242,14 +242,16 @@ void Jeu::initialisation()
 	}
 }
 
-bool Jeu::finis()
+Joueur* Jeu::finis()
 {
-	int en_vie = 0;
 	for(unsigned int i = 0; i < joueurs.size() ; i++)
-		if(joueurs[i]->estVivant())
-			en_vie++;
+	{
+		if(joueurs[i]->getScore() >=  nbPointGagner())
+			return joueurs[i];
+	}
+	
+	return nullptr;
 
-	return pile.size() == 0 || en_vie == 1;
 }
 	
 void Jeu::nextTour() {

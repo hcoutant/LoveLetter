@@ -40,7 +40,7 @@ class Jeu {
 		void defausser(Carte* c);
 
 		void initialisation();
-		bool finis(); //Retourne vrai si le jeu est finis
+		Joueur* finis(); //Retourne le joueur qui a gagner la partie, nullptr si il n'y a pas encore de gagnant
 
 		void nextTour();
 

@@ -29,7 +29,7 @@ class Jeu {
 
 		int tour; //Donne le joueur qui doit jouer 
 	public:
-		Jeu(Joueur* j1, Joueur* j2, Joueur *j3 = nullptr, Joueur *j4 = nullptr);
+		Jeu(std::vector<Joueur*>);
 		~Jeu();
 	
 		retour action(Joueur *j1, Joueur *j2, Carte*& c); //Le joueur j1 est l'appelant, j2 le joueur visé

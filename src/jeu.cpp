@@ -1,15 +1,11 @@
 #include "jeu.h"
 
-Jeu::Jeu(Joueur* j1, Joueur* j2, Joueur* j3, Joueur* j4)
+Jeu::Jeu(std::vector<Joueur*> jrs)
 {	
-	assert(j1 != nullptr && j2 != nullptr);
-	joueurs.push_back(j1);
-	joueurs.push_back(j2);
+	assert(jrs.size() >= 2 && jrs.size() <= 4);
 
-	if(j3 != nullptr)
-		joueurs.push_back(j3);
-	if(j4 != nullptr)
-		joueurs.push_back(j4);
+	for(unsigned int i = 0 ; i < jrs.size() ; i++)
+		joueurs.push_back(jrs[i]);
 
 
 

@@ -7,7 +7,11 @@ int main(void)
 	Joueur *j1 = new Joueur("Jean");
 	Joueur *j2 = new Joueur("Robert");
 
-	Jeu *j = new Jeu(j1,j2);
+	std::vector<Joueur*> jrs;
+	jrs.push_back(j1);
+	jrs.push_back(j2);
+
+	Jeu *j = new Jeu(jrs);
 	
 	j1->ajouter_jeu(j);
 	j2->ajouter_jeu(j);

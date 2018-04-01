@@ -266,9 +266,9 @@ std::vector<Joueur*> Jeu::mancheFinis()
 		{
 			nb_vivants++;
 			if(joueurs[i]->getCarteMg() ==  nullptr)
-				max = joueurs[i]->getCarteMg()->getValeur() > max ? joueurs[i]->getCarteMg()->getValeur() : max;
-			else
 				max = joueurs[i]->getCarteMd()->getValeur() > max ? joueurs[i]->getCarteMd()->getValeur() : max;
+			else
+				max = joueurs[i]->getCarteMg()->getValeur() > max ? joueurs[i]->getCarteMg()->getValeur() : max;
 		}	
 	}
 	

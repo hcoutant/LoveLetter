@@ -40,7 +40,9 @@ class Jeu {
 		void defausser(Carte* c);
 
 		void initialisation();
+		
 		Joueur* finis(); //Retourne le joueur qui a gagner la partie, nullptr si il n'y a pas encore de gagnant
+		std::vector<Joueur*> mancheFinis(); //Retourne un vecteur de Joueurs gagnant de taille > à 0 si la manch est terminée
 
 		void nextTour();
 

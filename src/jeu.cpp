@@ -253,6 +253,46 @@ Joueur* Jeu::finis()
 	return nullptr;
 
 }
+
+std::vector<Joueur*> Jeu::mancheFinis()
+{
+	std::vector<Joueur*> v;
+	int nb_vivants = 0;
+	int max = 0;
+
+	for(unsigned int i = 0 ; i < joueurs.size() ; i++)
+	{
+		if(joueurs[i]->estVivant())
+		{
+			nb_vivants++;
+			if(joueurs[i]->getCarteMg() ==  nullptr)
+				max = joueurs[i]->getCarteMg()->getValeur() > max ? joueurs[i]->getCarteMg()->getValeur() : max;
+			else
+				max = joueurs[i]->getCarteMd()->getValeur() > max ? joueurs[i]->getCarteMd()->getValeur() : max;
+		}	
+	}
+	
+
+	if(pile.size() == 0 || nb_vivants == 1)
+	{
+		for(unsigned int i = 0 ; i < joueurs.size() ; i++)
+		{
+			if(joueurs[i]->estVivant())
+                	{
+				if(joueurs[i]->getCarteMg() == nullptr)
+				{	//Ca fait beaucoup de if 
+					if(joueurs[i]->getCarteMd()->getValeur() == max)
+						v.push_back(joueurs[i]);
+				}
+				else
+					if(joueurs[i]->getCarteMg()->getValeur() == max)
+                                                v.push_back(joueurs[i]);
+                	}	
+		}
+	}
+
+	return v;
+}
 	
 void Jeu::nextTour() {
 	

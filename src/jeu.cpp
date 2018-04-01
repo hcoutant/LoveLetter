@@ -260,3 +260,13 @@ void Jeu::nextTour() {
 	} while(!joueurs[tour]->estVivant());
 
 }
+
+int Jeu::nbPointGagner()
+{
+	if(joueurs.size() == 2)
+		return 7;
+	else if(joueurs.size() == 3)
+		return 5;
+	else
+		return 4;
+}

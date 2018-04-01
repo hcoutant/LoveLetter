@@ -43,6 +43,8 @@ class Jeu {
 		bool finis(); //Retourne vrai si le jeu est finis
 
 		void nextTour();
+
+		int nbPointGagner(); //Retourne le nombre de points nécessaire pour gagner la partie
 	
 };
 

@@ -45,6 +45,8 @@ class Joueur {
 		void piocher();
 
 		std::string getNom();
+	
+		int getScore();
 };
 
 #endif

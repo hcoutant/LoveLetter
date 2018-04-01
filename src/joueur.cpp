@@ -174,3 +174,8 @@ std::string Joueur::getNom()
 {
 	return nom;
 }
+
+int Joueur::getScore()
+{
+	return score;
+}

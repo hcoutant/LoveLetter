@@ -1,128 +1,109 @@
 #include <iostream>
-#include "jeu.h"
 
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/signal.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <arpa/inet.h>
+
+#include "ThreadModifie.h"
+#include "Serveur.h"
+
+using namespace std;
+
+int enRoute = 0;
+
+void callBack(void* args)
+{
+    int n;
+    int socket = (int)args;
+
+    char buffer[1024];
+    while(1){
+        memset(buffer, 0, sizeof(buffer));
+        n = recv(socket, buffer, sizeof(buffer), 0);
+        if(n == 0)
+        {
+            enRoute = -1;
+            cout << endl << "Serveur déconnecté - arrêt du programme" << endl;
+            exit(0);
+        }
+        else if(n < 0)
+        {
+            cout << endl << "Erreur dans la réception du message" << endl;
+        }
+        else
+        {
+            cout << buffer;
+        }
+    }
+}
 
 int main(void)
 {
-	Joueur *j1 = new Joueur("Jean");
-	Joueur *j2 = new Joueur("Robert");
+    cout << "Choisissez une option: " << endl << "1 pour serveur" << endl << "2 pour joueur" << endl;
 
-	std::vector<Joueur*> jrs;
-	jrs.push_back(j1);
-	jrs.push_back(j2);
+    string choix;
 
-	Jeu *j = new Jeu(jrs);
-	
-	j1->ajouterJeu(j);
-	j2->ajouterJeu(j);
+    cin >> choix;
 
-	j->initialisation();
-	
-	std::vector<Joueur*> joueurs;
-	joueurs.push_back(j1);
-	joueurs.push_back(j2);
+    if(choix == "1")
+    {
+        Serveur* s;
+        s = new Serveur();
 
+        s->accepterClient();
+    }
+    else if(choix == "2")
+    {
+        int sock;
+        int connexion = -1;
+        string ip;
+        string buffer;
 
+        socklen_t adr_taille = sizeof(struct sockaddr_in);
 
-	char rep;
-	int i = 0;
-	
-	while(!j->finis())
-	{
-		joueurs[i%2]->setProtege(false);
-		joueurs[i%2]->piocher();
+        struct sockaddr_in adresse;
+        adresse.sin_family = AF_INET;
+        adresse.sin_port = htons(12345);
 
-		std::cout << std::endl << "Joueur 1" << std::endl;
-                if(j1->getCarteMg() != nullptr)
-                        std::cout << j1->getCarteMg()->affiche() << std::endl;
-                if(j1->getCarteMd() != nullptr)
-                        std::cout << j1->getCarteMd()->affiche() << std::endl;
+        while(connexion != 0)
+        {
+            cout << endl << "ip du serveur: " << endl;
+            cin >> ip;
 
-		std::cout << std::endl << "Joueur 2" << std::endl;
-		if(j2->getCarteMg() != nullptr)
-        	        std::cout << j2->getCarteMg()->affiche() << std::endl;
-	        if(j2->getCarteMd() != nullptr)
-                	std::cout << j2->getCarteMd()->affiche() << std::endl;
+            inet_pton(AF_INET, ip.c_str(), &adresse.sin_addr);
 
+            sock = socket(AF_INET, SOCK_STREAM, 0);
 
-		
-		
-		int ret;
-	
-		moche:
+            if(connect(sock, (struct sockaddr*)&adresse, adr_taille) < 0)
+            {
+                cout << endl << "Echec de la connexion au serveur" << endl << "Veuillez vérifier l'adresse ip du serveur et réessayer" << endl;
+                connexion = -1;
+            }
+            else
+            {
+                connexion = 0;
+            }
+        }
 
-		std::cin >> rep;
-		
-		if(rep == '1')
-		{
-			if(joueurs[i%2]->getCarteMg()->getType() == GARDE)
-			{
-				std::cout << "Veuillez entrez le nom de la carte que vous voulez comparer";
-				std::string str;
-				std::cin >> str;
-			
-				Carte* car = Carte::getTypeFromString(str);
-				
-				while(car == nullptr)
-				{
-					std::cout << "Veuillez entrez le nom de la carte que vous voulez comparer";
-					std::cin >> str;
-					car = Carte::getTypeFromString(str);
-				}
+        ThreadModifie* t = new ThreadModifie();
+        t->lancerThread((void*)callBack, (void*)sock);
 
-		
+        while(enRoute == 0){
 
-				ret = joueurs[i%2]->jouerCarteMg(joueurs[(i+1)%2],car);
-			}
-			else
-				ret = joueurs[i%2]->jouerCarteMg(joueurs[(i+1)%2]);
-			std::cout << "Le joueur " << i%2 <<" joue sa carte en main gauche" << std::endl;
-		}
-		else
-		{
-			if(joueurs[i%2]->getCarteMd()->getType() == GARDE)
-                        {
-                                std::cout << "Veuillez entrez le nom de la carte que vous voulez comparer";
-                                std::string str;
-                                std::cin >> str;
+            const char* buf;
 
-                                Carte* car = Carte::getTypeFromString(str);
+            cin >> buffer;
 
-                                while(car == nullptr)
-                                {
-                                        std::cout << "Veuillez entrez le nom de la carte que vous voulez comparer";
-                                        std::cin >> str;
-                                        car = Carte::getTypeFromString(str);
-                                }
+            buf = buffer.c_str();
 
+            send(sock, buf, strlen(buf), 0);
 
+        }
+    }
+    return 0;
 
-                                ret = joueurs[i%2]->jouerCarteMd(joueurs[(i+1)%2],car);
-                        }
-			else
-				ret = joueurs[i%2]->jouerCarteMd(joueurs[(i+1)%2]);
-			std::cout << "Le joueur " << i%2<<" 1 joue sa carte en main droite" << std::endl;
-		}
-		
-		if(ret != OK)
-		{
-			switch(ret) {
-				case COMT:
-					std::cout << "Vous devez jouer la comtesse" << std::endl;
-					break;
-				case DEAD:
-					std::cout << "Le joueur que vous visez n'est plus dans la partie" << std::endl;
-					break;
-				case PROT:
-					std::cout << "Le joueur que vous visez est protege" << std::endl;
-			}
-			goto moche; 
-		}
-
-		j->nextTour();
-		i++;
-		std::cout << "_________________TOUR_SUIVANT_____________________" << std::endl;
-	}
-
-	return 0;
 }

@@ -200,19 +200,22 @@ void Serveur::lancerPartie()
     char* indexJoueur = new char[3];
 
     Joueur *j1 = new Joueur("George");
-	Joueur *j2 = new Joueur("Jean");
+    Joueur *j2 = new Joueur("Jean");
 
-	Jeu *j = new Jeu(j1,j2);
+    std::vector<Joueur*> jrs;
+    jrs.push_back(j1);
+    jrs.push_back(j2);
 
-	j1->ajouter_jeu(j);
-	j2->ajouter_jeu(j);
+    Jeu *j = new Jeu(jrs);
 
-	j->initialisation();
+    j1->ajouterJeu(j);
+    j2->ajouterJeu(j);
 
-	std::vector<Joueur*> joueurs;
-	joueurs.push_back(j1);
-	joueurs.push_back(j2);
+    j->initialisation();
 
+    std::vector<Joueur*> joueurs;
+    joueurs.push_back(j1);
+    joueurs.push_back(j2);
     unique_lock<mutex> lock(mtx);
     cv.notify_one();
 

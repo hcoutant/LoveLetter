@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <cstdint>
 #include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
@@ -18,7 +19,7 @@ int enRoute = 0;
 void callBack(void* args)
 {
     int n;
-    int socket = (int)args;
+    intptr_t socket = (intptr_t)args;
 
     char buffer[1024];
     while(1){

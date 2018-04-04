@@ -47,6 +47,7 @@ class Joueur {
 		std::string getNom();
 	
 		int getScore();
+		void setScore(int);
 };
 
 #endif

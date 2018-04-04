@@ -29,7 +29,7 @@ int Joueur::jouerCarteMg(Joueur *jo)
 	}
 	else
 		ret = j->action(this,jo,c1);
-	
+
 	if(ret == OK)
 	{
 		if(this->estVivant())
@@ -178,4 +178,9 @@ std::string Joueur::getNom()
 int Joueur::getScore()
 {
 	return score;
+}
+
+void Joueur::setScore(int sc)
+{
+	score = sc;
 }

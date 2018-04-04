@@ -1,4 +1,5 @@
 #include "jeu.h"
+#include <iostream>
 
 Jeu::Jeu(std::vector<Joueur*> jrs)
 {	
@@ -242,6 +243,75 @@ void Jeu::initialisation()
 	}
 }
 
+void Jeu::refresh(std::vector<Joueur*> gg)
+{
+	for(Joueur* jr : gg)
+	{
+		std::cout << jr->getNom() << " est un gagnant" << std::endl;
+		jr->getCarteMg() == nullptr ? jr->setScore(jr->getScore() + jr->getCarteMd()->getValeur())
+					    : jr->setScore(jr->getScore() + jr->getCarteMg()->getValeur());
+	}
+
+	pile.clear();
+	defausse.clear();
+	laisse.clear();
+
+	
+
+	for(unsigned int i = 0 ; i < joueurs.size() ; i++)
+	{
+		joueurs[i]->setProtege(false);
+		joueurs[i]->setVivant(true);
+		free(joueurs[i]->getCarteMg());
+		free(joueurs[i]->getCarteMd());
+		joueurs[i]->setCarteMg(nullptr);
+		joueurs[i]->setCarteMd(nullptr);
+	}
+
+        pile.push_back(new Princesse());
+        pile.push_back(new Comtesse());
+        pile.push_back(new Roi());
+        pile.push_back(new Prince());
+        pile.push_back(new Prince());
+        pile.push_back(new Servante());
+        pile.push_back(new Servante());
+        pile.push_back(new Baron());
+        pile.push_back(new Baron());
+        pile.push_back(new Pretre());
+        pile.push_back(new Pretre());
+        pile.push_back(new Garde());
+        pile.push_back(new Garde());
+        pile.push_back(new Garde());
+        pile.push_back(new Garde());
+        pile.push_back(new Garde());
+
+        std::srand(time(nullptr));
+        std::random_shuffle(pile.begin(),pile.end());
+
+        if(joueurs.size() > 2)
+        {
+                laisse.push_back(pile.back());
+                pile.pop_back();
+        }
+        else
+        {
+                laisse.push_back(pile.back());
+                pile.pop_back();
+                laisse.push_back(pile.back());
+                pile.pop_back();
+                laisse.push_back(pile.back());
+                pile.pop_back();
+                laisse.push_back(pile.back());
+                pile.pop_back();
+        }
+
+        tour = 0;
+
+	for(Joueur* jr : joueurs)
+		jr->piocher();	
+
+}
+
 Joueur* Jeu::finis()
 {
 	for(unsigned int i = 0; i < joueurs.size() ; i++)
@@ -271,8 +341,8 @@ std::vector<Joueur*> Jeu::mancheFinis()
 				max = joueurs[i]->getCarteMg()->getValeur() > max ? joueurs[i]->getCarteMg()->getValeur() : max;
 		}	
 	}
-	
 
+	
 	if(pile.size() == 0 || nb_vivants == 1)
 	{
 		for(unsigned int i = 0 ; i < joueurs.size() ; i++)
@@ -311,4 +381,9 @@ int Jeu::nbPointGagner()
 		return 5;
 	else
 		return 4;
+}
+
+bool Jeu::jeuMort()
+{
+	return joueurs.size() == 0;
 }

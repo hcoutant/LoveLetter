@@ -15,6 +15,26 @@
 using namespace std;
 
 int enRoute = 0;
+vector<char*> instructions;
+vector<char*> joueurs;
+
+void decomposerMessage(char* m)
+{
+    instructions.clear();
+
+    char* token = strtok(m, "|");
+
+    while(token != NULL)
+    {
+        instructions.push_back(token);
+        token = strtok(NULL, "|");
+    }
+}
+
+void envoyerMessage(int s, const char* m)
+{
+	send(s, m, strlen(m), 0);
+}
 
 void callBack(void* args)
 {
@@ -37,7 +57,42 @@ void callBack(void* args)
         }
         else
         {
-            cout << buffer;
+
+			decomposerMessage(buffer);
+
+			if(strcmp(instructions[0], "jon") == 0) // joueur rejoint la partie
+			{
+				//TODO ajouter le joueur instructions[1] dans la liste des joueurs de la partie avec le pseudo instructions[2];
+			}
+			else if(strcmp(instructions[0], "drw") == 0) // piocher
+			{
+				//TODO ajouter la carte instructions[2] au joueur instructions[1];
+			}
+			else if(strcmp(instructions[0], "dsc") == 0) // jouer une carte
+			{
+				//TODO enlever la carte instructions[2] au joueur instructions[1];
+			}
+			else if(strcmp(instructions[0], "prt") == 0) // joueur protégé
+			{
+				//TODO afficher "le joueur instructions[1] est protégé";
+			}
+			else if(strcmp(instructions[0], "eli") == 0) // joueur éliminé
+			{
+				//TODO afficher "le joueur instructions[1] est éliminé de la manche";
+			}
+			else if(strcmp(instructions[0], "dpl") == 0) // afficher un message
+			{
+				//TODO afficher le message instructions[1] à l'écran;
+			}
+			else if(strcmp(instructions[0], "shw") == 0) // afficher carte d'un joueur (Prêtre)
+			{
+				//TODO afficher la carte du joueur instructions[1];
+			}
+			else
+			{
+                printf("%s", instructions[0]);
+			}
+
         }
     }
 }
@@ -63,6 +118,7 @@ int main(void)
         int connexion = -1;
         string ip;
         string buffer;
+		string pseudo;
 
         socklen_t adr_taille = sizeof(struct sockaddr_in);
 
@@ -74,6 +130,9 @@ int main(void)
         {
             cout << endl << "ip du serveur: " << endl;
             cin >> ip;
+
+			cout << endl << "entrer un pseudo: " << endl;
+			cin >> pseudo;
 
             inet_pton(AF_INET, ip.c_str(), &adresse.sin_addr);
 
@@ -93,6 +152,14 @@ int main(void)
         ThreadModifie* t = new ThreadModifie();
         t->lancerThread((void*)callBack, (void*)sock);
 
+
+        char* bufTmp = new char[1024];
+        strcpy(bufTmp, "jon|");
+        char* test = (char*)pseudo.c_str();
+        strcat(bufTmp, test);
+        envoyerMessage(sock, bufTmp);
+
+
         while(enRoute == 0){
 
             const char* buf;
@@ -101,7 +168,7 @@ int main(void)
 
             buf = buffer.c_str();
 
-            send(sock, buf, strlen(buf), 0);
+            envoyerMessage(sock, buf);
 
         }
     }

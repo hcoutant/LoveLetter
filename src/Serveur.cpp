@@ -4,6 +4,8 @@
 #include <iterator>
 #include <mutex>
 #include <condition_variable>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -15,10 +17,14 @@ int Serveur::nbJoueurCo = 0;
 vector<char*> Serveur::instructions;
 
 int Serveur::ready = -1;
+int enJeu = 0;
 int Serveur::indexJoueurActuel = 0;
 
 condition_variable cv;
 mutex mtx;
+
+condition_variable cvStart;
+mutex mtxStart;
 
 Serveur::Serveur()
 {
@@ -55,6 +61,11 @@ void Serveur::accepterClient()
 
     socklen_t tailleClient = sizeof(sockaddr_in);
 
+    Serveur::ready = -1;
+
+    unique_lock<mutex> lockStart(mtxStart);
+    cvStart.notify_one();
+
     while(1){
         c = new Client();
         t = new ThreadModifie();
@@ -74,6 +85,9 @@ void Serveur::accepterClient()
 
         if(Serveur::nbJoueurMax == Serveur::nbJoueurCo)
         {
+            while(Serveur::ready != 0)
+                cvStart.wait(lockStart);
+
             lancerPartie();
         }
     }
@@ -85,14 +99,13 @@ void* Serveur::callBack(void* args)
     Client* c = (Client*)args;
 
     char buffer[256-25], message[256];
+    char* m = new char[1024];
     char* i = new char[3];
-    char* m = new char[256];
     int index;
     int n;
 
     c->setId(Serveur::clients.size());
     sprintf(buffer, "Client n.%d", c->id);
-    c->setNom("George");
     cout << "Ajout du nouveau client avec l'id " << c->id << endl;
     Serveur::clients.push_back(*c);
 
@@ -124,17 +137,52 @@ void* Serveur::callBack(void* args)
         }
         else
         {
-            if(Serveur::indexJoueurActuel%Serveur::nbJoueurCo == trouverIndexClient(c))
-            {
-                snprintf(message, sizeof(message), "%s", buffer);
+            snprintf(message, sizeof(message), "%s", buffer);
 
-                decomposerMessage(message);
+            decomposerMessage(message);
+
+
+
+            if(strcmp(Serveur::instructions[0], "jon") == 0)
+            {
+                c->setNom(Serveur::instructions[1]);
+
+                for(size_t j = 0; j < clients.size(); j++)
+                {
+                    strcpy(m, "jon|");
+                    strcat(m, (char*)to_string(clients[j].id).c_str());
+                    strcat(m, "|");
+                    strcat(m, clients[j].nom);
+
+                    if(j != c->id)
+                    {
+                        envoyerA(c->id, m);
+                    }
+                    else
+                    {
+                        envoyerATous(m);
+                    }
+                }
+
+                if(Serveur::nbJoueurMax == Serveur::nbJoueurCo)
+                {
+                    Serveur::ready = 0;
+
+                    unique_lock<mutex> lockStart(mtxStart);
+                    cvStart.notify_one();
+                    lockStart.unlock();
+                }
+            }
+            else if(Serveur::indexJoueurActuel%Serveur::nbJoueurCo == trouverIndexClient(c))
+            {
+				//if(strcmp(Serveur::instructions[0], "act")) // action sur la partie (jouer une carte)
 
                 Serveur::ready = 0;
 
                 unique_lock<mutex> lock(mtx);
                 cv.notify_one();
                 lock.unlock();
+
             }
             else
             {
@@ -199,8 +247,8 @@ void Serveur::lancerPartie()
     char* buffer = new char[1024];
     char* indexJoueur = new char[3];
 
-    Joueur *j1 = new Joueur("George");
-    Joueur *j2 = new Joueur("Jean");
+    Joueur *j1 = new Joueur(Serveur::clients[0].nom);
+    Joueur *j2 = new Joueur(Serveur::clients[1].nom);
 
     std::vector<Joueur*> jrs;
     jrs.push_back(j1);
@@ -216,6 +264,7 @@ void Serveur::lancerPartie()
     std::vector<Joueur*> joueurs;
     joueurs.push_back(j1);
     joueurs.push_back(j2);
+
     unique_lock<mutex> lock(mtx);
     cv.notify_one();
 
@@ -333,17 +382,17 @@ void Serveur::lancerPartie()
 
                 while(car == nullptr)
                 {
-                        strcpy(buffer, "\nVeuillez entrez le nom de la carte que vous voulez comparer\n");
-                        Serveur::envoyerA(Serveur::indexJoueurActuel%2, buffer);
+					strcpy(buffer, "\nVeuillez entrez le nom de la carte que vous voulez comparer\n");
+					Serveur::envoyerA(Serveur::indexJoueurActuel%2, buffer);
 
-                        Serveur::ready = -1;
+					Serveur::ready = -1;
 
-                        while(Serveur::ready != 0)
-                                cv.wait(lock);
+					while(Serveur::ready != 0)
+							cv.wait(lock);
 
-                        std::string str2(Serveur::instructions[0]);
+					std::string str2(Serveur::instructions[0]);
 
-                        car = Carte::getTypeFromString(str2);
+					car = Carte::getTypeFromString(str2);
                 }
 
                 ret = joueurs[Serveur::indexJoueurActuel%2]->jouerCarteMd(joueurs[(Serveur::indexJoueurActuel+1)%2],car);
@@ -370,6 +419,7 @@ void Serveur::lancerPartie()
 				case PROT:
                     strcpy(buffer, "\nVous devez jouer la comtesse\n");
 					envoyerA(Serveur::indexJoueurActuel, buffer);
+					break;
 			}
 			goto moche;
 		}

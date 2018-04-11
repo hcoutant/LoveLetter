@@ -97,6 +97,12 @@ void callBack(void* args)
     }
 }
 
+/*
+lancer le programme dans un terminal et choisir serveur, 
+puis lancer dans un deuxième terminal le joueur 1,
+puis lancer dans un troisième terminal le joueur 2
+*/
+
 int main(void)
 {
     cout << "Choisissez une option: " << endl << "1 pour serveur" << endl << "2 pour joueur" << endl;
@@ -111,6 +117,8 @@ int main(void)
         s = new Serveur();
 
         s->accepterClient();
+        
+        cout << "Serveur lancé: en attente de connexion" << endl;
     }
     else if(choix == "2")
     {

@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Fenetre</class>
+ <widget class="QMainWindow" name="Fenetre">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>750</width>
+    <height>672</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Love Letter</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>751</width>
+      <height>681</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="accueil">
+     <widget class="QPushButton" name="btnJouer">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>60</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Jouer !</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnAPropos">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>240</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>À propos</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>46</x>
+        <y>56</y>
+        <width>451</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../love_letter_accueil.jpg</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnQuitter">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>560</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Quitter</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnReglesJeu">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>150</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Règles du jeu</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="choixModeJeu">
+     <widget class="QPushButton" name="btn2Joueurs1Pc">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>200</y>
+        <width>181</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Multi joueurs sur une machine</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>170</width>
+        <height>101</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>90</y>
+        <width>311</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	font: italic 16pt &quot;URW Palladio L&quot;;
+	color : rgb(255, 255, 255)
+}</string>
+      </property>
+      <property name="text">
+       <string>Choisissez votre mode de jeu</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::PlainText</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnJeuReseau">
+      <property name="geometry">
+       <rect>
+        <x>290</x>
+        <y>200</y>
+        <width>181</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Multi joueurs en réseau</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnJeuIA">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>200</y>
+        <width>181</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Jeu solo contre IA</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnQuitter_2">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>630</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Quitter</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnRetour">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>630</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Retour</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="infoTipModeJeu">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>330</y>
+        <width>581</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QFrame" name="planJeu_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>30</y>
+        <width>691</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame
+ {
+	background-color: qlineargradient(spread:pad, x1:0.504762, y1:0.131, x2:0.5, y2:1, stop:0.138095 rgba(41, 0, 0, 255), stop:0.904762 rgba(99, 0, 0, 255))
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <zorder>planJeu_2</zorder>
+     <zorder>btn2Joueurs1Pc</zorder>
+     <zorder>label_2</zorder>
+     <zorder>btnJeuReseau</zorder>
+     <zorder>btnJeuIA</zorder>
+     <zorder>btnQuitter_2</zorder>
+     <zorder>btnRetour</zorder>
+     <zorder>infoTipModeJeu</zorder>
+    </widget>
+    <widget class="QWidget" name="choixNom2Joueurs">
+     <widget class="QPushButton" name="btnRetourChoixJeu">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>630</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Retour</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnQuitter_3">
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>630</y>
+        <width>99</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Quitter</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="nomJoueur1">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>280</y>
+        <width>191</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Entrez ici le nom du joueur 1</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="nomJoueur2">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>280</y>
+        <width>191</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="toolTip">
+       <string>Entrez ici le nom du joueur 1</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelNomJoueur1">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>236</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	font: italic 16pt &quot;URW Palladio L&quot;;
+	color : white;
+}</string>
+      </property>
+      <property name="text">
+       <string>Joueur 1</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelNomJoueur2">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>236</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+	font: italic 16pt &quot;URW Palladio L&quot;;
+	color : white;
+}</string>
+      </property>
+      <property name="text">
+       <string>Joueur 2</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnCommencer2joueurs">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>630</y>
+        <width>111</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Commencer !</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="planJeu_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>711</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame
+ {
+	background-color: qlineargradient(spread:pad, x1:0.504762, y1:0.131, x2:0.5, y2:1, stop:0.138095 rgba(41, 0, 0, 255), stop:0.904762 rgba(99, 0, 0, 255))
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>210</x>
+        <y>90</y>
+        <width>311</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	font: italic 16pt &quot;URW Palladio L&quot;;
+	color : rgb(255, 255, 255)
+}</string>
+      </property>
+      <property name="text">
+       <string>Entrez le nom des joueurs</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::PlainText</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <zorder>planJeu_3</zorder>
+     <zorder>label_4</zorder>
+     <zorder>btnRetourChoixJeu</zorder>
+     <zorder>btnQuitter_3</zorder>
+     <zorder>nomJoueur1</zorder>
+     <zorder>nomJoueur2</zorder>
+     <zorder>labelNomJoueur1</zorder>
+     <zorder>labelNomJoueur2</zorder>
+     <zorder>btnCommencer2joueurs</zorder>
+    </widget>
+    <widget class="QWidget" name="page">
+     <widget class="QFrame" name="planJeu">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>531</width>
+        <height>571</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame
+ {
+	background-color: qlineargradient(spread:pad, x1:0.504762, y1:0.131, x2:0.5, y2:1, stop:0.138095 rgba(41, 0, 0, 255), stop:0.904762 rgba(99, 0, 0, 255))
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QFrame" name="frame">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>141</width>
+         <height>191</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Defausse</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_2">
+       <property name="geometry">
+        <rect>
+         <x>360</x>
+         <y>20</y>
+         <width>141</width>
+         <height>191</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+      <widget class="QFrame" name="frame_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>300</y>
+         <width>211</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="label_3">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>191</width>
+          <height>241</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../../img/cartes/Prince.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="frame_5">
+       <property name="geometry">
+        <rect>
+         <x>320</x>
+         <y>300</y>
+         <width>191</width>
+         <height>251</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="btnJouer_2">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>40</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Jouer !</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnQuitter_4">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>540</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Quitter</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnReglesJeu_2">
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>380</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Règles du jeu</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnAPropos_2">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>570</x>
+        <y>460</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Retour</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

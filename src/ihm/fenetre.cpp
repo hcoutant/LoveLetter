@@ -12,15 +12,15 @@ Fenetre::Fenetre(QWidget *parent) :
     ui->infoTipModeJeu->setPlainText("Survolez les boutons avec votre souris pour afficher les détails du mode de jeu.");
 
     //ajout icone sur bouton de jeu multijoueur sur meme machine
-    ui->btn2Joueurs1Pc->setIcon(QIcon("../btn_2players_1PC.png"));
+    ui->btn2Joueurs1Pc->setIcon(QIcon("btn_2players_1PC.png"));
     ui->btn2Joueurs1Pc->setIconSize(QSize(170,101));
 
     //ajout icone sur bouton de jeu en réseau
-    ui->btnJeuReseau->setIcon(QIcon("../btn_2players_networks.png"));
+    ui->btnJeuReseau->setIcon(QIcon("btn_2players_networks.png"));
     ui->btnJeuReseau->setIconSize(QSize(170,101));
 
     //ajout icone sur bouton de jeu contre IA
-    ui->btnJeuIA->setIcon(QIcon("../btn_1player_IA.png"));
+    ui->btnJeuIA->setIcon(QIcon("btn_1player_IA.png"));
     ui->btnJeuIA->setIconSize(QSize(170,101));
 
     //mise en place du mécanisme de hover sur les boutons de mode de jeu.

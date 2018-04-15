@@ -7,8 +7,7 @@ Joueur::Joueur(std::string nm)
 	est_protege = false;
 	c1 = nullptr;
 	c2 = nullptr;
-	j = nullptr;
-	score = 0;
+    j = nullptr;
 }
 
 Joueur::~Joueur() {}
@@ -152,7 +151,7 @@ void Joueur::defausser()
                         this->setVivant(false);
 		c1 = nullptr;
 	}
-	else
+    else if(c2 != nullptr)
 	{
 		j->defausser(c2); 
 		if(c2->getType() == PRINCESSE)
@@ -161,13 +160,14 @@ void Joueur::defausser()
 	}
 }
 
-void Joueur::piocher()
+Carte* Joueur::piocher()
 {
 	Carte* ca = j->piocher();
 	if(c1 == nullptr)
 		this->setCarteMg(ca);
 	else
 		this->setCarteMd(ca);
+    return ca;
 }
 
 std::string Joueur::getNom()

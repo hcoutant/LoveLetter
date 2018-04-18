@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    setMinimumSize(QSize(1280, 720));
     ui->setupUi(this);
     ui->wdgListe->setCurrentIndex(0);
 
@@ -328,7 +329,7 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteGJ1->setIconSize(QSize(63, 88));
                 ui->btnCarteGJ1->setToolTip(get_description_carte(n));
                 ui->btnCarteGJ1->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_d_j1 != NULL && (strcmp(nom_carte_d_j1, "Prince") == 0 || strcmp(nom_carte_d_j1, "Roi") == 0)) ui->btnCarteDJ1->setEnabled(false);
+                if(est_comtesse == 0 && (nom_carte_d_j1 != NULL && (strcmp(nom_carte_d_j1, "Prince") == 0 || strcmp(nom_carte_d_j1, "Roi") == 0))) ui->btnCarteDJ1->setEnabled(false);
             }
             else
             {
@@ -346,7 +347,7 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteDJ1->setIconSize(QSize(63, 88));
                 ui->btnCarteDJ1->setToolTip(get_description_carte(n));
                 ui->btnCarteDJ1->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_g_j1 != NULL && (strcmp(nom_carte_g_j1, "Prince") == 0 || strcmp(nom_carte_g_j1, "Roi") == 0)) ui->btnCarteGJ1->setEnabled(false);
+                if(est_comtesse == 0 && nom_carte_g_j1 != NULL && ((strcmp(nom_carte_g_j1, "Prince") == 0 || strcmp(nom_carte_g_j1, "Roi") == 0))) ui->btnCarteGJ1->setEnabled(false);
             }
             else
             {
@@ -367,7 +368,7 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteGJ2->setIconSize(QSize(63, 88));
                 ui->btnCarteGJ2->setToolTip(get_description_carte(n));
                 ui->btnCarteGJ2->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_d_j2 != NULL && (strcmp(nom_carte_d_j2, "Prince") == 0 || strcmp(nom_carte_d_j2, "Roi") == 0)) ui->btnCarteDJ2->setEnabled(false);
+                if(est_comtesse == 0 && nom_carte_d_j2 != NULL && ((strcmp(nom_carte_d_j2, "Prince") == 0 || strcmp(nom_carte_d_j2, "Roi") == 0))) ui->btnCarteDJ2->setEnabled(false);
             }
             else
             {
@@ -385,7 +386,7 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteDJ2->setIconSize(QSize(63, 88));
                 ui->btnCarteDJ2->setToolTip(get_description_carte(n));
                 ui->btnCarteDJ2->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_g_j2 != NULL && (strcmp(nom_carte_g_j2, "Prince") == 0 || strcmp(nom_carte_g_j2, "Roi") == 0)) ui->btnCarteGJ2->setEnabled(false);
+                if(est_comtesse == 0 && nom_carte_g_j2 != NULL && ((strcmp(nom_carte_g_j2, "Prince") == 0 || strcmp(nom_carte_g_j2, "Roi") == 0))) ui->btnCarteGJ2->setEnabled(false);
             }
             else
             {
@@ -406,7 +407,7 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteGJ3->setIconSize(QSize(63, 88));
                 ui->btnCarteGJ3->setToolTip(get_description_carte(n));
                 ui->btnCarteGJ3->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_d_j3 != NULL && (strcmp(nom_carte_d_j3, "Prince") == 0 || strcmp(nom_carte_d_j3, "Roi") == 0)) ui->btnCarteDJ3->setEnabled(false);
+                if(est_comtesse == 0 && nom_carte_d_j3 != NULL && ((strcmp(nom_carte_d_j3, "Prince") == 0 || strcmp(nom_carte_d_j3, "Roi") == 0))) ui->btnCarteDJ3->setEnabled(false);
             }
             else
             {
@@ -424,7 +425,7 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteDJ3->setIconSize(QSize(63, 88));
                 ui->btnCarteDJ3->setToolTip(get_description_carte(n));
                 ui->btnCarteDJ3->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_g_j3 != NULL && (strcmp(nom_carte_g_j3, "Prince") == 0 || strcmp(nom_carte_g_j3, "Roi") == 0)) ui->btnCarteGJ3->setEnabled(false);
+                if(est_comtesse == 0 && nom_carte_g_j3 != NULL && ((strcmp(nom_carte_g_j3, "Prince") == 0 || strcmp(nom_carte_g_j3, "Roi") == 0))) ui->btnCarteGJ3->setEnabled(false);
             }
             else
             {
@@ -445,7 +446,7 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteGJ4->setIconSize(QSize(63, 88));
                 ui->btnCarteGJ4->setToolTip(get_description_carte(n));
                 ui->btnCarteGJ4->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_d_j4 != NULL && (strcmp(nom_carte_d_j4, "Prince") == 0 || strcmp(nom_carte_d_j4, "Roi") == 0)) ui->btnCarteDJ4->setEnabled(false);
+                if(est_comtesse == 0 && nom_carte_d_j4 != NULL && ((strcmp(nom_carte_d_j4, "Prince") == 0 || strcmp(nom_carte_d_j4, "Roi") == 0))) ui->btnCarteDJ4->setEnabled(false);
             }
             else
             {
@@ -463,7 +464,7 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteDJ4->setIconSize(QSize(63, 88));
                 ui->btnCarteDJ4->setToolTip(get_description_carte(n));
                 ui->btnCarteDJ4->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_g_j4 != NULL && (strcmp(nom_carte_g_j4, "Prince") == 0 || strcmp(nom_carte_g_j4, "Roi") == 0)) ui->btnCarteGJ4->setEnabled(false);
+                if(est_comtesse == 0 && nom_carte_g_j4 != NULL && ((strcmp(nom_carte_g_j4, "Prince") == 0 || strcmp(nom_carte_g_j4, "Roi") == 0))) ui->btnCarteGJ4->setEnabled(false);
             }
             else
             {
@@ -724,6 +725,29 @@ void MainWindow::vider_defausse(int i)
     }
 }
 
+void MainWindow::jeter_carte(int i, char *c)
+{
+    QPushButton* btnTemp = new QPushButton();
+    btnTemp->setText(ui->btnCarteGJ1->text());
+    btnTemp->setToolTip(get_description_carte(c));
+    btnTemp->setEnabled(false);
+    btnTemp->setVisible(true);
+    btnTemp->setIcon(QPixmap(get_chemin_carte(c)));
+    btnTemp->setMinimumSize(QSize(63, 88));
+    btnTemp->setMaximumSize(QSize(63, 88));
+    btnTemp->setIconSize(QSize(63, 88));
+
+    if(i == 1)
+        ui->hrtDefausseJ1->addWidget(btnTemp);
+    else if(i == 2)
+        ui->hrtDefausseJ2->addWidget(btnTemp);
+    else if(i == 3)
+        ui->hrtDefausseJ3->addWidget(btnTemp);
+    else if(i == 4)
+        ui->hrtDefausseJ4->addWidget(btnTemp);
+
+}
+
 void MainWindow::jeter_carte(int i, int c, bool d)
 {
 
@@ -737,7 +761,7 @@ void MainWindow::jeter_carte(int i, int c, bool d)
             {
                 QPushButton* btnTemp = new QPushButton();
                 btnTemp->setText(ui->btnCarteGJ1->text());
-                btnTemp->setToolTip(ui->btnCarteGJ1->toolTip());
+                btnTemp->setToolTip(get_description_carte(nom_carte_g_j1));
                 btnTemp->setEnabled(false);
                 btnTemp->setVisible(true);
                 btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j1)));
@@ -757,7 +781,7 @@ void MainWindow::jeter_carte(int i, int c, bool d)
             {
                 QPushButton* btnTemp = new QPushButton();
                 btnTemp->setText(ui->btnCarteDJ1->text());
-                btnTemp->setToolTip(ui->btnCarteDJ1->toolTip());
+                btnTemp->setToolTip(get_description_carte(nom_carte_d_j1));
                 btnTemp->setEnabled(false);
                 btnTemp->setVisible(true);
                 btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j1)));
@@ -780,7 +804,7 @@ void MainWindow::jeter_carte(int i, int c, bool d)
             {
                 QPushButton* btnTemp = new QPushButton();
                 btnTemp->setText(ui->btnCarteGJ2->text());
-                btnTemp->setToolTip(ui->btnCarteGJ2->toolTip());
+                btnTemp->setToolTip(get_description_carte(nom_carte_g_j2));
                 btnTemp->setEnabled(false);
                 btnTemp->setVisible(true);
                 btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j2)));
@@ -803,7 +827,7 @@ void MainWindow::jeter_carte(int i, int c, bool d)
                 btnTemp->setToolTip(ui->btnCarteDJ2->toolTip());
                 btnTemp->setEnabled(false);
                 btnTemp->setVisible(true);
-                btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j2)));
+                btnTemp->setToolTip(get_description_carte(nom_carte_d_j2));
                 btnTemp->setMinimumSize(QSize(63, 88));
                 btnTemp->setMaximumSize(QSize(63, 88));
                 btnTemp->setIconSize(QSize(63, 88));
@@ -823,7 +847,7 @@ void MainWindow::jeter_carte(int i, int c, bool d)
             {
                 QPushButton* btnTemp = new QPushButton();
                 btnTemp->setText(ui->btnCarteGJ3->text());
-                btnTemp->setToolTip(ui->btnCarteGJ3->toolTip());
+                btnTemp->setToolTip(get_description_carte(nom_carte_g_j3));
                 btnTemp->setEnabled(false);
                 btnTemp->setVisible(true);
                 btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j3)));
@@ -843,7 +867,7 @@ void MainWindow::jeter_carte(int i, int c, bool d)
             {
                 QPushButton* btnTemp = new QPushButton();
                 btnTemp->setText(ui->btnCarteDJ3->text());
-                btnTemp->setToolTip(ui->btnCarteDJ3->toolTip());
+                btnTemp->setToolTip(get_description_carte(nom_carte_d_j3));
                 btnTemp->setEnabled(false);
                 btnTemp->setVisible(true);
                 btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j3)));
@@ -866,7 +890,7 @@ void MainWindow::jeter_carte(int i, int c, bool d)
             {
                 QPushButton* btnTemp = new QPushButton();
                 btnTemp->setText(ui->btnCarteGJ4->text());
-                btnTemp->setToolTip(ui->btnCarteGJ4->toolTip());
+                btnTemp->setToolTip(get_description_carte(nom_carte_g_j4));
                 btnTemp->setEnabled(false);
                 btnTemp->setVisible(true);
                 btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j4)));
@@ -886,7 +910,7 @@ void MainWindow::jeter_carte(int i, int c, bool d)
             {
                 QPushButton* btnTemp = new QPushButton();
                 btnTemp->setText(ui->btnCarteDJ4->text());
-                btnTemp->setToolTip(ui->btnCarteDJ4->toolTip());
+                btnTemp->setToolTip(get_description_carte(nom_carte_d_j4));
                 btnTemp->setEnabled(false);
                 btnTemp->setVisible(true);
                 btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j4)));

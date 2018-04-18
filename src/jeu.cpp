@@ -136,7 +136,8 @@ retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
                     }
                     if(!j1->estVivant())
                         break;
-                    j1->piocher();
+                    if(pile.size() > 0)
+                        j1->piocher();
                 }
             }
 			break;

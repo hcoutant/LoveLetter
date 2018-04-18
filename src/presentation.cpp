@@ -242,12 +242,12 @@ void Presentation::call(char* a){
         rep = instructions[2][0];
 
         type_carte carte;
-        int carte_cible;
+        Carte* carte_cible;
 
         if(liste_joueur[(instructions[3][0]-1)%w->nb_joueur]->getCarteMg() != nullptr && rep != '1')
-            carte_cible = 1;
+            carte_cible = liste_joueur[(instructions[3][0]-1)%w->nb_joueur]->getCarteMg();
         else if(liste_joueur[(instructions[3][0]-1)%w->nb_joueur]->getCarteMd() != nullptr)
-            carte_cible = 2;
+            carte_cible = liste_joueur[(instructions[3][0]-1)%w->nb_joueur]->getCarteMd();
 
         if(rep == '1')
         {
@@ -321,10 +321,10 @@ void Presentation::call(char* a){
             if(carte == PRETRE)
             {
                 w->afficher_main((instructions[3][0])%w->nb_joueur);
-                qDebug() << "c'est le pretre!";
             }
-            //else if(carte == PRINCE)
-                //w->jeter_carte((instructions[3][0])%w->nb_joueur, carte_cible, true); //erreur de segmentation
+            else if(carte == PRINCE)
+                w->jeter_carte((instructions[3][0])%w->nb_joueur, (char*)carte_cible->affiche().c_str()); //erreur de segmentation
+
         }
     }
 

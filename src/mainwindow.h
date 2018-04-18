@@ -22,6 +22,7 @@ public:
     void vider_main(int i);
     void vider_defausse(int i);
 
+    void jeter_carte(int i, char* c);
     void jeter_carte(int i, int c, bool d);
     void set_joueur_protege(int i, bool p);
 

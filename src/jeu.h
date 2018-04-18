@@ -43,12 +43,15 @@ class Jeu {
 		
 		Joueur* finis(); //Retourne le joueur qui a gagner la partie, nullptr si il n'y a pas encore de gagnant
 		std::vector<Joueur*> mancheFinis(); //Retourne un vecteur de Joueurs gagnant de taille > à 0 si la manch est terminée
+        bool checkMancheFinis(); //Retourne vrai si la manche est finis
 		bool jeuMort(); //Retourne vrai si tous les joueurs sont mort 
 	
 		void nextTour();
 
 		int nbPointGagner(); //Retourne le nombre de points nécessaire pour gagner la partie
 		void refresh(std::vector<Joueur*>); //Donne les points aux gagants et reinitialise les cartes
+
+        int getNbCarte();
 	
 };
 

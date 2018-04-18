@@ -1,5 +1,11 @@
 #include "jeu.h"
 #include <iostream>
+#include <QDebug>
+
+Jeu::~Jeu()
+{
+
+}
 
 Jeu::Jeu(std::vector<Joueur*> jrs)
 {	
@@ -7,7 +13,6 @@ Jeu::Jeu(std::vector<Joueur*> jrs)
 
 	for(unsigned int i = 0 ; i < jrs.size() ; i++)
 		joueurs.push_back(jrs[i]);
-
 
 
 	pile.push_back(new Princesse());
@@ -56,6 +61,14 @@ retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 	  Si le joueur n'est pas vivant, retourner NOT_ALIVE
 	  Si le joueur est protégé, renvoyer PROTEGE etc ... */
 
+    int nb_ciblable = 0;
+
+    for(unsigned int i = 0; i < joueurs.size(); i++)
+    {
+        if(joueurs[i]->estVivant() && !joueurs[i]->estProtege())
+            nb_ciblable++;
+    }
+
 	if(!(j1->estVivant()))
 		return DEAD;
 
@@ -64,62 +77,69 @@ retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			j1->setVivant(false);
 			break;
 		case ROI: //Swap de carte
-		{
-			if(j1 != j2 && !(j2->estVivant()))
-				return DEAD;
-			if(j1 != j2 && j2->estProtege())
-				return PROT;
-	
-			if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
-				return COMT;
+        {
+            if(nb_ciblable >= 2)
+            {
+                if(j1 != j2 && !(j2->estVivant()))
+                    return DEAD;
+                if(j1 != j2 && j2->estProtege())
+                    return PROT;
 
-			bool b1 = j1->getCarteMg()->getType() == ROI;
-			bool b2 = j2->getCarteMg() == nullptr;
-			Carte *tmp = b1 ? j1->getCarteMd() : j1->getCarteMg();
-			Carte *cj2 = b2 ? j2->getCarteMd() : j2->getCarteMg();
-			b1 ? j1->setCarteMd(cj2) : j1->setCarteMg(cj2); 
-			b2 ? j2->setCarteMd(tmp) : j2->setCarteMg(tmp);
+                if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
+                    return COMT;
+
+                bool b1 = j1->getCarteMg()->getType() == ROI;
+                bool b2 = j2->getCarteMg() == nullptr;
+                Carte *tmp = b1 ? j1->getCarteMd() : j1->getCarteMg();
+                Carte *cj2 = b2 ? j2->getCarteMd() : j2->getCarteMg();
+                b1 ? j1->setCarteMd(cj2) : j1->setCarteMg(cj2);
+                b2 ? j2->setCarteMd(tmp) : j2->setCarteMg(tmp);
+            }
 			break;
 		}
 		case PRINCE: //Defausser
 		{
-			if(j1 != j2 && !(j2->estVivant()))
-                                return DEAD;
-                        if(j1 != j2 && j2->estProtege())
-                                return PROT;
-	
-			if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
-                                return COMT;
+            if(nb_ciblable >= 1)
+            {
+                if(j1 != j2 && !(j2->estVivant()))
+                        return DEAD;
+                if(j1 != j2 && j2->estProtege())
+                        return PROT;
 
-		
-			if(j1 != j2)
-			{
-				j2->defausser();
-				if(!j2->estVivant())
-					break;
+                if(j1->getCarteMg()->getType() == COMTESSE || j1->getCarteMd()->getType() == COMTESSE)
+                                    return COMT;
 
-				j2->piocher();
-			}
-			else
-			{
-				if(j1->getCarteMd()->getType() == PRINCE)
-				{
-					this->defausser(j1->getCarteMg());
-					if(j1->getCarteMg()->getType() == PRINCESSE)
-						j1->setVivant(false);
-					j1->setCarteMg(nullptr);
-				}
-				else
-				{
-					this->defausser(j1->getCarteMd());
-					if(j1->getCarteMd()->getType() == PRINCESSE)
-						j1->setVivant(false);
-					j1->setCarteMd(nullptr);
-				}
-				if(!j1->estVivant())
-					break;
-				j1->piocher();
-			}
+
+                if(j1 != j2)
+                {
+                    j2->defausser();
+                    if(!j2->estVivant())
+                        break;
+
+                    j2->piocher();
+                }
+                else
+                {
+                    if(j1->getCarteMd()->getType() == PRINCE)
+                    {
+                        this->defausser(j1->getCarteMg());
+                        if(j1->getCarteMg()->getType() == PRINCESSE)
+                            j1->setVivant(false);
+                        j1->setCarteMg(nullptr);
+                    }
+                    else
+                    {
+                        this->defausser(j1->getCarteMd());
+                        if(j1->getCarteMd()->getType() == PRINCESSE)
+                            j1->setVivant(false);
+                        j1->setCarteMd(nullptr);
+                    }
+                    if(!j1->estVivant())
+                        break;
+                    if(pile.size() > 0)
+                        j1->piocher();
+                }
+            }
 			break;
 		}
 		case SERVANTE: //Protection 
@@ -127,32 +147,37 @@ retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 			break;
 		case PRETRE: //Regarde une carte
 		{
-			if(j1 != j2 && !(j2->estVivant()))
-                                return DEAD;
-                        if(j1 != j2 && j2->estProtege())
-                                return PROT;
+            if(nb_ciblable >= 2)
+            {
+                if(j1 != j2 && !(j2->estVivant()))
+                                    return DEAD;
+                            if(j1 != j2 && j2->estProtege())
+                                    return PROT;
 
-			Carte* ca = j2->getCarteMd() ==nullptr ? j2->getCarteMg() : j2->getCarteMd();
-			c = ca;
+                Carte* ca = j2->getCarteMd() ==nullptr ? j2->getCarteMg() : j2->getCarteMd();
+                c = ca;
+            }
 			break;	
 		}
 		case BARON: //Duel
 		{
-			if(j1 != j2 && !(j2->estVivant()))
-                                return DEAD;
-                        if(j1 != j2 && j2->estProtege())
-                                return PROT;
-			
-			Carte* tmp1 = j1->getCarteMd()->getType() == BARON ? j1->getCarteMg() : j1->getCarteMd();
-			Carte* tmp2 = j2->getCarteMd() == nullptr ? j2->getCarteMg() : j2->getCarteMd();
-			
-			if(tmp1->getValeur() == tmp2->getValeur())
-				break;
-			else if(tmp1->getValeur() > tmp2->getValeur())
-				j2->setVivant(false);
-			else
-				j1->setVivant(false);
-			
+            if(nb_ciblable >= 2)
+            {
+                if(j1 != j2 && !(j2->estVivant()))
+                        return DEAD;
+                if(j1 != j2 && j2->estProtege())
+                        return PROT;
+
+                Carte* tmp1 = j1->getCarteMd()->getType() == BARON ? j1->getCarteMg() : j1->getCarteMd();
+                Carte* tmp2 = j2->getCarteMd() == nullptr ? j2->getCarteMg() : j2->getCarteMd();
+
+                if(tmp1->getValeur() == tmp2->getValeur())
+                    break;
+                else if(tmp1->getValeur() > tmp2->getValeur())
+                    j2->setVivant(false);
+                else
+                    j1->setVivant(false);
+            }
 		
 			break;
 		}
@@ -179,35 +204,45 @@ retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
 
 retour Jeu::action(Joueur *j1, Joueur *j2, Carte* c1, Carte* c2) //Pour Garde
 {
-	
-	if(j1 != j2 && !(j2->estVivant()))
-        	return DEAD;
-        if(j1 != j2 && j2->estProtege())
-        	return PROT;
-	
-	if(c1->getType() != GARDE)
-		return DEAD;
-	
-	if(j2->getCarteMg() == nullptr)
-	{
-		if(j2->getCarteMd()->getType() == c2->getType())
-		{
-			this->defausser(j2->getCarteMd());
-			j2->setCarteMd(nullptr);
-			j2->setVivant(false);
-		}
-	}
-	else
-	{
-		if(j2->getCarteMg()->getType() == c2->getType())
-                {
-                        this->defausser(j2->getCarteMg());
-                        j2->setCarteMg(nullptr);
-                        j2->setVivant(false);
-                }
+    int nb_ciblable = 0;
 
-	}
-	
+    for(unsigned int i = 0; i < joueurs.size(); i++)
+    {
+        if(joueurs[i]->estVivant() && !joueurs[i]->estProtege())
+            nb_ciblable++;
+    }
+
+    if(nb_ciblable >= 2)
+    {
+        if(j1 != j2 && !(j2->estVivant()))
+                return DEAD;
+            if(j1 != j2 && j2->estProtege())
+                return PROT;
+
+        if(c1->getType() != GARDE)
+            return DEAD;
+
+        if(j2->getCarteMg() == nullptr)
+        {
+            if(j2->getCarteMd()->getType() == c2->getType())
+            {
+                this->defausser(j2->getCarteMd());
+                j2->setCarteMd(nullptr);
+                j2->setVivant(false);
+            }
+        }
+        else
+        {
+            if(j2->getCarteMg()->getType() == c2->getType())
+                    {
+                            this->defausser(j2->getCarteMg());
+                            j2->setCarteMg(nullptr);
+                            j2->setVivant(false);
+                    }
+
+        }
+    }
+
 	return OK;
 }
 
@@ -238,6 +273,7 @@ void Jeu::initialisation()
 {
 	for(unsigned int i = 0 ; i < joueurs.size() ; i++)
 	{
+        joueurs[i]->setScore(0);
 		joueurs[i]->setVivant(true);
 		joueurs[i]->piocher();
 	}
@@ -248,8 +284,7 @@ void Jeu::refresh(std::vector<Joueur*> gg)
 	for(Joueur* jr : gg)
 	{
 		std::cout << jr->getNom() << " est un gagnant" << std::endl;
-		jr->getCarteMg() == nullptr ? jr->setScore(jr->getScore() + jr->getCarteMd()->getValeur())
-					    : jr->setScore(jr->getScore() + jr->getCarteMg()->getValeur());
+
 	}
 
 	pile.clear();
@@ -324,6 +359,19 @@ Joueur* Jeu::finis()
 
 }
 
+bool Jeu::checkMancheFinis()
+{
+    int nb_vivants = 0;
+
+    for(unsigned int i = 0; i < joueurs.size(); i++)
+    {
+        if(joueurs[i]->estVivant())
+            nb_vivants++;
+    }
+
+    return (pile.size() == 0 || nb_vivants == 1);
+}
+
 std::vector<Joueur*> Jeu::mancheFinis()
 {
 	std::vector<Joueur*> v;
@@ -348,7 +396,7 @@ std::vector<Joueur*> Jeu::mancheFinis()
 		for(unsigned int i = 0 ; i < joueurs.size() ; i++)
 		{
 			if(joueurs[i]->estVivant())
-                	{
+            {
 				if(joueurs[i]->getCarteMg() == nullptr)
 				{	//Ca fait beaucoup de if 
 					if(joueurs[i]->getCarteMd()->getValeur() == max)
@@ -356,10 +404,16 @@ std::vector<Joueur*> Jeu::mancheFinis()
 				}
 				else
 					if(joueurs[i]->getCarteMg()->getValeur() == max)
-                                                v.push_back(joueurs[i]);
-                	}	
+                        v.push_back(joueurs[i]);
+            }
 		}
 	}
+
+
+    for(unsigned int i = 0; i < v.size(); i++)
+    {
+        v[i]->setScore(v[i]->getScore() + 1);
+    }
 
 	return v;
 }
@@ -376,7 +430,7 @@ void Jeu::nextTour() {
 int Jeu::nbPointGagner()
 {
 	if(joueurs.size() == 2)
-		return 7;
+        return 7;
 	else if(joueurs.size() == 3)
 		return 5;
 	else
@@ -386,4 +440,9 @@ int Jeu::nbPointGagner()
 bool Jeu::jeuMort()
 {
 	return joueurs.size() == 0;
+}
+
+int Jeu::getNbCarte()
+{
+    return pile.size();
 }

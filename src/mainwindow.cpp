@@ -1,8 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "reglesjeu.h"
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <regex>
 
 #include <QCoreApplication>
 #include <QDebug>
@@ -13,11 +16,16 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QLayoutItem>
+#include <QTextCodec>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+
     setMinimumSize(QSize(1280, 720));
     ui->setupUi(this);
     ui->wdgListe->setCurrentIndex(0);
@@ -43,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->cbxNomCarteGarde->setVisible(false);
 
     ui->btnValider->setVisible(false);
+    ui->btnFinTour->setEnabled(false);
 
     est_local = true;
     nb_joueur = 0;
@@ -77,6 +86,47 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::set_index_local(int i)
+{
+    index_joueur = i+1;
+    if(index_joueur != 1)
+        ui->btnLancerPartie->setEnabled(false);
+    else
+        ui->btnLancerPartie->setEnabled(true);
+}
+
+void MainWindow::changer_widget(int i)
+{
+    ui->wdgListe->setCurrentIndex(i);
+}
+
+void MainWindow::set_nb_joueur(int i)
+{
+    nb_joueur = i;
+
+    if(nb_joueur >= 3)
+    {
+        ui->txtPseudoJ3->setVisible(true);
+        ui->wdgJ3->setVisible(true);
+    }
+    else
+    {
+        ui->txtPseudoJ3->setVisible(false);
+        ui->wdgJ3->setVisible(false);
+    }
+
+    if(nb_joueur >= 4)
+    {
+        ui->txtPseudoJ4->setVisible(true);
+        ui->wdgJ4->setVisible(true);
+    }
+    else
+    {
+        ui->txtPseudoJ4->setVisible(false);
+        ui->wdgJ4->setVisible(false);
+    }
+}
+
 void MainWindow::set_callBack(CallBack* c)
 {
     callBack = c;
@@ -86,15 +136,21 @@ void MainWindow::set_index_joueur(int i)
 {
     a_joue = false;
     if(i == 0) i = nb_joueur;
-    index_joueur = i;
+    if(est_local) index_joueur = i;
+    index_joueur_courrant = i;
 
     if(index_joueur == 1) ui->lblTour->setText("Tour de " + ui->lblPseudoJ1->text());
     else if(index_joueur == 2) ui->lblTour->setText("Tour de " + ui->lblPseudoJ2->text());
     else if(index_joueur == 3) ui->lblTour->setText("Tour de " + ui->lblPseudoJ3->text());
     else if(index_joueur == 4) ui->lblTour->setText("Tour de " + ui->lblPseudoJ4->text());
 
-    if(est_local)
-    {
+        if(index_joueur_courrant == 1) ui->lblNomJoueurSuivant->setText(QString(ui->lblPseudoJ1->text()));
+        else if(index_joueur_courrant == 2) ui->lblNomJoueurSuivant->setText(QString(ui->lblPseudoJ2->text()));
+        else if(index_joueur_courrant == 3) ui->lblNomJoueurSuivant->setText(QString(ui->lblPseudoJ3->text()));
+        else if(index_joueur_courrant == 4) ui->lblNomJoueurSuivant->setText(QString(ui->lblPseudoJ4->text()));
+
+        ui->wdgListe->setCurrentIndex(7);
+
         if(index_joueur == 1)
         {
             if(nom_carte_g_j1 == NULL)
@@ -105,7 +161,10 @@ void MainWindow::set_index_joueur(int i)
             else
             {
                 ui->btnCarteGJ1->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_g_j1))));
-                ui->btnCarteGJ1->setEnabled(true);
+                if(i == index_joueur)
+                    ui->btnCarteGJ1->setEnabled(true);
+                else
+                    ui->btnCarteGJ1->setEnabled(false);
                 ui->btnCarteGJ1->setVisible(true);
             }
 
@@ -117,7 +176,10 @@ void MainWindow::set_index_joueur(int i)
             else
             {
                 ui->btnCarteDJ1->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_d_j1))));
-                ui->btnCarteDJ1->setEnabled(true);
+                if(i == index_joueur)
+                    ui->btnCarteDJ1->setEnabled(true);
+                else
+                    ui->btnCarteDJ1->setEnabled(false);
                 ui->btnCarteDJ1->setVisible(true);
             }
         }
@@ -158,7 +220,10 @@ void MainWindow::set_index_joueur(int i)
             else
             {
                 ui->btnCarteGJ2->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_g_j2))));
-                ui->btnCarteGJ2->setEnabled(true);
+                if(i == index_joueur)
+                    ui->btnCarteGJ2->setEnabled(true);
+                else
+                    ui->btnCarteGJ2->setEnabled(false);
                 ui->btnCarteGJ2->setVisible(true);
             }
 
@@ -170,7 +235,10 @@ void MainWindow::set_index_joueur(int i)
             else
             {
                 ui->btnCarteDJ2->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_d_j2))));
-                ui->btnCarteDJ2->setEnabled(true);
+                if(i == index_joueur)
+                    ui->btnCarteDJ2->setEnabled(true);
+                else
+                    ui->btnCarteDJ2->setEnabled(false);
                 ui->btnCarteDJ2->setVisible(true);
             }
         }
@@ -211,7 +279,10 @@ void MainWindow::set_index_joueur(int i)
             else
             {
                 ui->btnCarteGJ3->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_g_j3))));
-                ui->btnCarteGJ3->setEnabled(true);
+                if(i == index_joueur)
+                    ui->btnCarteGJ3->setEnabled(true);
+                else
+                    ui->btnCarteGJ3->setEnabled(false);
                 ui->btnCarteGJ3->setVisible(true);
             }
 
@@ -223,7 +294,10 @@ void MainWindow::set_index_joueur(int i)
             else
             {
                 ui->btnCarteDJ3->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_d_j3))));
-                ui->btnCarteDJ3->setEnabled(true);
+                if(i == index_joueur)
+                    ui->btnCarteDJ3->setEnabled(true);
+                else
+                    ui->btnCarteDJ3->setEnabled(false);
                 ui->btnCarteDJ3->setVisible(true);
             }
         }
@@ -264,7 +338,10 @@ void MainWindow::set_index_joueur(int i)
             else
             {
                 ui->btnCarteGJ4->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_g_j4))));
-                ui->btnCarteGJ4->setEnabled(true);
+                if(i == index_joueur)
+                    ui->btnCarteGJ4->setEnabled(true);
+                else
+                    ui->btnCarteGJ4->setEnabled(false);
                 ui->btnCarteGJ4->setVisible(true);
             }
 
@@ -276,7 +353,10 @@ void MainWindow::set_index_joueur(int i)
             else
             {
                 ui->btnCarteDJ4->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_d_j4))));
-                ui->btnCarteDJ4->setEnabled(true);
+                if(i == index_joueur)
+                    ui->btnCarteDJ4->setEnabled(true);
+                else
+                    ui->btnCarteDJ4->setEnabled(false);
                 ui->btnCarteDJ4->setVisible(true);
             }
         }
@@ -308,11 +388,11 @@ void MainWindow::set_index_joueur(int i)
         }
 
 
-    }
+
 
 }
 
-void MainWindow::ajouter_carte(int i, char* n)
+void MainWindow::ajouter_carte(int i, int c, char* n)
 {
     if(i == 0) i = nb_joueur;
 
@@ -320,7 +400,7 @@ void MainWindow::ajouter_carte(int i, char* n)
 
     if(i == 1)
     {
-        if(nom_carte_g_j1 == NULL)
+        if(c == 1)
         {
             nom_carte_g_j1 = n;
             if(index_joueur == 1)
@@ -328,8 +408,15 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteGJ1->setIcon(QIcon(QPixmap(get_chemin_carte(n))));
                 ui->btnCarteGJ1->setIconSize(QSize(63, 88));
                 ui->btnCarteGJ1->setToolTip(get_description_carte(n));
-                ui->btnCarteGJ1->setEnabled(!a_joue);
-                if(est_comtesse == 0 && (nom_carte_d_j1 != NULL && (strcmp(nom_carte_d_j1, "Prince") == 0 || strcmp(nom_carte_d_j1, "Roi") == 0))) ui->btnCarteDJ1->setEnabled(false);
+                if(!a_joue && i == index_joueur)
+                    ui->btnCarteGJ1->setEnabled(true);
+                else
+                    ui->btnCarteGJ1->setEnabled(false);
+                if(nom_carte_d_j1 != NULL)
+                {
+                    if(est_comtesse == 0 && (strcmp(nom_carte_d_j1, "Prince") == 0 || strcmp(nom_carte_d_j1, "Roi") == 0)) ui->btnCarteDJ1->setEnabled(false);
+                    if(strcmp(nom_carte_d_j1, "Comtesse") == 0 && (strcmp(n, "Prince") == 0 || strcmp(n, "Roi") == 0)) ui->btnCarteGJ1->setEnabled(false);
+                }
             }
             else
             {
@@ -346,8 +433,15 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteDJ1->setIcon(QIcon(QPixmap(get_chemin_carte(n))));
                 ui->btnCarteDJ1->setIconSize(QSize(63, 88));
                 ui->btnCarteDJ1->setToolTip(get_description_carte(n));
-                ui->btnCarteDJ1->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_g_j1 != NULL && ((strcmp(nom_carte_g_j1, "Prince") == 0 || strcmp(nom_carte_g_j1, "Roi") == 0))) ui->btnCarteGJ1->setEnabled(false);
+                if(!a_joue && i == index_joueur)
+                    ui->btnCarteDJ1->setEnabled(true);
+                else
+                    ui->btnCarteDJ1->setEnabled(false);
+                if(nom_carte_g_j1 != NULL)
+                {
+                    if(est_comtesse == 0 && (strcmp(nom_carte_g_j1, "Prince") == 0 || strcmp(nom_carte_g_j1, "Roi") == 0)) ui->btnCarteGJ1->setEnabled(false);
+                    if(strcmp(nom_carte_g_j1, "Comtesse") == 0 && (strcmp(n, "Prince") == 0 || strcmp(n, "Roi") == 0)) ui->btnCarteDJ1->setEnabled(false);
+                }
             }
             else
             {
@@ -359,7 +453,7 @@ void MainWindow::ajouter_carte(int i, char* n)
     }
     else if(i == 2)
     {
-        if(nom_carte_g_j2 == NULL)
+        if(c == 1)
         {
             nom_carte_g_j2 = n;
             if(index_joueur == 2)
@@ -367,8 +461,15 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteGJ2->setIcon(QIcon(QPixmap(get_chemin_carte(n))));
                 ui->btnCarteGJ2->setIconSize(QSize(63, 88));
                 ui->btnCarteGJ2->setToolTip(get_description_carte(n));
-                ui->btnCarteGJ2->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_d_j2 != NULL && ((strcmp(nom_carte_d_j2, "Prince") == 0 || strcmp(nom_carte_d_j2, "Roi") == 0))) ui->btnCarteDJ2->setEnabled(false);
+                if(!a_joue && i == index_joueur)
+                    ui->btnCarteGJ2->setEnabled(true);
+                else
+                    ui->btnCarteGJ2->setEnabled(false);
+                if(nom_carte_d_j2 != NULL)
+                {
+                    if(est_comtesse == 0 && (strcmp(nom_carte_d_j2, "Prince") == 0 || strcmp(nom_carte_d_j2, "Roi") == 0)) ui->btnCarteDJ2->setEnabled(false);
+                    if(strcmp(nom_carte_d_j2, "Comtesse") == 0 && (strcmp(n, "Prince") == 0 || strcmp(n, "Roi") == 0)) ui->btnCarteGJ2->setEnabled(false);
+                }
             }
             else
             {
@@ -385,8 +486,15 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteDJ2->setIcon(QIcon(QPixmap(get_chemin_carte(n))));
                 ui->btnCarteDJ2->setIconSize(QSize(63, 88));
                 ui->btnCarteDJ2->setToolTip(get_description_carte(n));
-                ui->btnCarteDJ2->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_g_j2 != NULL && ((strcmp(nom_carte_g_j2, "Prince") == 0 || strcmp(nom_carte_g_j2, "Roi") == 0))) ui->btnCarteGJ2->setEnabled(false);
+                if(!a_joue && i == index_joueur)
+                    ui->btnCarteDJ2->setEnabled(true);
+                else
+                    ui->btnCarteDJ2->setEnabled(false);
+                if(nom_carte_g_j2 != NULL)
+                {
+                    if(est_comtesse == 0 && (strcmp(nom_carte_g_j2, "Prince") == 0 || strcmp(nom_carte_g_j2, "Roi") == 0)) ui->btnCarteGJ2->setEnabled(false);
+                    if(strcmp(nom_carte_g_j2, "Comtesse") == 0 && (strcmp(n, "Prince") == 0 || strcmp(n, "Roi") == 0)) ui->btnCarteDJ2->setEnabled(false);
+                }
             }
             else
             {
@@ -398,7 +506,7 @@ void MainWindow::ajouter_carte(int i, char* n)
     }
     else if(i == 3)
     {
-        if(nom_carte_g_j3 == NULL)
+        if(c == 1)
         {
             nom_carte_g_j3 = n;
             if(index_joueur == 3)
@@ -406,8 +514,15 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteGJ3->setIcon(QIcon(QPixmap(get_chemin_carte(n))));
                 ui->btnCarteGJ3->setIconSize(QSize(63, 88));
                 ui->btnCarteGJ3->setToolTip(get_description_carte(n));
-                ui->btnCarteGJ3->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_d_j3 != NULL && ((strcmp(nom_carte_d_j3, "Prince") == 0 || strcmp(nom_carte_d_j3, "Roi") == 0))) ui->btnCarteDJ3->setEnabled(false);
+                if(!a_joue && i == index_joueur)
+                    ui->btnCarteGJ3->setEnabled(true);
+                else
+                    ui->btnCarteGJ3->setEnabled(false);
+                if(nom_carte_d_j3 != NULL)
+                {
+                    if(est_comtesse == 0 && (strcmp(nom_carte_d_j3, "Prince") == 0 || strcmp(nom_carte_d_j3, "Roi") == 0)) ui->btnCarteDJ3->setEnabled(false);
+                    if(strcmp(nom_carte_d_j3, "Comtesse") == 0 && (strcmp(n, "Prince") == 0 || strcmp(n, "Roi") == 0)) ui->btnCarteGJ3->setEnabled(false);
+                }
             }
             else
             {
@@ -424,8 +539,15 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteDJ3->setIcon(QIcon(QPixmap(get_chemin_carte(n))));
                 ui->btnCarteDJ3->setIconSize(QSize(63, 88));
                 ui->btnCarteDJ3->setToolTip(get_description_carte(n));
-                ui->btnCarteDJ3->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_g_j3 != NULL && ((strcmp(nom_carte_g_j3, "Prince") == 0 || strcmp(nom_carte_g_j3, "Roi") == 0))) ui->btnCarteGJ3->setEnabled(false);
+                if(!a_joue && i == index_joueur)
+                    ui->btnCarteDJ3->setEnabled(true);
+                else
+                    ui->btnCarteDJ3->setEnabled(false);
+                if(nom_carte_g_j3 != NULL)
+                {
+                    if(est_comtesse == 0 && (strcmp(nom_carte_g_j3, "Prince") == 0 || strcmp(nom_carte_g_j3, "Roi") == 0)) ui->btnCarteGJ3->setEnabled(false);
+                    if(strcmp(nom_carte_g_j3, "Comtesse") == 0 && (strcmp(n, "Prince") == 0 || strcmp(n, "Roi") == 0)) ui->btnCarteDJ3->setEnabled(false);
+                }
             }
             else
             {
@@ -437,7 +559,7 @@ void MainWindow::ajouter_carte(int i, char* n)
     }
     else if(i == 4)
     {
-        if(nom_carte_g_j4 == NULL)
+        if(c == 1)
         {
             nom_carte_g_j4 = n;
             if(index_joueur == 4)
@@ -445,8 +567,15 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteGJ4->setIcon(QIcon(QPixmap(get_chemin_carte(n))));
                 ui->btnCarteGJ4->setIconSize(QSize(63, 88));
                 ui->btnCarteGJ4->setToolTip(get_description_carte(n));
-                ui->btnCarteGJ4->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_d_j4 != NULL && ((strcmp(nom_carte_d_j4, "Prince") == 0 || strcmp(nom_carte_d_j4, "Roi") == 0))) ui->btnCarteDJ4->setEnabled(false);
+                if(!a_joue && i == index_joueur)
+                    ui->btnCarteGJ4->setEnabled(true);
+                else
+                    ui->btnCarteGJ4->setEnabled(false);
+                if(nom_carte_d_j4 != NULL)
+                {
+                    if(est_comtesse == 0 && (strcmp(nom_carte_d_j4, "Prince") == 0 || strcmp(nom_carte_d_j4, "Roi") == 0)) ui->btnCarteDJ4->setEnabled(false);
+                    if(strcmp(nom_carte_d_j4, "Comtesse") == 0 && (strcmp(n, "Prince") == 0 || strcmp(n, "Roi") == 0)) ui->btnCarteGJ4->setEnabled(false);
+                }
             }
             else
             {
@@ -463,8 +592,15 @@ void MainWindow::ajouter_carte(int i, char* n)
                 ui->btnCarteDJ4->setIcon(QIcon(QPixmap(get_chemin_carte(n))));
                 ui->btnCarteDJ4->setIconSize(QSize(63, 88));
                 ui->btnCarteDJ4->setToolTip(get_description_carte(n));
-                ui->btnCarteDJ4->setEnabled(!a_joue);
-                if(est_comtesse == 0 && nom_carte_g_j4 != NULL && ((strcmp(nom_carte_g_j4, "Prince") == 0 || strcmp(nom_carte_g_j4, "Roi") == 0))) ui->btnCarteGJ4->setEnabled(false);
+                if(!a_joue && i == index_joueur)
+                    ui->btnCarteDJ4->setEnabled(true);
+                else
+                    ui->btnCarteDJ4->setEnabled(false);
+                if(nom_carte_g_j4 != NULL)
+                {
+                    if(est_comtesse == 0 && (strcmp(nom_carte_g_j4, "Prince") == 0 || strcmp(nom_carte_g_j4, "Roi") == 0)) ui->btnCarteGJ4->setEnabled(false);
+                    if(strcmp(nom_carte_g_j4, "Comtesse") == 0 && (strcmp(n, "Prince") == 0 || strcmp(n, "Roi") == 0)) ui->btnCarteDJ4->setEnabled(false);
+                }
             }
             else
             {
@@ -478,6 +614,7 @@ void MainWindow::ajouter_carte(int i, char* n)
 
 QString MainWindow::get_chemin_carte(char* n)
 {
+    qDebug() << "chemin: " << n;
     if(strcmp(n, "Garde") == 0)
     {
         return QCoreApplication::applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "src" + QDir::separator() + "img" + QDir::separator() + "cartes" + QDir::separator() + "Garde.png";
@@ -725,6 +862,18 @@ void MainWindow::vider_defausse(int i)
     }
 }
 
+void MainWindow::ajouter_defausse(QPushButton* b, int i)
+{
+    if(i == 1)
+        ui->hrtDefausseJ1->addWidget(b);
+    else if(i == 2)
+        ui->hrtDefausseJ2->addWidget(b);
+    else if(i == 3)
+        ui->hrtDefausseJ3->addWidget(b);
+    else if(i == 4)
+        ui->hrtDefausseJ4->addWidget(b);
+}
+
 void MainWindow::jeter_carte(int i, char *c)
 {
     QPushButton* btnTemp = new QPushButton();
@@ -732,20 +881,12 @@ void MainWindow::jeter_carte(int i, char *c)
     btnTemp->setToolTip(get_description_carte(c));
     btnTemp->setEnabled(false);
     btnTemp->setVisible(true);
-    btnTemp->setIcon(QPixmap(get_chemin_carte(c)));
+    btnTemp->setIcon(QIcon(QPixmap(get_chemin_carte(c))));
     btnTemp->setMinimumSize(QSize(63, 88));
     btnTemp->setMaximumSize(QSize(63, 88));
     btnTemp->setIconSize(QSize(63, 88));
 
-    if(i == 1)
-        ui->hrtDefausseJ1->addWidget(btnTemp);
-    else if(i == 2)
-        ui->hrtDefausseJ2->addWidget(btnTemp);
-    else if(i == 3)
-        ui->hrtDefausseJ3->addWidget(btnTemp);
-    else if(i == 4)
-        ui->hrtDefausseJ4->addWidget(btnTemp);
-
+    ajouter_defausse(btnTemp, i);
 }
 
 void MainWindow::jeter_carte(int i, int c, bool d)
@@ -757,18 +898,9 @@ void MainWindow::jeter_carte(int i, int c, bool d)
     {
         if(c == 1)
         {
-            if(d)
+            if(d && nom_carte_g_j1 != NULL)
             {
-                QPushButton* btnTemp = new QPushButton();
-                btnTemp->setText(ui->btnCarteGJ1->text());
-                btnTemp->setToolTip(get_description_carte(nom_carte_g_j1));
-                btnTemp->setEnabled(false);
-                btnTemp->setVisible(true);
-                btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j1)));
-                btnTemp->setMinimumSize(QSize(63, 88));
-                btnTemp->setMaximumSize(QSize(63, 88));
-                btnTemp->setIconSize(QSize(63, 88));
-                ui->hrtDefausseJ1->addWidget(btnTemp);
+                jeter_carte(i, nom_carte_g_j1);
             }
             nom_carte_g_j1 = NULL;
             ui->btnCarteGJ1->setVisible(false);
@@ -777,18 +909,9 @@ void MainWindow::jeter_carte(int i, int c, bool d)
         }
         else
         {
-            if(d)
+            if(d && nom_carte_d_j1 != NULL)
             {
-                QPushButton* btnTemp = new QPushButton();
-                btnTemp->setText(ui->btnCarteDJ1->text());
-                btnTemp->setToolTip(get_description_carte(nom_carte_d_j1));
-                btnTemp->setEnabled(false);
-                btnTemp->setVisible(true);
-                btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j1)));
-                btnTemp->setMinimumSize(QSize(63, 88));
-                btnTemp->setMaximumSize(QSize(63, 88));
-                btnTemp->setIconSize(QSize(63, 88));
-                ui->hrtDefausseJ1->addWidget(btnTemp);
+                jeter_carte(i, nom_carte_d_j1);
             }
             nom_carte_d_j1 = NULL;
             ui->btnCarteDJ1->setVisible(false);
@@ -800,18 +923,9 @@ void MainWindow::jeter_carte(int i, int c, bool d)
     {
         if(c == 1)
         {
-            if(d)
+            if(d && nom_carte_g_j2 != NULL)
             {
-                QPushButton* btnTemp = new QPushButton();
-                btnTemp->setText(ui->btnCarteGJ2->text());
-                btnTemp->setToolTip(get_description_carte(nom_carte_g_j2));
-                btnTemp->setEnabled(false);
-                btnTemp->setVisible(true);
-                btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j2)));
-                btnTemp->setMinimumSize(QSize(63, 88));
-                btnTemp->setMaximumSize(QSize(63, 88));
-                btnTemp->setIconSize(QSize(63, 88));
-                ui->hrtDefausseJ2->addWidget(btnTemp);
+                jeter_carte(i, nom_carte_g_j2);
             }
             nom_carte_g_j2 = NULL;
             ui->btnCarteGJ2->setVisible(false);
@@ -820,18 +934,9 @@ void MainWindow::jeter_carte(int i, int c, bool d)
         }
         else
         {
-            if(d)
+            if(d && nom_carte_d_j2 != NULL)
             {
-                QPushButton* btnTemp = new QPushButton();
-                btnTemp->setText(ui->btnCarteDJ2->text());
-                btnTemp->setToolTip(ui->btnCarteDJ2->toolTip());
-                btnTemp->setEnabled(false);
-                btnTemp->setVisible(true);
-                btnTemp->setToolTip(get_description_carte(nom_carte_d_j2));
-                btnTemp->setMinimumSize(QSize(63, 88));
-                btnTemp->setMaximumSize(QSize(63, 88));
-                btnTemp->setIconSize(QSize(63, 88));
-                ui->hrtDefausseJ2->addWidget(btnTemp);
+                jeter_carte(i, nom_carte_d_j2);
             }
             nom_carte_d_j2 = NULL;
             ui->btnCarteDJ2->setVisible(false);
@@ -843,18 +948,9 @@ void MainWindow::jeter_carte(int i, int c, bool d)
     {
         if(c == 1)
         {
-            if(d)
+            if(d && nom_carte_g_j3 != NULL)
             {
-                QPushButton* btnTemp = new QPushButton();
-                btnTemp->setText(ui->btnCarteGJ3->text());
-                btnTemp->setToolTip(get_description_carte(nom_carte_g_j3));
-                btnTemp->setEnabled(false);
-                btnTemp->setVisible(true);
-                btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j3)));
-                btnTemp->setMinimumSize(QSize(63, 88));
-                btnTemp->setMaximumSize(QSize(63, 88));
-                btnTemp->setIconSize(QSize(63, 88));
-                ui->hrtDefausseJ3->addWidget(btnTemp);
+                jeter_carte(i, nom_carte_g_j3);
             }
             nom_carte_g_j3 = NULL;
             ui->btnCarteGJ3->setVisible(false);
@@ -863,18 +959,9 @@ void MainWindow::jeter_carte(int i, int c, bool d)
         }
         else
         {
-            if(d)
+            if(d && nom_carte_d_j3 != NULL)
             {
-                QPushButton* btnTemp = new QPushButton();
-                btnTemp->setText(ui->btnCarteDJ3->text());
-                btnTemp->setToolTip(get_description_carte(nom_carte_d_j3));
-                btnTemp->setEnabled(false);
-                btnTemp->setVisible(true);
-                btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j3)));
-                btnTemp->setMinimumSize(QSize(63, 88));
-                btnTemp->setMaximumSize(QSize(63, 88));
-                btnTemp->setIconSize(QSize(63, 88));
-                ui->hrtDefausseJ3->addWidget(btnTemp);
+                jeter_carte(i, nom_carte_d_j3);
             }
             nom_carte_d_j3 = NULL;
             ui->btnCarteDJ3->setVisible(false);
@@ -886,18 +973,9 @@ void MainWindow::jeter_carte(int i, int c, bool d)
     {
         if(c == 1)
         {
-            if(d)
+            if(d && nom_carte_g_j4 != NULL)
             {
-                QPushButton* btnTemp = new QPushButton();
-                btnTemp->setText(ui->btnCarteGJ4->text());
-                btnTemp->setToolTip(get_description_carte(nom_carte_g_j4));
-                btnTemp->setEnabled(false);
-                btnTemp->setVisible(true);
-                btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j4)));
-                btnTemp->setMinimumSize(QSize(63, 88));
-                btnTemp->setMaximumSize(QSize(63, 88));
-                btnTemp->setIconSize(QSize(63, 88));
-                ui->hrtDefausseJ4->addWidget(btnTemp);
+                jeter_carte(i, nom_carte_g_j4);
             }
             nom_carte_g_j4 = NULL;
             ui->btnCarteGJ4->setVisible(false);
@@ -906,18 +984,9 @@ void MainWindow::jeter_carte(int i, int c, bool d)
         }
         else
         {
-            if(d)
+            if(d && nom_carte_d_j4 != NULL)
             {
-                QPushButton* btnTemp = new QPushButton();
-                btnTemp->setText(ui->btnCarteDJ4->text());
-                btnTemp->setToolTip(get_description_carte(nom_carte_d_j4));
-                btnTemp->setEnabled(false);
-                btnTemp->setVisible(true);
-                btnTemp->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j4)));
-                btnTemp->setMinimumSize(QSize(63, 88));
-                btnTemp->setMaximumSize(QSize(63, 88));
-                btnTemp->setIconSize(QSize(63, 88));
-                ui->hrtDefausseJ4->addWidget(btnTemp);
+                jeter_carte(i, nom_carte_d_j4);
             }
             nom_carte_d_j4 = NULL;
             ui->btnCarteDJ4->setVisible(false);
@@ -943,7 +1012,15 @@ void MainWindow::on_btnQuitter_clicked()
 void MainWindow::on_btnLocal_clicked()
 {
     est_local = true;
+    ui->btnLancerPartie->setEnabled(true);
     ui->wdgListe->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_btnReseau_clicked()
+{
+    est_local = false;
+    ui->wdgListe->setCurrentIndex(8);
 }
 
 void MainWindow::on_btnRetourMenuPrinc_clicked()
@@ -955,6 +1032,23 @@ void MainWindow::on_btnRetourMenuPrinc_clicked()
 //Menu choix nb_joueur
 void MainWindow::on_btn2Joueur_clicked()
 {
+    ui->txtPseudoJ1->setText(QString(""));
+    ui->txtPseudoJ2->setText(QString(""));
+    ui->txtPseudoJ3->setText(QString(""));
+    ui->txtPseudoJ4->setText(QString(""));
+    if(!est_local)
+    {
+        strcat(action, "|2|");
+        strcat(action, ui->lblPseudoReseau->text().toStdString().c_str());
+        remonter_action();
+        ui->txtPseudoJ1->setReadOnly(true);
+        ui->txtPseudoJ2->setReadOnly(true);
+    }
+    else
+    {
+        ui->txtPseudoJ1->setReadOnly(false);
+        ui->txtPseudoJ2->setReadOnly(false);
+    }
     nb_joueur = 2;
     ui->txtPseudoJ3->setVisible(false);
     ui->txtPseudoJ4->setVisible(false);
@@ -963,6 +1057,25 @@ void MainWindow::on_btn2Joueur_clicked()
 
 void MainWindow::on_btn3Joueur_clicked()
 {
+    ui->txtPseudoJ1->setText(QString(""));
+    ui->txtPseudoJ2->setText(QString(""));
+    ui->txtPseudoJ3->setText(QString(""));
+    ui->txtPseudoJ4->setText(QString(""));
+    if(!est_local)
+    {
+        strcat(action, "|3|");
+        strcat(action, ui->lblPseudoReseau->text().toStdString().c_str());
+        remonter_action();
+        ui->txtPseudoJ1->setReadOnly(true);
+        ui->txtPseudoJ2->setReadOnly(true);
+        ui->txtPseudoJ3->setReadOnly(true);
+    }
+    else
+    {
+        ui->txtPseudoJ1->setReadOnly(false);
+        ui->txtPseudoJ2->setReadOnly(false);
+        ui->txtPseudoJ3->setReadOnly(false);
+    }
     nb_joueur = 3;
     ui->txtPseudoJ3->setVisible(true);
     ui->txtPseudoJ4->setVisible(false);
@@ -971,6 +1084,27 @@ void MainWindow::on_btn3Joueur_clicked()
 
 void MainWindow::on_btn4Joueur_clicked()
 {
+    ui->txtPseudoJ1->setText(QString(""));
+    ui->txtPseudoJ2->setText(QString(""));
+    ui->txtPseudoJ3->setText(QString(""));
+    ui->txtPseudoJ4->setText(QString(""));
+    if(!est_local)
+    {
+        strcat(action, "|4|");
+        strcat(action, ui->lblPseudoReseau->text().toStdString().c_str());
+        remonter_action();
+        ui->txtPseudoJ1->setReadOnly(true);
+        ui->txtPseudoJ2->setReadOnly(true);
+        ui->txtPseudoJ3->setReadOnly(true);
+        ui->txtPseudoJ4->setReadOnly(true);
+    }
+    else
+    {
+        ui->txtPseudoJ1->setReadOnly(false);
+        ui->txtPseudoJ2->setReadOnly(false);
+        ui->txtPseudoJ3->setReadOnly(false);
+        ui->txtPseudoJ4->setReadOnly(false);
+    }
     nb_joueur = 4;
     ui->txtPseudoJ3->setVisible(true);
     ui->txtPseudoJ4->setVisible(true);
@@ -986,14 +1120,25 @@ void MainWindow::on_btnRetourModeJeu_clicked()
 //Menu Pseudo
 void MainWindow::on_btnRetourNbJoueur_clicked()
 {
-    ui->wdgListe->setCurrentIndex(2);
+    if(!est_local)
+    {
+        if(index_joueur == 1)
+            strcpy(action, "sht|null");
+        else
+            strcpy(action, "dcx|null");
+        remonter_action();
+        ui->wdgListe->setCurrentIndex(8);
+    }
+    else
+        ui->wdgListe->setCurrentIndex(2);
 }
 
 void MainWindow::on_btnLancerPartie_clicked()
 {
+    std::regex regex_pseudo {"([A-Z]|[a-z])+"};
     bool pas_de_blanc = true;
 
-    if(ui->txtPseudoJ1->text() == "" || ui->txtPseudoJ2->text() == "")
+    if(!std::regex_match(ui->txtPseudoJ1->text().toStdString(), regex_pseudo) || !std::regex_match(ui->txtPseudoJ2->text().toStdString(), regex_pseudo))
         pas_de_blanc = false;
     else
     {
@@ -1022,7 +1167,7 @@ void MainWindow::on_btnLancerPartie_clicked()
         est_protege_j3 = false;
         est_protege_j4 = true;
 
-        if(ui->txtPseudoJ3->text() == "")
+        if(!std::regex_match(ui->txtPseudoJ3->text().toStdString(), regex_pseudo))
             pas_de_blanc = false;
         else
         {
@@ -1040,7 +1185,7 @@ void MainWindow::on_btnLancerPartie_clicked()
         est_protege_j3 = false;
         est_protege_j4 = false;
 
-        if(ui->txtPseudoJ3->text() == "" || ui->txtPseudoJ3->text() == "")
+        if(!std::regex_match(ui->txtPseudoJ3->text().toStdString(), regex_pseudo) || !std::regex_match(ui->txtPseudoJ3->text().toStdString(), regex_pseudo))
             pas_de_blanc = false;
         else
         {
@@ -1056,8 +1201,22 @@ void MainWindow::on_btnLancerPartie_clicked()
 
     if(pas_de_blanc)
     {
-        ui->wdgListe->setCurrentIndex(4);
+        if(est_local)
+            ui->wdgListe->setCurrentIndex(4);
         remonter_action();
+    }
+    else
+    {
+        int nb_pseudo = 0;
+        if(ui->txtPseudoJ1->text() != "") nb_pseudo++;
+        if(ui->txtPseudoJ2->text() != "") nb_pseudo++;
+        if(ui->txtPseudoJ3->text() != "") nb_pseudo++;
+        if(ui->txtPseudoJ4->text() != "") nb_pseudo++;
+
+        if(nb_pseudo != nb_joueur)
+            afficher_pop_up(1, "Joueur insuffisant", "Nombre de joueur insuffisant.\nVous ne pouvez pas lancer la partie.");
+        else
+            afficher_pop_up(1, "Pseudo invalide", "Un ou plusieurs pseudo sont invalides.\nVeuillez entrer des pseudos ne contenant que de lettres.");
     }
 }
 
@@ -1384,10 +1543,27 @@ void MainWindow::activer_garde()
 int MainWindow::get_nb_ciblable()
 {
     int nb_ciblable = 0;
-    if(!est_protege_j1) nb_ciblable++;
-    if(!est_protege_j2) nb_ciblable++;
-    if(!est_protege_j3) nb_ciblable++;
-    if(!est_protege_j4) nb_ciblable++;
+    std::cout <<std::endl<<std::endl;
+    if(!est_protege_j1)
+    {
+        nb_ciblable++;
+        std::cout <<"j1 ciblable"<<std::endl;
+    }
+    if(!est_protege_j2){
+        nb_ciblable++;
+        std::cout <<"j2 ciblable"<<std::endl;
+    }
+    if(!est_protege_j3 && nb_joueur >= 3)
+    {
+        nb_ciblable++;
+        std::cout <<"j3 ciblable"<<std::endl;
+    }
+    if(!est_protege_j4 && nb_joueur == 4)
+    {
+        nb_ciblable++;
+        std::cout <<"j4 ciblable"<<std::endl;
+    }
+    std::cout <<std::endl<<std::endl;
     return nb_ciblable;
 }
 
@@ -1400,22 +1576,6 @@ void MainWindow::on_btnFinTour_clicked()
 void MainWindow::annoncer(char* a)
 {
     ui->lblAnnonce->setText(a);
-}
-
-void MainWindow::change_score(int i, int s)
-{
-    std::string stmp = std::to_string(s);
-    char* score;
-
-    strcpy(score, "(");
-    strcat(score, stmp.c_str());
-    strcat(score, ")  ");
-
-    if(i == 1) strcat(score, ui->txtPseudoJ1->text().toStdString().c_str());
-    if(i == 2) strcat(score, ui->txtPseudoJ1->text().toStdString().c_str());
-    if(i == 3) strcat(score, ui->txtPseudoJ1->text().toStdString().c_str());
-    if(i == 4) strcat(score, ui->txtPseudoJ1->text().toStdString().c_str());
-
 }
 
 void MainWindow::changer_nombre_carte(int i)
@@ -1442,61 +1602,174 @@ void MainWindow::on_btnContinuer_clicked()
     ui->wdgListe->setCurrentIndex(3);
 }
 
-void MainWindow::afficher_main(int i)
+void MainWindow::afficher_main(int i, int c)
 {
     if(i == 0) i = nb_joueur;
 
-
     if(i == 1)
     {
-        if(nom_carte_d_j1 != NULL)
+        if(c == 2)
         {
-            ui->btnCarteDJ1->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j1)));
+            qDebug() << "DJ1 " << nom_carte_d_j1;
+            ui->btnCarteDJ1->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_d_j1))));
             ui->btnCarteDJ1->setToolTip(get_description_carte(nom_carte_d_j1));
         }
-        if(nom_carte_g_j1 != NULL)
+        if(c == 1)
         {
-            ui->btnCarteGJ1->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j1)));
+            qDebug() << "DJ2 " << nom_carte_d_j2;
+            ui->btnCarteGJ1->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_g_j1))));
             ui->btnCarteGJ1->setToolTip(get_description_carte(nom_carte_g_j1));
         }
     }
     else if(i == 2)
     {
-        if(nom_carte_d_j2 != NULL)
+        if(c == 2)
         {
-            ui->btnCarteDJ2->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j2)));
+            ui->btnCarteDJ2->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_d_j2))));
             ui->btnCarteDJ2->setToolTip(get_description_carte(nom_carte_d_j2));
         }
-        if(nom_carte_g_j2 != NULL)
+        if(c == 1)
         {
-            ui->btnCarteGJ2->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j2)));
+            ui->btnCarteGJ2->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_g_j2))));
             ui->btnCarteGJ2->setToolTip(get_description_carte(nom_carte_g_j2));
         }
     }
-    else if(i == '3')
+    else if(i == 3)
     {
-        if(nom_carte_d_j3 != NULL)
+        if(c == 2)
         {
-            ui->btnCarteDJ3->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j3)));
+            ui->btnCarteDJ3->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_d_j3))));
             ui->btnCarteDJ3->setToolTip(get_description_carte(nom_carte_d_j3));
         }
-        if(nom_carte_g_j3 != NULL)
+        if(c == 1)
         {
-            ui->btnCarteGJ3->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j3)));
+            ui->btnCarteGJ3->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_g_j3))));
             ui->btnCarteGJ3->setToolTip(get_description_carte(nom_carte_g_j3));
         }
     }
-    else if(i == '4')
+    else if(i == 4)
     {
-        if(nom_carte_d_j4 != NULL)
+        if(c == 2)
         {
-            ui->btnCarteDJ4->setIcon(QPixmap(get_chemin_carte(nom_carte_d_j4)));
+            ui->btnCarteDJ4->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_d_j4))));
             ui->btnCarteDJ4->setToolTip(get_description_carte(nom_carte_d_j4));
         }
-        if(nom_carte_g_j4 != NULL)
+        if(c == 1)
         {
-            ui->btnCarteGJ4->setIcon(QPixmap(get_chemin_carte(nom_carte_g_j4)));
+            ui->btnCarteGJ4->setIcon(QIcon(QPixmap(get_chemin_carte(nom_carte_g_j4))));
             ui->btnCarteGJ4->setToolTip(get_description_carte(nom_carte_g_j4));
         }
     }
+}
+
+void MainWindow::on_btnTourSuivant_clicked()
+{
+    ui->lblNomJoueurSuivant->setText(QString(""));
+    ui->wdgListe->setCurrentIndex(4);
+}
+
+void MainWindow::on_btnMancheSuivante_clicked()
+{
+    ui->lblVainqueurManche->setText(QString(""));
+    ui->wdgListe->setCurrentIndex(7);
+}
+
+void MainWindow::set_vainqueur_manche(char * v, char* s)
+{
+    ui->lblVainqueurManche->setText(v);
+    ui->lblScores->setText(s);
+
+    ui->wdgListe->setCurrentIndex(6);
+}
+
+
+void MainWindow::on_btnHote_clicked()
+{
+    strcpy(action, "hst");
+    ui->wdgListe->setCurrentIndex(2);
+}
+
+void MainWindow::change_affichage(int i)
+{
+    ui->wdgListe->setCurrentIndex(i);
+}
+
+void MainWindow::ajouter_joueur(int i, char* n)
+{
+    i = i+1;
+    if(i == 1)
+    {
+        ui->txtPseudoJ1->setText(QString(n));
+        ui->lblPseudoJ1->setText(QString(n));
+    }
+    else if(i == 2)
+    {
+        ui->txtPseudoJ2->setText(QString(n));
+        ui->lblPseudoJ2->setText(QString(n));
+    }
+    else if(i == 3)
+    {
+        ui->txtPseudoJ3->setText(QString(n));
+        ui->lblPseudoJ3->setText(QString(n));
+    }
+    else if(i == 4)
+    {
+        ui->txtPseudoJ4->setText(QString(n));
+        ui->lblPseudoJ4->setText(QString(n));
+    }
+}
+
+void MainWindow::effacer_pseudo(int i)
+{
+    i = i+1;
+    if(i == 1) ui->txtPseudoJ1->setText(QString(""));
+    else if(i == 2) ui->txtPseudoJ2->setText(QString(""));
+    else if(i == 3) ui->txtPseudoJ3->setText(QString(""));
+    else if(i == 4) ui->txtPseudoJ4->setText(QString(""));
+}
+
+void MainWindow::on_btnRetourChoixModeJeu2_clicked()
+{
+    ui->wdgListe->setCurrentIndex(1);
+}
+
+void MainWindow::on_btnConnexion_clicked()
+{
+    std::regex regex_ip {"([0-2]?[0-9]?[0-9]).([0-2]?[0-9]?[0-9]).([0-2]?[0-9]?[0-9]).([0-2]?[0-9]?[0-9])"};
+    std::regex regex_pseudo {"([A-Z]|[a-z])+"};
+
+    if(std::regex_match(ui->lblIP->text().toStdString(), regex_ip))
+    {
+        if(ui->lblPseudoReseau->text() != "" && std::regex_match(ui->lblPseudoReseau->text().toStdString(), regex_pseudo))
+        {
+            strcpy(action, "cnx|");
+            strcat(action, ui->lblIP->text().toStdString().c_str());
+            strcat(action, "|");
+            strcat(action, ui->lblPseudoReseau->text().toStdString().c_str());
+            remonter_action();
+        }
+        else
+        {
+            qDebug() << "erreur pseudo";
+            //TODO "Veuillez entrer un pseudo valide"
+        }
+    }
+    else
+    {
+        qDebug() << "erreur ip";
+        //TODO "Veuillez entrer une adresse ip valide"
+    }
+}
+
+void MainWindow::afficher_pop_up(int i, char* t, char*n)
+{
+    if(i == 1) QMessageBox::information(this, t, n);
+    else if(i == 2) QMessageBox::warning(this, t, n);
+    else if(i == 3) QMessageBox::critical(this, t, n);
+}
+
+void MainWindow::on_btnRegle_clicked()
+{
+    ReglesJeu *rj = new ReglesJeu;
+    rj->show();
 }

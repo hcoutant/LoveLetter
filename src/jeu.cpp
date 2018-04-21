@@ -14,8 +14,7 @@ Jeu::Jeu(std::vector<Joueur*> jrs)
 	for(unsigned int i = 0 ; i < jrs.size() ; i++)
 		joueurs.push_back(jrs[i]);
 
-
-	pile.push_back(new Princesse());
+    pile.push_back(new Princesse());
 	pile.push_back(new Comtesse());
 	pile.push_back(new Roi());
 	pile.push_back(new Prince());
@@ -30,7 +29,26 @@ Jeu::Jeu(std::vector<Joueur*> jrs)
 	pile.push_back(new Garde());
 	pile.push_back(new Garde());
 	pile.push_back(new Garde());
-	pile.push_back(new Garde());
+    pile.push_back(new Garde());
+
+/*
+    pile.push_back(new Comtesse());
+    pile.push_back(new Comtesse());
+    pile.push_back(new Comtesse());
+    pile.push_back(new Comtesse());
+    pile.push_back(new Comtesse());
+    pile.push_back(new Comtesse());
+    pile.push_back(new Comtesse());
+    pile.push_back(new Comtesse());
+    pile.push_back(new Comtesse());
+    pile.push_back(new Prince());
+    pile.push_back(new Prince());
+    pile.push_back(new Prince());
+    pile.push_back(new Prince());
+    pile.push_back(new Prince());
+    pile.push_back(new Prince());
+    pile.push_back(new Prince());
+*/
 
 	std::srand(time(nullptr));
 	std::random_shuffle(pile.begin(),pile.end());
@@ -116,7 +134,8 @@ retour Jeu::action(Joueur *j1, Joueur *j2, Carte*& c)
                     if(!j2->estVivant())
                         break;
 
-                    j2->piocher();
+                    if(pile.size() > 0)
+                        j2->piocher();
                 }
                 else
                 {

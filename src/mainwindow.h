@@ -6,6 +6,10 @@
 #include <QMainWindow>
 #include <QString>
 #include <QPushButton>
+#include <QMessageBox>
+
+#include <regex>
+#include <vector>
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +22,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    void set_index_local(int i);
+    void set_nb_joueur(int i);
+    void changer_widget(int i);
 
     void vider_main(int i);
     void vider_defausse(int i);
@@ -32,37 +40,42 @@ public:
     void change_score(int i, int s);
     void changer_nombre_carte(int i);
     void activer_fin_de_tour(bool t);
+
+    void afficher_main(int i, int c);
+
+    void set_vainqueur_manche(char* v, char* s);
     void fin_de_partie(char* n);
 
-    void afficher_main(int i);
+    void change_affichage(int i);
+
+    void ajouter_joueur(int i, char* n);
+    void effacer_pseudo(int i);
+
+    void afficher_pop_up(int i, char* t, char* n);
+
+    void ajouter_carte(int i, int c, char* n);
+    void set_index_joueur(int i);
 
     int nb_joueur;
-
-public slots:
-    void ajouter_carte(int i, char* n);
-    void set_index_joueur(int i);
+    bool est_local;
+    int index_joueur_courrant;
 
 private slots:
     QString get_chemin_carte(char* n);
     QString get_description_carte(char* n);
 
-    void activer_effet_carte(bool g, char* n);
     void remonter_action();
 
     void on_btnJouer_clicked();
     void on_btnQuitter_clicked();
-
     void on_btnLocal_clicked();
     void on_btnRetourMenuPrinc_clicked();
-
     void on_btn2Joueur_clicked();
     void on_btn3Joueur_clicked();
     void on_btn4Joueur_clicked();
     void on_btnRetourModeJeu_clicked();
-
     void on_btnLancerPartie_clicked();
     void on_btnRetourNbJoueur_clicked();
-
     void on_btnCarteGJ1_clicked();
     void on_btnCarteDJ1_clicked();
     void on_btnCarteGJ2_clicked();
@@ -71,14 +84,24 @@ private slots:
     void on_btnCarteDJ3_clicked();
     void on_btnCarteGJ4_clicked();
     void on_btnCarteDJ4_clicked();
-
     void on_btnValider_clicked();
+    void on_btnFinTour_clicked();
+    void on_btnContinuer_clicked();
+    void on_btnTourSuivant_clicked();
+    void on_btnMancheSuivante_clicked();
+    void on_btnReseau_clicked();
+    void on_btnHote_clicked();
+    void on_btnRetourChoixModeJeu2_clicked();
+    void on_btnConnexion_clicked();
+
+    void activer_effet_carte(bool g, char* n);
     void activer_garde();
 
     int get_nb_ciblable();
-    void on_btnFinTour_clicked();
 
-    void on_btnContinuer_clicked();
+    void ajouter_defausse(QPushButton* b, int i);
+
+    void on_btnRegle_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -106,7 +129,6 @@ private:
     char* nom_carte_jouee;
 
     int index_joueur;
-    bool est_local;
     bool est_en_action;
     bool a_joue;
 };

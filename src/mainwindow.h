@@ -59,6 +59,7 @@ public:
     int nb_joueur;
     bool est_local;
     int index_joueur_courrant;
+    bool avecIA;
 
 private slots:
     QString get_chemin_carte(char* n);
@@ -93,6 +94,8 @@ private slots:
     void on_btnHote_clicked();
     void on_btnRetourChoixModeJeu2_clicked();
     void on_btnConnexion_clicked();
+    void on_btnIA_clicked(); //Bouton pour l'IA !
+
 
     void activer_effet_carte(bool g, char* n);
     void activer_garde();

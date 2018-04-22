@@ -89,6 +89,7 @@ void Presentation::call(char* a)
 
             liste_joueur.push_back(j1);
             liste_joueur.push_back(j2);
+	
 
             if(w->nb_joueur >= 3)
             {

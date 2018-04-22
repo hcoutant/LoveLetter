@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btnFinTour->setEnabled(false);
 
     est_local = true;
+    avecIA = false;
     nb_joueur = 0;
     est_en_action = false;
 
@@ -1028,6 +1029,27 @@ void MainWindow::on_btnRetourMenuPrinc_clicked()
     ui->wdgListe->setCurrentIndex(0);
 }
 
+void MainWindow::on_btnIA_clicked()
+{
+    avecIA = true;
+ 
+    ui->txtPseudoJ1->setText(QString(""));
+    ui->txtPseudoJ2->setText(QString(""));
+    ui->txtPseudoJ3->setText(QString(""));
+    ui->txtPseudoJ4->setText(QString(""));
+	
+    nb_joueur = 2;
+
+    ui->lblChoixPseudo->setText("Choix du pseudo");
+    
+    ui->txtPseudoJ2->setVisible(false);
+    ui->txtPseudoJ3->setVisible(false);
+    ui->txtPseudoJ4->setVisible(false);
+
+    ui->wdgListe->setCurrentIndex(3); //Pas sur
+
+}
+
 
 //Menu choix nb_joueur
 void MainWindow::on_btn2Joueur_clicked()
@@ -1138,12 +1160,25 @@ void MainWindow::on_btnLancerPartie_clicked()
     std::regex regex_pseudo {"([A-Z]|[a-z]|[0-9])+"};
     bool pas_de_blanc = true;
 
-    if(!std::regex_match(ui->txtPseudoJ1->text().toStdString(), regex_pseudo) || !std::regex_match(ui->txtPseudoJ2->text().toStdString(), regex_pseudo))
-        pas_de_blanc = false;
+    if(nb_joueur == 1 || avecIA)
+    {
+	if(!std::regex_match(ui->txtPseudoJ1->text().toStdString(), regex_pseudo))
+	    pas_de_blanc = false;
+	else
+	{
+		ui->lblPseudoJ1->setText(ui->txtPseudoJ1->text());
+                ui->lblPseudoJ2->setText("IA");
+        }
+    }
     else
     {
-        ui->lblPseudoJ1->setText(ui->txtPseudoJ1->text());
-        ui->lblPseudoJ2->setText(ui->txtPseudoJ2->text());
+	if(!std::regex_match(ui->txtPseudoJ1->text().toStdString(), regex_pseudo) || !std::regex_match(ui->txtPseudoJ2->text().toStdString(), regex_pseudo))
+        	pas_de_blanc = false;
+    	else
+    	{
+        	ui->lblPseudoJ1->setText(ui->txtPseudoJ1->text());
+        	ui->lblPseudoJ2->setText(ui->txtPseudoJ2->text());
+    	}
     }
 
     strcpy(action, "str|");
@@ -1151,7 +1186,8 @@ void MainWindow::on_btnLancerPartie_clicked()
     strcat(action, "|");
     strcat(action, ui->lblPseudoJ2->text().toStdString().c_str());
 
-    if(nb_joueur == 2)
+   
+    if(nb_joueur == 2 || avecIA) 
     {
         ui->wdgJ3->setVisible(false);
         ui->wdgJ4->setVisible(false);

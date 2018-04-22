@@ -15,3 +15,10 @@ OBJECTS_DIR += obj/
 FORMS    += src/mainwindow.ui src/reglesjeu.ui
 
 QMAKE_CXXFLAGS += -std=c++0x
+
+MOC_DIR += obj/
+
+UI_DIR += obj/
+
+CONFIG += warn_off
+

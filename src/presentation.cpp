@@ -189,12 +189,19 @@ void Presentation::call(char* a)
 
                     char* nom_vainqueurs = (char*)malloc(200);
 
-                    strcpy(nom_vainqueurs, (char*)gagnant_manche[0]->getNom().c_str());
-                    for(unsigned int i = 1; i < gagnant_manche.size(); i++)
-                    {
-                        strcat(nom_vainqueurs, "\n");
-                        strcat(nom_vainqueurs, (char*)gagnant_manche[i]->getNom().c_str());
-                    }
+		    if(gagnant_manche.size() > 0)
+		    {
+                    	strcpy(nom_vainqueurs, (char*)gagnant_manche[0]->getNom().c_str());
+	                for(unsigned int i = 1; i < gagnant_manche.size(); i++)
+	                {
+	                    strcat(nom_vainqueurs, "\n");
+	                    strcat(nom_vainqueurs, (char*)gagnant_manche[i]->getNom().c_str());
+	                }
+		    }
+		    else
+		    {
+			strcpy(nom_vainqueurs, "Erreur dans la récupération du nom des gagnants de la manche");
+		    }
 
                     char* score_joueurs  = (char*)malloc(220);
                     char* stmp = (char*)malloc(3);
@@ -302,6 +309,7 @@ void Presentation::call(char* a)
             }
 
             emit sign_activer_fin_tour(true);
+
 
             if(ret == OK)
             {

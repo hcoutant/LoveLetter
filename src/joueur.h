@@ -8,7 +8,7 @@ class Jeu; //Eviter les inclusions cyclique
 
 
 class Joueur {
-	private:
+	protected:
 		Jeu* j; //Jeu auquel le joueur est attaché
 		bool en_vie; //Indique si le joueur est en vie
 		bool est_protege; //Indique si le joueur est protégé

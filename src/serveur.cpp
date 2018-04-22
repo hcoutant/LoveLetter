@@ -223,7 +223,7 @@ void Serveur::ecoute_client(Client* c)
 
                     //strcat(m, cli->get_nom()); //la récupération du nom entré par le joueur ne marche pas
 
-                    strcat(m, "player_");
+                    strcat(m, "player");
                     strcat(m, (char*)to_string(cli->get_id()).c_str());
 
                     if(j != c->get_id())

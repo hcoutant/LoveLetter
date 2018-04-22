@@ -1135,7 +1135,7 @@ void MainWindow::on_btnRetourNbJoueur_clicked()
 
 void MainWindow::on_btnLancerPartie_clicked()
 {
-    std::regex regex_pseudo {"([A-Z]|[a-z])+"};
+    std::regex regex_pseudo {"([A-Z]|[a-z]|[0-9])+"};
     bool pas_de_blanc = true;
 
     if(!std::regex_match(ui->txtPseudoJ1->text().toStdString(), regex_pseudo) || !std::regex_match(ui->txtPseudoJ2->text().toStdString(), regex_pseudo))
@@ -1224,292 +1224,340 @@ void MainWindow::on_btnLancerPartie_clicked()
 
 void MainWindow::on_btnCarteGJ1_clicked()
 {
-    ui->btnCarteGJ1->setEnabled(false);
-    if(!est_en_action && (strcmp(nom_carte_g_j1, "Servante") == 0 || strcmp(nom_carte_g_j1, "Comtesse") == 0  || strcmp(nom_carte_g_j1, "Princesse") == 0))
+    if(!est_local && index_joueur_courrant != index_joueur)
     {
-        strcpy(action, "act|1|1|1");
-        remonter_action();
-    }
-    else if(!est_en_action)
-    {
-        strcpy(action, "act|1|1");
-        if((strcmp(nom_carte_g_j1, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j1, "Prince") != 0 && get_nb_ciblable() >= 2))
-        {
-            activer_effet_carte(true, nom_carte_g_j1);
-        }
-        else
-        {
-            ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
-            strcat(action, "|1");
-            if(strcmp(nom_carte_g_j1, "Garde") == 0)
-                strcat(action, "|Garde");
-            remonter_action();
-        }
+        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
     }
     else
     {
-        strcat(action, "|1");
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
-            activer_garde();
-        else
+        ui->btnCarteGJ1->setEnabled(false);
+        if(!est_en_action && (strcmp(nom_carte_g_j1, "Servante") == 0 || strcmp(nom_carte_g_j1, "Comtesse") == 0  || strcmp(nom_carte_g_j1, "Princesse") == 0))
+        {
+            strcpy(action, "act|1|1|1");
             remonter_action();
-        //TODO trouver joueur et remonter action
+        }
+        else if(!est_en_action)
+        {
+            strcpy(action, "act|1|1");
+            if((strcmp(nom_carte_g_j1, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j1, "Prince") != 0 && get_nb_ciblable() >= 2))
+            {
+                activer_effet_carte(true, nom_carte_g_j1);
+            }
+            else
+            {
+                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                strcat(action, "|1");
+                if(strcmp(nom_carte_g_j1, "Garde") == 0)
+                    strcat(action, "|Garde");
+                remonter_action();
+            }
+        }
+        else
+        {
+            strcat(action, "|1");
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+                activer_garde();
+            else
+                remonter_action();
+        }
     }
 }
 
 void MainWindow::on_btnCarteDJ1_clicked()
 {
-    ui->btnCarteDJ1->setEnabled(false);
-    if(!est_en_action && (strcmp(nom_carte_d_j1, "Servante") == 0 || strcmp(nom_carte_d_j1, "Comtesse") == 0  || strcmp(nom_carte_d_j1, "Princesse") == 0))
+    if(!est_local && index_joueur_courrant != index_joueur)
     {
-        strcpy(action, "act|1|2|1");
-        remonter_action();
-    }
-    else if(!est_en_action)
-    {
-        strcpy(action, "act|1|2");
-        if((strcmp(nom_carte_d_j1, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j1, "Prince") != 0 && get_nb_ciblable() >= 2))
-        {
-            ui->lblAnnonce->setText("Choississez une cible!");
-            activer_effet_carte(false, nom_carte_d_j1);
-        }
-        else
-        {
-            ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
-            strcat(action, "|1");
-            if(strcmp(nom_carte_d_j1, "Garde") == 0)
-                strcat(action, "|Garde");
-            remonter_action();
-        }
+        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
     }
     else
     {
-        strcat(action, "|1");
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
-            activer_garde();
-        else
+        ui->btnCarteDJ1->setEnabled(false);
+        if(!est_en_action && (strcmp(nom_carte_d_j1, "Servante") == 0 || strcmp(nom_carte_d_j1, "Comtesse") == 0  || strcmp(nom_carte_d_j1, "Princesse") == 0))
+        {
+            strcpy(action, "act|1|2|1");
             remonter_action();
-        //TODO trouver joueur et remonter action
+        }
+        else if(!est_en_action)
+        {
+            strcpy(action, "act|1|2");
+            if((strcmp(nom_carte_d_j1, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j1, "Prince") != 0 && get_nb_ciblable() >= 2))
+            {
+                ui->lblAnnonce->setText("Choississez une cible!");
+                activer_effet_carte(false, nom_carte_d_j1);
+            }
+            else
+            {
+                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                strcat(action, "|1");
+                if(strcmp(nom_carte_d_j1, "Garde") == 0)
+                    strcat(action, "|Garde");
+                remonter_action();
+            }
+        }
+        else
+        {
+            strcat(action, "|1");
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+                activer_garde();
+            else
+                remonter_action();
+        }
     }
 }
 
 void MainWindow::on_btnCarteGJ2_clicked()
 {
-
-    ui->btnCarteGJ2->setEnabled(false);
-    if(!est_en_action && (strcmp(nom_carte_g_j2, "Servante") == 0 || strcmp(nom_carte_g_j2, "Comtesse") == 0  || strcmp(nom_carte_g_j2, "Princesse") == 0))
+    if(!est_local && index_joueur_courrant != index_joueur)
     {
-        strcpy(action, "act|2|1|2");
-        remonter_action();
-    }
-    else if(!est_en_action)
-    {
-        strcpy(action, "act|2|1");
-        if((strcmp(nom_carte_g_j2, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j2, "Prince") != 0 && get_nb_ciblable() >= 2))
-        {
-            ui->lblAnnonce->setText("Choississez une cible!");
-            activer_effet_carte(true, nom_carte_g_j2);
-        }
-        else
-        {
-            ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
-            strcat(action, "|2");
-            if(strcmp(nom_carte_g_j2, "Garde") == 0)
-                strcat(action, "|Garde");
-            remonter_action();
-        }
+        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
     }
     else
     {
-        strcat(action, "|2");
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
-            activer_garde();
-        else
+        ui->btnCarteGJ2->setEnabled(false);
+        if(!est_en_action && (strcmp(nom_carte_g_j2, "Servante") == 0 || strcmp(nom_carte_g_j2, "Comtesse") == 0  || strcmp(nom_carte_g_j2, "Princesse") == 0))
+        {
+            strcpy(action, "act|2|1|2");
             remonter_action();
-        //TODO trouver joueur et remonter action
+        }
+        else if(!est_en_action)
+        {
+            strcpy(action, "act|2|1");
+            if((strcmp(nom_carte_g_j2, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j2, "Prince") != 0 && get_nb_ciblable() >= 2))
+            {
+                ui->lblAnnonce->setText("Choississez une cible!");
+                activer_effet_carte(true, nom_carte_g_j2);
+            }
+            else
+            {
+                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                strcat(action, "|2");
+                if(strcmp(nom_carte_g_j2, "Garde") == 0)
+                    strcat(action, "|Garde");
+                remonter_action();
+            }
+        }
+        else
+        {
+            strcat(action, "|2");
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+                activer_garde();
+            else
+                remonter_action();
+        }
     }
 }
 
 void MainWindow::on_btnCarteDJ2_clicked()
 {
-    ui->btnCarteDJ2->setEnabled(false);
-    if(!est_en_action && (strcmp(nom_carte_d_j2, "Servante") == 0 || strcmp(nom_carte_d_j2, "Comtesse") == 0  || strcmp(nom_carte_d_j2, "Princesse") == 0))
+    if(!est_local && index_joueur_courrant != index_joueur)
     {
-        strcpy(action, "act|2|2|2");
-        remonter_action();
-    }
-    else if(!est_en_action)
-    {
-        strcpy(action, "act|2|2");
-        if((strcmp(nom_carte_d_j2, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j2, "Prince") != 0 && get_nb_ciblable() >= 2))
-        {
-            ui->lblAnnonce->setText("Choississez une cible!");
-            activer_effet_carte(false, nom_carte_d_j2);
-        }
-        else
-        {
-            ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
-            strcat(action, "|2");
-            if(strcmp(nom_carte_d_j2, "Garde") == 0)
-                strcat(action, "|Garde");
-            remonter_action();
-        }
+        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
     }
     else
     {
-        strcat(action, "|2");
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
-            activer_garde();
-        else
+        ui->btnCarteDJ2->setEnabled(false);
+        if(!est_en_action && (strcmp(nom_carte_d_j2, "Servante") == 0 || strcmp(nom_carte_d_j2, "Comtesse") == 0  || strcmp(nom_carte_d_j2, "Princesse") == 0))
+        {
+            strcpy(action, "act|2|2|2");
             remonter_action();
-        //TODO trouver joueur et remonter action
+        }
+        else if(!est_en_action)
+        {
+            strcpy(action, "act|2|2");
+            if((strcmp(nom_carte_d_j2, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j2, "Prince") != 0 && get_nb_ciblable() >= 2))
+            {
+                ui->lblAnnonce->setText("Choississez une cible!");
+                activer_effet_carte(false, nom_carte_d_j2);
+            }
+            else
+            {
+                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                strcat(action, "|2");
+                if(strcmp(nom_carte_d_j2, "Garde") == 0)
+                    strcat(action, "|Garde");
+                remonter_action();
+            }
+        }
+        else
+        {
+            strcat(action, "|2");
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+                activer_garde();
+            else
+                remonter_action();
+        }
     }
 }
 
 void MainWindow::on_btnCarteGJ3_clicked()
 {
-    ui->btnCarteGJ3->setEnabled(false);
-    if(!est_en_action && (strcmp(nom_carte_g_j3, "Servante") == 0 || strcmp(nom_carte_g_j3, "Comtesse") == 0  || strcmp(nom_carte_g_j3, "Princesse") == 0))
+    if(!est_local && index_joueur_courrant != index_joueur)
     {
-        strcpy(action, "act|3|1|3");
-        remonter_action();
-    }
-    else if(!est_en_action)
-    {
-        strcpy(action, "act|3|1");
-        if((strcmp(nom_carte_g_j3, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j3, "Prince") != 0 && get_nb_ciblable() >= 2))
-        {
-            ui->lblAnnonce->setText("Choississez une cible!");
-            activer_effet_carte(true, nom_carte_g_j3);
-        }
-        else
-        {
-            ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
-            strcat(action, "|3");
-            if(strcmp(nom_carte_g_j3, "Garde") == 0)
-                strcat(action, "|Garde");
-            remonter_action();
-        }
+        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
     }
     else
     {
-        strcat(action, "|3");
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
-            activer_garde();
-        else
+        ui->btnCarteGJ3->setEnabled(false);
+        if(!est_en_action && (strcmp(nom_carte_g_j3, "Servante") == 0 || strcmp(nom_carte_g_j3, "Comtesse") == 0  || strcmp(nom_carte_g_j3, "Princesse") == 0))
+        {
+            strcpy(action, "act|3|1|3");
             remonter_action();
-        //TODO trouver joueur et remonter action
+        }
+        else if(!est_en_action)
+        {
+            strcpy(action, "act|3|1");
+            if((strcmp(nom_carte_g_j3, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j3, "Prince") != 0 && get_nb_ciblable() >= 2))
+            {
+                ui->lblAnnonce->setText("Choississez une cible!");
+                activer_effet_carte(true, nom_carte_g_j3);
+            }
+            else
+            {
+                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                strcat(action, "|3");
+                if(strcmp(nom_carte_g_j3, "Garde") == 0)
+                    strcat(action, "|Garde");
+                remonter_action();
+            }
+        }
+        else
+        {
+            strcat(action, "|3");
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+                activer_garde();
+            else
+                remonter_action();
+        }
     }
 }
 
 void MainWindow::on_btnCarteDJ3_clicked()
 {
-    ui->btnCarteDJ3->setEnabled(false);
-    if(!est_en_action && (strcmp(nom_carte_d_j3, "Servante") == 0 || strcmp(nom_carte_d_j3, "Comtesse") == 0  || strcmp(nom_carte_d_j3, "Princesse") == 0))
+    if(!est_local && index_joueur_courrant != index_joueur)
     {
-        strcpy(action, "act|3|2|3");
-        remonter_action();
-    }
-    else if(!est_en_action)
-    {
-        strcpy(action, "act|3|2");
-        if((strcmp(nom_carte_d_j3, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j3, "Prince") != 0 && get_nb_ciblable() >= 2))
-        {
-            ui->lblAnnonce->setText("Choississez une cible!");
-            activer_effet_carte(false, nom_carte_d_j3);
-        }
-        else
-        {
-            ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
-            strcat(action, "|3");
-            if(strcmp(nom_carte_d_j3, "Garde") == 0)
-                strcat(action, "|Garde");
-            remonter_action();
-        }
+        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
     }
     else
     {
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
+        ui->btnCarteDJ3->setEnabled(false);
+        if(!est_en_action && (strcmp(nom_carte_d_j3, "Servante") == 0 || strcmp(nom_carte_d_j3, "Comtesse") == 0  || strcmp(nom_carte_d_j3, "Princesse") == 0))
         {
-        }
-        strcat(action, "|3");
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
-            activer_garde();
-        else
+            strcpy(action, "act|3|2|3");
             remonter_action();
-        //TODO trouver joueur et remonter action
+        }
+        else if(!est_en_action)
+        {
+            strcpy(action, "act|3|2");
+            if((strcmp(nom_carte_d_j3, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j3, "Prince") != 0 && get_nb_ciblable() >= 2))
+            {
+                ui->lblAnnonce->setText("Choississez une cible!");
+                activer_effet_carte(false, nom_carte_d_j3);
+            }
+            else
+            {
+                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                strcat(action, "|3");
+                if(strcmp(nom_carte_d_j3, "Garde") == 0)
+                    strcat(action, "|Garde");
+                remonter_action();
+            }
+        }
+        else
+        {
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+            {
+            }
+            strcat(action, "|3");
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+                activer_garde();
+            else
+                remonter_action();
+        }
     }
 }
 
 void MainWindow::on_btnCarteGJ4_clicked()
 {
-    ui->btnCarteGJ4->setEnabled(false);
-    if(!est_en_action && (strcmp(nom_carte_g_j4, "Servante") == 0 || strcmp(nom_carte_g_j4, "Comtesse") == 0  || strcmp(nom_carte_g_j4, "Princesse") == 0))
+    if(!est_local && index_joueur_courrant != index_joueur)
     {
-        strcpy(action, "act|4|1|4");
-        remonter_action();
-    }
-    else if(!est_en_action)
-    {
-        strcpy(action, "act|4|1");
-        if((strcmp(nom_carte_g_j4, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j4, "Prince") != 0 && get_nb_ciblable() >= 2))
-        {
-            ui->lblAnnonce->setText("Choississez une cible!");
-            activer_effet_carte(false, nom_carte_g_j4);
-        }
-        else
-        {
-            ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
-            strcat(action, "|4");
-            if(strcmp(nom_carte_g_j4, "Garde") == 0)
-                strcat(action, "|Garde");
-            remonter_action();
-        }
+        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
     }
     else
     {
-        strcat(action, "|4");
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
-            activer_garde();
-        else
+        ui->btnCarteGJ4->setEnabled(false);
+        if(!est_en_action && (strcmp(nom_carte_g_j4, "Servante") == 0 || strcmp(nom_carte_g_j4, "Comtesse") == 0  || strcmp(nom_carte_g_j4, "Princesse") == 0))
+        {
+            strcpy(action, "act|4|1|4");
             remonter_action();
-        //TODO trouver joueur et remonter action
+        }
+        else if(!est_en_action)
+        {
+            strcpy(action, "act|4|1");
+            if((strcmp(nom_carte_g_j4, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j4, "Prince") != 0 && get_nb_ciblable() >= 2))
+            {
+                ui->lblAnnonce->setText("Choississez une cible!");
+                activer_effet_carte(false, nom_carte_g_j4);
+            }
+            else
+            {
+                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                strcat(action, "|4");
+                if(strcmp(nom_carte_g_j4, "Garde") == 0)
+                    strcat(action, "|Garde");
+                remonter_action();
+            }
+        }
+        else
+        {
+            strcat(action, "|4");
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+                activer_garde();
+            else
+                remonter_action();
+
+        }
     }
 }
 
 void MainWindow::on_btnCarteDJ4_clicked()
 {
-    ui->btnCarteDJ4->setEnabled(false);
-    if(!est_en_action && (strcmp(nom_carte_d_j4, "Servante") == 0 || strcmp(nom_carte_d_j4, "Comtesse") == 0  || strcmp(nom_carte_d_j4, "Princesse") == 0))
+    if(!est_local && index_joueur_courrant != index_joueur)
     {
-        strcpy(action, "act|4|2|4");
-        remonter_action();
-    }
-    else if(!est_en_action)
-    {
-        strcpy(action, "act|4|2");
-        if((strcmp(nom_carte_d_j4, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j4, "Prince") != 0 && get_nb_ciblable() >= 2))
-        {
-            ui->lblAnnonce->setText("Choississez une cible!");
-            activer_effet_carte(false, nom_carte_d_j4);
-        }
-        else
-        {
-            ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
-            strcat(action, "|4");
-            if(strcmp(nom_carte_d_j4, "Garde") == 0)
-                strcat(action, "|Garde");
-            remonter_action();
-        }
+        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
     }
     else
     {
-        strcat(action, "|4");
-        if(strcmp(nom_carte_jouee, "Garde") == 0)
-            activer_garde();
-        else
+        ui->btnCarteDJ4->setEnabled(false);
+        if(!est_en_action && (strcmp(nom_carte_d_j4, "Servante") == 0 || strcmp(nom_carte_d_j4, "Comtesse") == 0  || strcmp(nom_carte_d_j4, "Princesse") == 0))
+        {
+            strcpy(action, "act|4|2|4");
             remonter_action();
-        //TODO trouver joueur et remonter action
+        }
+        else if(!est_en_action)
+        {
+            strcpy(action, "act|4|2");
+            if((strcmp(nom_carte_d_j4, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j4, "Prince") != 0 && get_nb_ciblable() >= 2))
+            {
+                ui->lblAnnonce->setText("Choississez une cible!");
+                activer_effet_carte(false, nom_carte_d_j4);
+            }
+            else
+            {
+                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                strcat(action, "|4");
+                if(strcmp(nom_carte_d_j4, "Garde") == 0)
+                    strcat(action, "|Garde");
+                remonter_action();
+            }
+        }
+        else
+        {
+            strcat(action, "|4");
+            if(strcmp(nom_carte_jouee, "Garde") == 0)
+                activer_garde();
+            else
+                remonter_action();
+        }
     }
 }
 
@@ -1736,7 +1784,7 @@ void MainWindow::on_btnRetourChoixModeJeu2_clicked()
 void MainWindow::on_btnConnexion_clicked()
 {
     std::regex regex_ip {"([0-2]?[0-9]?[0-9]).([0-2]?[0-9]?[0-9]).([0-2]?[0-9]?[0-9]).([0-2]?[0-9]?[0-9])"};
-    std::regex regex_pseudo {"([A-Z]|[a-z])+"};
+    std::regex regex_pseudo {"([A-Z]|[a-z]|[0-9])+"};
 
     if(std::regex_match(ui->lblIP->text().toStdString(), regex_ip))
     {

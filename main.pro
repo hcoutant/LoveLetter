@@ -6,9 +6,9 @@ TARGET = bin/main
 TEMPLATE = app
 
 
-SOURCES += src/main.cpp src/mainwindow.cpp src/presentation.cpp src/callback.cpp src/jeu.cpp src/joueur.cpp src/carte.cpp src/serveur.cpp src/client.cpp src/reglesjeu.cpp
+SOURCES += src/main.cpp src/mainwindow.cpp src/presentation.cpp src/callback.cpp src/jeu.cpp src/joueur.cpp src/carte.cpp src/serveur.cpp src/client.cpp src/reglesjeu.cpp src/IA.cpp
 
-HEADERS  += src/mainwindow.h src/presentation.h src/callback.h src/jeu.h src/joueur.h src/carte.h src/serveur.h src/client.h src/reglesjeu.h
+HEADERS  += src/mainwindow.h src/presentation.h src/callback.h src/jeu.h src/joueur.h src/carte.h src/serveur.h src/client.h src/reglesjeu.h src/IA.h
 
 OBJECTS_DIR += obj/
 

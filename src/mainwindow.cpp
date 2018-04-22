@@ -1835,13 +1835,13 @@ void MainWindow::on_btnConnexion_clicked()
         else
         {
             qDebug() << "erreur pseudo";
-            //TODO "Veuillez entrer un pseudo valide"
+			afficher_pop_up(1, "Pseudo invalide", "Un ou plusieurs pseudo sont invalides.\nVeuillez entrer des pseudos ne contenant que de lettres.");
         }
     }
     else
     {
         qDebug() << "erreur ip";
-        //TODO "Veuillez entrer une adresse ip valide"
+		afficher_pop_up(1, "IP invalide", "Connexion impossible au serveur.\nVérifiez l'adresse IP su serveur.");
     }
 }
 

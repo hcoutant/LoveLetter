@@ -243,6 +243,7 @@ void Presentation::call(char* a)
 
             type_carte carte;
             int carte_cible;
+	
 
             if((instructions[3][0]-1)%w->nb_joueur == index_joueur_actuel)
             {

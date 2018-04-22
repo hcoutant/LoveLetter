@@ -402,9 +402,12 @@ std::vector<Joueur*> Jeu::mancheFinis()
 		if(joueurs[i]->estVivant())
 		{
 			nb_vivants++;
+			if(joueurs[i]->getCarteMg() == nullptr && joueurs[i]->getCarteMd() == nullptr)
+				continue;
+
 			if(joueurs[i]->getCarteMg() ==  nullptr)
 				max = joueurs[i]->getCarteMd()->getValeur() > max ? joueurs[i]->getCarteMd()->getValeur() : max;
-			else
+			else if(joueurs[i]->getCarteMd() != nullptr)
 				max = joueurs[i]->getCarteMg()->getValeur() > max ? joueurs[i]->getCarteMg()->getValeur() : max;
 		}	
 	}
@@ -415,16 +418,18 @@ std::vector<Joueur*> Jeu::mancheFinis()
 		for(unsigned int i = 0 ; i < joueurs.size() ; i++)
 		{
 			if(joueurs[i]->estVivant())
-            {
+        		{
+				if(joueurs[i]->getCarteMg() == nullptr && joueurs[i]->getCarteMd() == nullptr)
+                                	continue;
 				if(joueurs[i]->getCarteMg() == nullptr)
 				{	//Ca fait beaucoup de if 
 					if(joueurs[i]->getCarteMd()->getValeur() == max)
 						v.push_back(joueurs[i]);
 				}
-				else
+				else 
 					if(joueurs[i]->getCarteMg()->getValeur() == max)
-                        v.push_back(joueurs[i]);
-            }
+                        			v.push_back(joueurs[i]);
+            		}
 		}
 	}
 

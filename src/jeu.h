@@ -51,7 +51,9 @@ class Jeu {
 		void refresh(std::vector<Joueur*>); //Donne les points aux gagants et reinitialise les cartes
 
 	        int getNbCarte(); //Retourne le nombre de cartes restantes
-	
+
+		size_t nombreJoueur(); //Retourne le nombre de joueur
+		Joueur* getJoueur(int i); //Retourne le ième joueur
 };
 
 #endif

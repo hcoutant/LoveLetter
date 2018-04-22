@@ -465,3 +465,13 @@ int Jeu::getNbCarte()
 {
     return pile.size();
 }
+
+size_t Jeu::nombreJoueur()
+{
+	return joueurs.size();
+}
+               
+Joueur* Jeu::getJoueur(int i)
+{
+	return joueurs[i];
+}

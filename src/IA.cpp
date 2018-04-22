@@ -1,6 +1,7 @@
-#include "Ia.h"
+#include "IA.h"
 
-Ia::Ia()    {}
+Ia::Ia() : Joueur("IA")
+{}
 
     /* fonctions pour choisir une carte à jouer */
 
@@ -69,9 +70,9 @@ Joueur* Ia::ciblerAleatoirement()    {
     int aleatoire, nbJoueurs;
 
     srand((unsigned)time(0));
-    nbJoueurs=this->j->joueurs.size()-1;
+    nbJoueurs=this->j->nombreJoueur()-1;
     aleatoire= 0 + (int)((float)rand() * (nbJoueurs-0+1) / (RAND_MAX-1));
-    joueurCible=this->j->joueurs[aleatoire];
+    joueurCible=this->j->getJoueur(aleatoire);
 
   return joueurCible;
 }

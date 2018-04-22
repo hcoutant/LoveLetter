@@ -23,35 +23,34 @@ class Joueur;
 class Jeu {
 	private:
 		std::vector<Carte*> pile; //Pas de stack (Car impossible de mélanger une stack)
-		std::vector<Joueur*> joueurs;
+		std::vector<Joueur*> joueurs; //Vecteur des joueurs
 		std::vector<Carte*> defausse; //Cartes qui ont été défaussées par les joueurs 
 		std::vector<Carte*> laisse; //Cartes laissés au début du jeu
-
-		int tour; //Donne le joueur qui doit jouer 
+		int tour; //Donne le joueur qui doit jouer
 	public:
-		Jeu(std::vector<Joueur*>);
-		~Jeu();
+		Jeu(std::vector<Joueur*>); //Constructeur
+		~Jeu(); //Desctructeur
 	
 		retour action(Joueur *j1, Joueur *j2, Carte*& c); //Le joueur j1 est l'appelant, j2 le joueur visé
 		retour action(Joueur *j1, Joueur *j2, Carte* c1, Carte* c2); //Pour Garde
 	
-		Carte* piocher();
-		Carte* piocherLaisse();
-		void defausser(Carte* c);
+		Carte* piocher(); //Pioche une carte dans la pile
+		Carte* piocherLaisse(); //Pioche une carte dans les cartes laissées au début
+		void defausser(Carte* c); //Defausse une carte
 
-		void initialisation();
+		void initialisation(); //Initialise le jeu
 		
 		Joueur* finis(); //Retourne le joueur qui a gagner la partie, nullptr si il n'y a pas encore de gagnant
 		std::vector<Joueur*> mancheFinis(); //Retourne un vecteur de Joueurs gagnant de taille > à 0 si la manch est terminée
-        bool checkMancheFinis(); //Retourne vrai si la manche est finis
+        	bool checkMancheFinis(); //Retourne vrai si la manche est finis
 		bool jeuMort(); //Retourne vrai si tous les joueurs sont mort 
 	
-		void nextTour();
+		void nextTour(); //Passe au prochain tour
 
 		int nbPointGagner(); //Retourne le nombre de points nécessaire pour gagner la partie
 		void refresh(std::vector<Joueur*>); //Donne les points aux gagants et reinitialise les cartes
 
-        int getNbCarte();
+	        int getNbCarte(); //Retourne le nombre de cartes restantes
 	
 };
 

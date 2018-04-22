@@ -3,6 +3,7 @@
 
 #include <string>
 
+//Typedef pour le type de cartes
 typedef enum {
 	BARON,
 	PRINCE,
@@ -16,15 +17,15 @@ typedef enum {
 
 class Carte {
 	protected:
-		std::string nom;
-		std::string description;
-	        int valeur;
-		type_carte type;
+		std::string nom; //Nom de la carte
+		std::string description; //Description de la carte (son action)
+	        int valeur; //Valeur de la carte (Nombre de points qu'elle raporte)
+		type_carte type; //Type de la carte (Princesse, Roi, ...)
 	public:
-		type_carte getType();
-		int getValeur();
-		std::string affiche();
-		static Carte* getTypeFromString(std::string s);
+		type_carte getType(); //Retourne le type de la carte
+		int getValeur(); //Retourne la valeur de la carte
+		std::string affiche(); //Retourne le nom de la carte sous la forme d'une chaine
+		static Carte* getTypeFromString(std::string s); //Retourne un pointeur sur le carte de type s, si s ne correspond à aucun type retourne nullptr
 };
 
 class Baron : public Carte {

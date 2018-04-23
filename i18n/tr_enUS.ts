@@ -207,6 +207,41 @@ Winner </translation>
         <translation>Love Letter</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="52"/>
+        <source>Pretre</source>
+        <translation>Priest</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="52"/>
+        <source>Baron</source>
+        <translation>Baron</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="52"/>
+        <source>Servante</source>
+        <translation>Handmaid</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="52"/>
+        <source>Prince</source>
+        <translation>Prince</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="52"/>
+        <source>Roi</source>
+        <translation>King</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="52"/>
+        <source>Comtesse</source>
+        <translation>Countess</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="52"/>
+        <source>Princesse</source>
+        <translation>Princess</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="152"/>
         <location filename="../src/mainwindow.cpp" line="153"/>
         <location filename="../src/mainwindow.cpp" line="154"/>

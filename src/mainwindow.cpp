@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->btnCarteDJ4->setVisible(false);
     ui->btnCarteDJ4->setIconSize(QSize(63, 88));
 
-    ui->cbxNomCarteGarde->addItems({"Pretre", "Baron", "Servante", "Prince", "Roi", "Comtesse", "Princesse"});
+    ui->cbxNomCarteGarde->addItems({tr("Pretre"), tr("Baron"), tr("Servante"), tr("Prince"), tr("Roi"), tr("Comtesse"), tr("Princesse")});
     ui->cbxNomCarteGarde->setVisible(false);
 
     ui->btnValider->setVisible(false);

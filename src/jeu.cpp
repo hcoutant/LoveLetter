@@ -413,7 +413,6 @@ std::vector<Joueur*> Jeu::mancheFinis()
 		}
 	}
 
-	std::cout << "Max = " << max << std::endl;
 	
 	if(pile.size() == 0 || nb_vivants == 1)
 	{

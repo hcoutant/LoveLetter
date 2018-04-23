@@ -52,7 +52,7 @@ public:
     void ajouter_joueur(int i, char* n);
     void effacer_pseudo(int i);
 
-    void afficher_pop_up(int i, char* t, char* n);
+    void afficher_pop_up(int i, QString t, QString n);
 
     void ajouter_carte(int i, int c, char* n);
     void set_index_joueur(int i);

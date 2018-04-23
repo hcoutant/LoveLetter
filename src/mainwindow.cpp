@@ -149,10 +149,10 @@ void MainWindow::set_index_joueur(int i)
     if(est_local) index_joueur = i;
     index_joueur_courrant = i;
 
-    if(index_joueur == 1) ui->lblTour->setText("Tour de " + ui->lblPseudoJ1->text());
-    else if(index_joueur == 2) ui->lblTour->setText("Tour de " + ui->lblPseudoJ2->text());
-    else if(index_joueur == 3) ui->lblTour->setText("Tour de " + ui->lblPseudoJ3->text());
-    else if(index_joueur == 4) ui->lblTour->setText("Tour de " + ui->lblPseudoJ4->text());
+    if(index_joueur == 1) ui->lblTour->setText(tr("Tour de ") + ui->lblPseudoJ1->text());
+    else if(index_joueur == 2) ui->lblTour->setText(tr("Tour de ") + ui->lblPseudoJ2->text());
+    else if(index_joueur == 3) ui->lblTour->setText(tr("Tour de ") + ui->lblPseudoJ3->text());
+    else if(index_joueur == 4) ui->lblTour->setText(tr("Tour de ") + ui->lblPseudoJ4->text());
 
         if(index_joueur_courrant == 1) ui->lblNomJoueurSuivant->setText(QString(ui->lblPseudoJ1->text()));
         else if(index_joueur_courrant == 2) ui->lblNomJoueurSuivant->setText(QString(ui->lblPseudoJ2->text()));
@@ -456,7 +456,7 @@ void MainWindow::ajouter_carte(int i, int c, char* n)
             else
             {
                 ui->btnCarteDJ1->setIcon(QIcon(QPixmap(QCoreApplication::applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "src" + QDir::separator() + "img" + QDir::separator() + "cartes" + QDir::separator() + "Verso.jpg")));
-                ui->btnCarteDJ1->setToolTip("Une carte face verso");
+                ui->btnCarteDJ1->setToolTip(tr("Une carte face verso"));
             }
             ui->btnCarteDJ1->setVisible(true);
         }
@@ -484,7 +484,7 @@ void MainWindow::ajouter_carte(int i, int c, char* n)
             else
             {
                 ui->btnCarteGJ2->setIcon(QIcon(QPixmap(QCoreApplication::applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "src" + QDir::separator() + "img" + QDir::separator() + "cartes" + QDir::separator() + "Verso.jpg")));
-                ui->btnCarteGJ2->setToolTip("Une carte face verso");
+                ui->btnCarteGJ2->setToolTip(tr("Une carte face verso"));
             }
             ui->btnCarteGJ2->setVisible(true);
         }
@@ -509,7 +509,7 @@ void MainWindow::ajouter_carte(int i, int c, char* n)
             else
             {
                 ui->btnCarteDJ2->setIcon(QIcon(QPixmap(QCoreApplication::applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "src" + QDir::separator() + "img" + QDir::separator() + "cartes" + QDir::separator() + "Verso.jpg")));
-                ui->btnCarteDJ2->setToolTip("Une carte face verso");
+                ui->btnCarteDJ2->setToolTip(tr("Une carte face verso"));
             }
             ui->btnCarteDJ2->setVisible(true);
         }
@@ -537,7 +537,7 @@ void MainWindow::ajouter_carte(int i, int c, char* n)
             else
             {
                 ui->btnCarteGJ3->setIcon(QIcon(QPixmap(QCoreApplication::applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "src" + QDir::separator() + "img" + QDir::separator() + "cartes" + QDir::separator() + "Verso.jpg")));
-                ui->btnCarteGJ3->setToolTip("Une carte face verso");
+                ui->btnCarteGJ3->setToolTip(tr("Une carte face verso"));
             }
             ui->btnCarteGJ3->setVisible(true);
         }
@@ -562,7 +562,7 @@ void MainWindow::ajouter_carte(int i, int c, char* n)
             else
             {
                 ui->btnCarteDJ3->setIcon(QIcon(QPixmap(QCoreApplication::applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "src" + QDir::separator() + "img" + QDir::separator() + "cartes" + QDir::separator() + "Verso.jpg")));
-                ui->btnCarteDJ3->setToolTip("Une carte face verso");
+                ui->btnCarteDJ3->setToolTip(tr("Une carte face verso"));
             }
             ui->btnCarteDJ3->setVisible(true);
         }
@@ -590,7 +590,7 @@ void MainWindow::ajouter_carte(int i, int c, char* n)
             else
             {
                 ui->btnCarteGJ4->setIcon(QIcon(QPixmap(QCoreApplication::applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "src" + QDir::separator() + "img" + QDir::separator() + "cartes" + QDir::separator() + "Verso.jpg")));
-                ui->btnCarteGJ4->setToolTip("Une carte face verso");
+                ui->btnCarteGJ4->setToolTip(tr("Une carte face verso"));
             }
             ui->btnCarteGJ4->setVisible(true);
         }
@@ -615,7 +615,7 @@ void MainWindow::ajouter_carte(int i, int c, char* n)
             else
             {
                 ui->btnCarteDJ4->setIcon(QIcon(QPixmap(QCoreApplication::applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "src" + QDir::separator() + "img" + QDir::separator() + "cartes" + QDir::separator() + "Verso.jpg")));
-                ui->btnCarteDJ4->setToolTip("Une carte face verso");
+                ui->btnCarteDJ4->setToolTip(tr("Une carte face verso"));
             }
             ui->btnCarteDJ4->setVisible(true);
         }
@@ -666,35 +666,35 @@ QString MainWindow::get_description_carte(char* n)
 {
     if(strcmp(n, "Garde") == 0)
     {
-        return QString("Choisissez un joueur et essayez de deviner la carte qu'il a en main (excepté le Garde), si vous tombez juste, le joueur est éliminé de la manche.");
+        return QString(tr("Choisissez un joueur et essayez de deviner la carte qu'il a en main (excepté le Garde), si vous tombez juste, le joueur est éliminé de la manche."));
     }
     else if(strcmp(n, "Pretre") == 0)
     {
-        return QString("Regardez la main d'un autre joueur.");
+        return QString(tr("Regardez la main d'un autre joueur."));
     }
     else if(strcmp(n, "Baron") == 0)
     {
-        return QString("Comparez votre carte avec celle d'un autre joueur, celui qui a la carte avec la plus faible valeur est éliminé de la manche.");
+        return QString(tr("Comparez votre carte avec celle d'un autre joueur, celui qui a la carte avec la plus faible valeur est éliminé de la manche."));
     }
     else if(strcmp(n, "Servante") == 0)
     {
-        return QString("Jusqu'au prochain tour, vous êtes protégé des effets des cartes des autres joueurs.");
+        return QString(tr("Jusqu'au prochain tour, vous êtes protégé des effets des cartes des autres joueurs."));
     }
     else if(strcmp(n, "Prince") == 0)
     {
-        return QString("Choisissez un joueur (y compris vous), celui-ci défausse la carte qu'il a en main pour en piocher une nouvelle.");
+        return QString(tr("Choisissez un joueur (y compris vous), celui-ci défausse la carte qu'il a en main pour en piocher une nouvelle."));
     }
     else if(strcmp(n, "Roi") == 0)
     {
-        return QString("Echangez votre main avec un autre joueur de votre choix.");
+        return QString(tr("Echangez votre main avec un autre joueur de votre choix."));
     }
     else if(strcmp(n, "Comtesse") == 0)
     {
-        return QString("Si vous avez cette carte en main en même temps que le King ou le Prince, alors vous devez défausser la carte de la Comtesse");
+        return QString(tr("Si vous avez cette carte en main en même temps que le King ou le Prince, alors vous devez défausser la carte de la Comtesse"));
     }
     else if(strcmp(n, "Princesse") == 0)
     {
-        return QString("si vous défaussez cette carte, vous êtes éliminé de la manche.");
+        return QString(tr("si vous défaussez cette carte, vous êtes éliminé de la manche."));
     }
 
     return NULL;
@@ -1259,9 +1259,9 @@ void MainWindow::on_btnLancerPartie_clicked()
         if(ui->txtPseudoJ4->text() != "") nb_pseudo++;
 
         if(nb_pseudo != nb_joueur)
-            afficher_pop_up(1, "Joueur insuffisant", "Nombre de joueur insuffisant.\nVous ne pouvez pas lancer la partie.");
+            afficher_pop_up(1, tr("Joueur insuffisant"), tr("Nombre de joueur insuffisant.\nVous ne pouvez pas lancer la partie."));
         else
-            afficher_pop_up(1, "Pseudo invalide", "Un ou plusieurs pseudo sont invalides.\nVeuillez entrer des pseudos ne contenant que de lettres.");
+            afficher_pop_up(1, tr("Pseudo invalide"), tr("Un ou plusieurs pseudo sont invalides.\nVeuillez entrer des pseudos ne contenant que de lettres."));
     }
 }
 
@@ -1271,7 +1271,7 @@ void MainWindow::on_btnCarteGJ1_clicked()
 {
     if(!est_local && index_joueur_courrant != index_joueur)
     {
-        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
+        afficher_pop_up(1, tr("Pas jouer"), tr("ce n'est pas à votre tour, vous ne pouvez pas jouer."));
     }
     else
     {
@@ -1290,7 +1290,7 @@ void MainWindow::on_btnCarteGJ1_clicked()
             }
             else
             {
-                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                ui->lblAnnonce->setText(tr("Tous les joueurs sont protégés!"));
                 strcat(action, "|1");
                 if(strcmp(nom_carte_g_j1, "Garde") == 0)
                     strcat(action, "|Garde");
@@ -1312,7 +1312,7 @@ void MainWindow::on_btnCarteDJ1_clicked()
 {
     if(!est_local && index_joueur_courrant != index_joueur)
     {
-        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
+        afficher_pop_up(1, "Pas jouer", tr("ce n'est pas à votre tour, vous ne pouvez pas jouer."));
     }
     else
     {
@@ -1327,12 +1327,12 @@ void MainWindow::on_btnCarteDJ1_clicked()
             strcpy(action, "act|1|2");
             if((strcmp(nom_carte_d_j1, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j1, "Prince") != 0 && get_nb_ciblable() >= 2))
             {
-                ui->lblAnnonce->setText("Choississez une cible!");
+                ui->lblAnnonce->setText(tr("Choississez une cible!"));
                 activer_effet_carte(false, nom_carte_d_j1);
             }
             else
             {
-                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                ui->lblAnnonce->setText(tr("Tous les joueurs sont protégés!"));
                 strcat(action, "|1");
                 if(strcmp(nom_carte_d_j1, "Garde") == 0)
                     strcat(action, "|Garde");
@@ -1354,7 +1354,7 @@ void MainWindow::on_btnCarteGJ2_clicked()
 {
     if(!est_local && index_joueur_courrant != index_joueur)
     {
-        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
+        afficher_pop_up(1, tr("Pas jouer"), tr("ce n'est pas à votre tour, vous ne pouvez pas jouer."));
     }
     else
     {
@@ -1369,12 +1369,12 @@ void MainWindow::on_btnCarteGJ2_clicked()
             strcpy(action, "act|2|1");
             if((strcmp(nom_carte_g_j2, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j2, "Prince") != 0 && get_nb_ciblable() >= 2))
             {
-                ui->lblAnnonce->setText("Choississez une cible!");
+                ui->lblAnnonce->setText(tr("Choississez une cible!"));
                 activer_effet_carte(true, nom_carte_g_j2);
             }
             else
             {
-                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                ui->lblAnnonce->setText(tr("Tous les joueurs sont protégés!"));
                 strcat(action, "|2");
                 if(strcmp(nom_carte_g_j2, "Garde") == 0)
                     strcat(action, "|Garde");
@@ -1396,7 +1396,7 @@ void MainWindow::on_btnCarteDJ2_clicked()
 {
     if(!est_local && index_joueur_courrant != index_joueur)
     {
-        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
+        afficher_pop_up(1, tr("Pas jouer"), tr("ce n'est pas à votre tour, vous ne pouvez pas jouer."));
     }
     else
     {
@@ -1411,12 +1411,12 @@ void MainWindow::on_btnCarteDJ2_clicked()
             strcpy(action, "act|2|2");
             if((strcmp(nom_carte_d_j2, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j2, "Prince") != 0 && get_nb_ciblable() >= 2))
             {
-                ui->lblAnnonce->setText("Choississez une cible!");
+                ui->lblAnnonce->setText(tr("Choississez une cible!"));
                 activer_effet_carte(false, nom_carte_d_j2);
             }
             else
             {
-                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                ui->lblAnnonce->setText(tr("Tous les joueurs sont protégés!"));
                 strcat(action, "|2");
                 if(strcmp(nom_carte_d_j2, "Garde") == 0)
                     strcat(action, "|Garde");
@@ -1438,7 +1438,7 @@ void MainWindow::on_btnCarteGJ3_clicked()
 {
     if(!est_local && index_joueur_courrant != index_joueur)
     {
-        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
+        afficher_pop_up(1, tr("Pas jouer"), tr("ce n'est pas à votre tour, vous ne pouvez pas jouer."));
     }
     else
     {
@@ -1453,12 +1453,12 @@ void MainWindow::on_btnCarteGJ3_clicked()
             strcpy(action, "act|3|1");
             if((strcmp(nom_carte_g_j3, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j3, "Prince") != 0 && get_nb_ciblable() >= 2))
             {
-                ui->lblAnnonce->setText("Choississez une cible!");
+                ui->lblAnnonce->setText(tr("Choississez une cible!"));
                 activer_effet_carte(true, nom_carte_g_j3);
             }
             else
             {
-                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                ui->lblAnnonce->setText(tr("Tous les joueurs sont protégés!"));
                 strcat(action, "|3");
                 if(strcmp(nom_carte_g_j3, "Garde") == 0)
                     strcat(action, "|Garde");
@@ -1480,7 +1480,7 @@ void MainWindow::on_btnCarteDJ3_clicked()
 {
     if(!est_local && index_joueur_courrant != index_joueur)
     {
-        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
+        afficher_pop_up(1, tr("Pas jouer"), tr("ce n'est pas à votre tour, vous ne pouvez pas jouer."));
     }
     else
     {
@@ -1495,7 +1495,7 @@ void MainWindow::on_btnCarteDJ3_clicked()
             strcpy(action, "act|3|2");
             if((strcmp(nom_carte_d_j3, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j3, "Prince") != 0 && get_nb_ciblable() >= 2))
             {
-                ui->lblAnnonce->setText("Choississez une cible!");
+                ui->lblAnnonce->setText(tr("Choississez une cible!"));
                 activer_effet_carte(false, nom_carte_d_j3);
             }
             else
@@ -1525,7 +1525,7 @@ void MainWindow::on_btnCarteGJ4_clicked()
 {
     if(!est_local && index_joueur_courrant != index_joueur)
     {
-        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
+        afficher_pop_up(1, tr("Pas jouer"), tr("ce n'est pas à votre tour, vous ne pouvez pas jouer."));
     }
     else
     {
@@ -1540,12 +1540,12 @@ void MainWindow::on_btnCarteGJ4_clicked()
             strcpy(action, "act|4|1");
             if((strcmp(nom_carte_g_j4, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_g_j4, "Prince") != 0 && get_nb_ciblable() >= 2))
             {
-                ui->lblAnnonce->setText("Choississez une cible!");
+                ui->lblAnnonce->setText(tr("Choississez une cible!"));
                 activer_effet_carte(false, nom_carte_g_j4);
             }
             else
             {
-                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                ui->lblAnnonce->setText(tr("Tous les joueurs sont protégés!"));
                 strcat(action, "|4");
                 if(strcmp(nom_carte_g_j4, "Garde") == 0)
                     strcat(action, "|Garde");
@@ -1568,7 +1568,7 @@ void MainWindow::on_btnCarteDJ4_clicked()
 {
     if(!est_local && index_joueur_courrant != index_joueur)
     {
-        afficher_pop_up(1, "Pas jouer", "ce n'est pas à votre tour, vous ne pouvez pas jouer.");
+        afficher_pop_up(1, tr("Pas jouer"), tr("ce n'est pas à votre tour, vous ne pouvez pas jouer."));
     }
     else
     {
@@ -1583,12 +1583,12 @@ void MainWindow::on_btnCarteDJ4_clicked()
             strcpy(action, "act|4|2");
             if((strcmp(nom_carte_d_j4, "Prince") == 0 && get_nb_ciblable() >= 1) || (strcmp(nom_carte_d_j4, "Prince") != 0 && get_nb_ciblable() >= 2))
             {
-                ui->lblAnnonce->setText("Choississez une cible!");
+                ui->lblAnnonce->setText(tr("Choississez une cible!"));
                 activer_effet_carte(false, nom_carte_d_j4);
             }
             else
             {
-                ui->lblAnnonce->setText("Tous les joueurs sont protégés!");
+                ui->lblAnnonce->setText(tr("Tous les joueurs sont protégés!"));
                 strcat(action, "|4");
                 if(strcmp(nom_carte_d_j4, "Garde") == 0)
                     strcat(action, "|Garde");
@@ -1619,7 +1619,7 @@ void MainWindow::on_btnValider_clicked()
 
 void MainWindow::activer_garde()
 {
-    ui->lblAnnonce->setText("Choississez une carte!");
+    ui->lblAnnonce->setText(tr("Choississez une carte!"));
     if(nom_carte_g_j1 != NULL) ui->btnCarteGJ1->setEnabled(false);
     if(nom_carte_d_j1 != NULL) ui->btnCarteDJ1->setEnabled(false);
     if(nom_carte_g_j2 != NULL) ui->btnCarteGJ2->setEnabled(false);
@@ -1674,7 +1674,7 @@ void MainWindow::annoncer(char* a)
 void MainWindow::changer_nombre_carte(int i)
 {
     char label_carte[50];
-    sprintf(label_carte ,"nombre de cartes restantes: %d",  i);
+    sprintf(label_carte ,tr("nombre de cartes restantes: %d").toLatin1().data(),  i);
 
     ui->lblCartesRestantes->setText(label_carte);
 }
@@ -1843,18 +1843,18 @@ void MainWindow::on_btnConnexion_clicked()
         }
         else
         {
-            qDebug() << "erreur pseudo";
-			afficher_pop_up(1, "Pseudo invalide", "Un ou plusieurs pseudo sont invalides.\nVeuillez entrer des pseudos ne contenant que de lettres.");
+            qDebug() << tr("erreur pseudo");
+			afficher_pop_up(1, tr("Pseudo invalide"), tr("Un ou plusieurs pseudo sont invalides.\nVeuillez entrer des pseudos ne contenant que de lettres."));
         }
     }
     else
     {
         qDebug() << "erreur ip";
-		afficher_pop_up(1, "IP invalide", "Connexion impossible au serveur.\nVérifiez l'adresse IP su serveur.");
+		afficher_pop_up(1, tr("IP invalide"), tr("Connexion impossible au serveur.\nVérifiez l'adresse IP su serveur."));
     }
 }
 
-void MainWindow::afficher_pop_up(int i, char* t, char*n)
+void MainWindow::afficher_pop_up(int i, QString t, QString n)
 {
     if(i == 1) QMessageBox::information(this, t, n);
     else if(i == 2) QMessageBox::warning(this, t, n);

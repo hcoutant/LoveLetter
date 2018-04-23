@@ -207,9 +207,166 @@ Winner </translation>
         <translation>Love Letter</translation>
     </message>
     <message>
+        <location filename="../src/mainwindow.cpp" line="152"/>
+        <location filename="../src/mainwindow.cpp" line="153"/>
+        <location filename="../src/mainwindow.cpp" line="154"/>
+        <location filename="../src/mainwindow.cpp" line="155"/>
+        <source>Tour de </source>
+        <translation>Turn of </translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="459"/>
+        <location filename="../src/mainwindow.cpp" line="487"/>
+        <location filename="../src/mainwindow.cpp" line="512"/>
+        <location filename="../src/mainwindow.cpp" line="540"/>
+        <location filename="../src/mainwindow.cpp" line="565"/>
+        <location filename="../src/mainwindow.cpp" line="593"/>
+        <location filename="../src/mainwindow.cpp" line="618"/>
+        <source>Une carte face verso</source>
+        <translation>A verso card face</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="669"/>
+        <source>Choisissez un joueur et essayez de deviner la carte qu&apos;il a en main (exceptÃ© le Garde), si vous tombez juste, le joueur est Ã©liminÃ© de la manche.</source>
+        <translation>Choose a player and try to guess his card (Except the guard). If you are right, the player is elimined.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="673"/>
+        <source>Regardez la main d&apos;un autre joueur.</source>
+        <translation>Look at other player hand.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="677"/>
+        <source>Comparez votre carte avec celle d&apos;un autre joueur, celui qui a la carte avec la plus faible valeur est Ã©liminÃ© de la manche.</source>
+        <translation>Compare your card with another player. The player who has the weaker value is elimined.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="681"/>
+        <source>Jusqu&apos;au prochain tour, vous Ãªtes protÃ©gÃ© des effets des cartes des autres joueurs.</source>
+        <translation>Until next tour, you are protected from other player card&apos;s effect.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="685"/>
+        <source>Choisissez un joueur (y compris vous), celui-ci dÃ©fausse la carte qu&apos;il a en main pour en piocher une nouvelle.</source>
+        <translation>Choose a player (You include). The player discard the card he has and pick a new card.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="689"/>
+        <source>Echangez votre main avec un autre joueur de votre choix.</source>
+        <translation>Switch your card with another player of your choice.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="693"/>
+        <source>Si vous avez cette carte en main en mÃªme temps que le King ou le Prince, alors vous devez dÃ©fausser la carte de la Comtesse</source>
+        <translation>If you have this card and the King or the Prince, then you must discard the Comtesse</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="697"/>
+        <source>si vous dÃ©faussez cette carte, vous Ãªtes Ã©liminÃ© de la manche.</source>
+        <translation>If you discard this card, you loose.</translation>
+    </message>
+    <message>
         <location filename="../src/mainwindow.cpp" line="1052"/>
         <source>Choix du pseudo</source>
         <translation>Choose of nickname</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1262"/>
+        <source>Joueur insuffisant</source>
+        <translation>Not enough players </translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1262"/>
+        <source>Nombre de joueur insuffisant.
+Vous ne pouvez pas lancer la partie.</source>
+        <translation>Not enough player
+You can&apos;t play.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1264"/>
+        <location filename="../src/mainwindow.cpp" line="1847"/>
+        <source>Pseudo invalide</source>
+        <translation>Invalid nickname</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1264"/>
+        <location filename="../src/mainwindow.cpp" line="1847"/>
+        <source>Un ou plusieurs pseudo sont invalides.
+Veuillez entrer des pseudos ne contenant que de lettres.</source>
+        <translation>One or more nickname are invalid
+Please enter nickname with only letters.</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1274"/>
+        <location filename="../src/mainwindow.cpp" line="1357"/>
+        <location filename="../src/mainwindow.cpp" line="1399"/>
+        <location filename="../src/mainwindow.cpp" line="1441"/>
+        <location filename="../src/mainwindow.cpp" line="1483"/>
+        <location filename="../src/mainwindow.cpp" line="1528"/>
+        <location filename="../src/mainwindow.cpp" line="1571"/>
+        <source>Pas jouer</source>
+        <translation>Can&apos;t play</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1274"/>
+        <location filename="../src/mainwindow.cpp" line="1315"/>
+        <location filename="../src/mainwindow.cpp" line="1357"/>
+        <location filename="../src/mainwindow.cpp" line="1399"/>
+        <location filename="../src/mainwindow.cpp" line="1441"/>
+        <location filename="../src/mainwindow.cpp" line="1483"/>
+        <location filename="../src/mainwindow.cpp" line="1528"/>
+        <location filename="../src/mainwindow.cpp" line="1571"/>
+        <source>ce n&apos;est pas Ã  votre tour, vous ne pouvez pas jouer.</source>
+        <translation>This is not your turn. </translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1293"/>
+        <location filename="../src/mainwindow.cpp" line="1335"/>
+        <location filename="../src/mainwindow.cpp" line="1377"/>
+        <location filename="../src/mainwindow.cpp" line="1419"/>
+        <location filename="../src/mainwindow.cpp" line="1461"/>
+        <location filename="../src/mainwindow.cpp" line="1548"/>
+        <location filename="../src/mainwindow.cpp" line="1591"/>
+        <source>Tous les joueurs sont protÃ©gÃ©s!</source>
+        <translation>All player are protected!</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1330"/>
+        <location filename="../src/mainwindow.cpp" line="1372"/>
+        <location filename="../src/mainwindow.cpp" line="1414"/>
+        <location filename="../src/mainwindow.cpp" line="1456"/>
+        <location filename="../src/mainwindow.cpp" line="1498"/>
+        <location filename="../src/mainwindow.cpp" line="1543"/>
+        <location filename="../src/mainwindow.cpp" line="1586"/>
+        <source>Choississez une cible!</source>
+        <translation>Select a target! </translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1622"/>
+        <source>Choississez une carte!</source>
+        <translation>Select a card!</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1677"/>
+        <source>nombre de cartes restantes: %d</source>
+        <translation>Number of card remaining : %d</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1846"/>
+        <source>erreur pseudo</source>
+        <translation>Error in nickname</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1853"/>
+        <source>IP invalide</source>
+        <translation>Invalid IP</translation>
+    </message>
+    <message>
+        <location filename="../src/mainwindow.cpp" line="1853"/>
+        <source>Connexion impossible au serveur.
+VÃ©rifiez l&apos;adresse IP su serveur.</source>
+        <translation>Unable to connect to the server.
+Please check the IP adress of the server.</translation>
     </message>
 </context>
 <context>

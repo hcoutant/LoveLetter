@@ -401,17 +401,19 @@ std::vector<Joueur*> Jeu::mancheFinis()
 	{
 		if(joueurs[i]->estVivant())
 		{
+			std::cout << "On a trouvé un joueur vivant !" << std::endl;
 			nb_vivants++;
 			if(joueurs[i]->getCarteMg() == nullptr && joueurs[i]->getCarteMd() == nullptr)
 				continue;
-
+			
 			if(joueurs[i]->getCarteMg() ==  nullptr)
 				max = joueurs[i]->getCarteMd()->getValeur() > max ? joueurs[i]->getCarteMd()->getValeur() : max;
-			else if(joueurs[i]->getCarteMd() != nullptr)
+			else
 				max = joueurs[i]->getCarteMg()->getValeur() > max ? joueurs[i]->getCarteMg()->getValeur() : max;
-		}	
+		}
 	}
 
+	std::cout << "Max = " << max << std::endl;
 	
 	if(pile.size() == 0 || nb_vivants == 1)
 	{
@@ -439,7 +441,7 @@ std::vector<Joueur*> Jeu::mancheFinis()
         v[i]->setScore(v[i]->getScore() + 1);
     }
 
-	return v;
+    return v;
 }
 	
 void Jeu::nextTour() {

@@ -81,7 +81,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     action = new char[1024];
 
-    QPixmap pixmap("Britain-128.png");
+    QPixmap pixmap("i18n/Britain-128.png");
     QIcon ButtonIcon(pixmap);
     ui->btnLangue->setIcon(ButtonIcon);
     ui->btnLangue->setIconSize(QSize(128,128));
@@ -1871,7 +1871,7 @@ void MainWindow::on_btnLangue_clicked()
 {
     if(!inEnglish)
     {
-	QPixmap pixmap("frenchFlag.png");
+	QPixmap pixmap("i18n/frenchFlag.png");
         QIcon ButtonIcon(pixmap);
         ui->btnLangue->setIcon(ButtonIcon);
         ui->btnLangue->setIconSize(QSize(128,128));	
@@ -1884,7 +1884,7 @@ void MainWindow::on_btnLangue_clicked()
     }
     else
     {
-	QPixmap pixmap("Britain-128.png");
+	QPixmap pixmap("i18n/Britain-128.png");
         QIcon ButtonIcon(pixmap);
         ui->btnLangue->setIcon(ButtonIcon);
         ui->btnLangue->setIconSize(QSize(128,128));

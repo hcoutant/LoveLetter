@@ -1778,6 +1778,12 @@ void MainWindow::set_vainqueur_manche(char * v, char* s)
 
 void MainWindow::on_btnHote_clicked()
 {
+    if(ui->lblPseudoReseau->text() == "" || ui->lblIP->text() == "")
+    {
+	QMessageBox::critical(this,tr("Erreur"),tr("Le pseudo ou l'IP est vide!"));
+	return;
+    }
+
     strcpy(action, "hst");
     ui->wdgListe->setCurrentIndex(2);
 }

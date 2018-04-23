@@ -16,6 +16,8 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QLayoutItem>
+#include <QPixmap>
+#include <QIcon>
 #include <QTextCodec>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -79,6 +81,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     action = new char[1024];
 
+    QPixmap pixmap("Britain-128.png");
+    QIcon ButtonIcon(pixmap);
+    ui->btnLangue->setIcon(ButtonIcon);
+    ui->btnLangue->setIconSize(QSize(128,128));
+
+    inEnglish = false;
+    
     //ui->wdgMenuPrinc->setStyleSheet("background: rgb(0, 255, 255)");
 }
 
@@ -1040,7 +1049,7 @@ void MainWindow::on_btnIA_clicked()
 	
     nb_joueur = 2;
 
-    ui->lblChoixPseudo->setText("Choix du pseudo");
+    ui->lblChoixPseudo->setText(tr("Choix du pseudo"));
     
     ui->txtPseudoJ2->setVisible(false);
     ui->txtPseudoJ3->setVisible(false);
@@ -1856,4 +1865,40 @@ void MainWindow::on_btnRegle_clicked()
 {
     ReglesJeu *rj = new ReglesJeu;
     rj->show();
+}
+
+void MainWindow::on_btnLangue_clicked()
+{
+    if(!inEnglish)
+    {
+	QPixmap pixmap("frenchFlag.png");
+        QIcon ButtonIcon(pixmap);
+        ui->btnLangue->setIcon(ButtonIcon);
+        ui->btnLangue->setIconSize(QSize(128,128));	
+
+    	QTranslator *translator = new QTranslator;
+    	translator->load("i18n/tr_enUS");
+    	app->installTranslator(translator);
+	ui->retranslateUi(this);
+	inEnglish = true;
+    }
+    else
+    {
+	QPixmap pixmap("Britain-128.png");
+        QIcon ButtonIcon(pixmap);
+        ui->btnLangue->setIcon(ButtonIcon);
+        ui->btnLangue->setIconSize(QSize(128,128));
+
+	QTranslator *translator = new QTranslator;
+        translator->load("i18n/tr_frFR");
+        app->installTranslator(translator);
+        ui->retranslateUi(this);
+        inEnglish = false;
+    }
+  
+
+}
+
+void MainWindow::set_qApp(QApplication *qapp){
+	app = qapp;
 }

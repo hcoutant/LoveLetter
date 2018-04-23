@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="0" column="1">
      <widget class="QStackedWidget" name="wdgListe">
       <property name="minimumSize">
        <size>
@@ -24,14 +24,14 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="wdgMenuPrinc">
        <property name="enabled">
         <bool>true</bool>
        </property>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="0" column="0">
+        <item row="2" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
            <spacer name="verticalSpacer_4">
@@ -48,6 +48,13 @@
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QPushButton" name="btnLangue">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
             <item>
              <spacer name="horizontalSpacer_15">
               <property name="orientation">
@@ -632,8 +639,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>330</width>
-                    <height>96</height>
+                    <width>334</width>
+                    <height>116</height>
                    </rect>
                   </property>
                   <widget class="QWidget" name="horizontalLayoutWidget_7">
@@ -663,8 +670,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>330</width>
-                    <height>96</height>
+                    <width>334</width>
+                    <height>116</height>
                    </rect>
                   </property>
                   <widget class="QWidget" name="layoutWidget_6">
@@ -788,8 +795,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>330</width>
-                    <height>96</height>
+                    <width>334</width>
+                    <height>116</height>
                    </rect>
                   </property>
                   <widget class="QWidget" name="horizontalLayoutWidget_6">
@@ -819,8 +826,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>330</width>
-                    <height>96</height>
+                    <width>334</width>
+                    <height>116</height>
                    </rect>
                   </property>
                   <widget class="QWidget" name="layoutWidget_5">
@@ -1035,8 +1042,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>330</width>
-                    <height>96</height>
+                    <width>334</width>
+                    <height>117</height>
                    </rect>
                   </property>
                   <widget class="QWidget" name="layoutWidget">
@@ -1143,8 +1150,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>330</width>
-                    <height>96</height>
+                    <width>334</width>
+                    <height>116</height>
                    </rect>
                   </property>
                   <widget class="QWidget" name="horizontalLayoutWidget_2">
@@ -1206,8 +1213,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>330</width>
-                    <height>96</height>
+                    <width>334</width>
+                    <height>117</height>
                    </rect>
                   </property>
                   <widget class="QWidget" name="layoutWidget_4">
@@ -1308,8 +1315,8 @@
                    <rect>
                     <x>0</x>
                     <y>0</y>
-                    <width>330</width>
-                    <height>96</height>
+                    <width>334</width>
+                    <height>116</height>
                    </rect>
                   </property>
                   <widget class="QWidget" name="horizontalLayoutWidget_5">
@@ -1863,7 +1870,7 @@ Vainqueur</string>
      <x>0</x>
      <y>0</y>
      <width>888</width>
-     <height>25</height>
+     <height>15</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuLove_letter">

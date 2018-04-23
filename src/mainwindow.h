@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QString>
 #include <QPushButton>
+#include <QTranslator>
 #include <QMessageBox>
 
 #include <regex>
@@ -61,6 +62,8 @@ public:
     int index_joueur_courrant;
     bool avecIA;
 
+    void set_qApp(QApplication *qapp);
+
 private slots:
     QString get_chemin_carte(char* n);
     QString get_description_carte(char* n);
@@ -95,7 +98,7 @@ private slots:
     void on_btnRetourChoixModeJeu2_clicked();
     void on_btnConnexion_clicked();
     void on_btnIA_clicked(); //Bouton pour l'IA !
-
+    void on_btnLangue_clicked();
 
     void activer_effet_carte(bool g, char* n);
     void activer_garde();
@@ -108,6 +111,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    QApplication *app;
 
     CallBack* callBack;
 
@@ -134,6 +139,8 @@ private:
     int index_joueur;
     bool est_en_action;
     bool a_joue;
+
+    bool inEnglish;
 };
 
 #endif // MAINWINDOW_H

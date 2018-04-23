@@ -22,3 +22,4 @@ UI_DIR += obj/
 
 CONFIG += warn_off
 
+TRANSLATIONS += i18n/tr_enUS.ts i18n/tr_frFR.ts

@@ -1,8 +1,11 @@
 #include "presentation.h"
 
 #include <QDebug>
+#include <QDir>
 #include <QObject>
 #include <QString>
+#include <QTranslator>
+#include <QFile>
 
 #include <cstdint>
 #include <unistd.h>
@@ -25,11 +28,15 @@ Presentation::Presentation()
 int Presentation::lancer_fenetre(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+
     w = new MainWindow;
 
     CallBack* c = this;
 
     w->set_callBack(c);
+
+    w->set_qApp(&a);
 
     w->show();
 

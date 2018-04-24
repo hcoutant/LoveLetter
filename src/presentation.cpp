@@ -162,7 +162,9 @@ void Presentation::call(char* a)
             {
                 std::vector<Joueur*> gagnant_manche = jeu->mancheFinis();
                 jeu->refresh(gagnant_manche);
-
+		
+		
+	
                 Joueur* gagnant = nullptr;
                 for(unsigned int i = 0; i < liste_joueur.size(); i++)
                 {
@@ -183,10 +185,10 @@ void Presentation::call(char* a)
                     int k = 0;
                     for(Joueur* j: liste_joueur)
                     {
-                        if(!j->estVivant())
-                        {
+                        //if(!j->estVivant())
+                        //{
                             emit sign_set_joueur_protege((k+1)%w->nb_joueur, false);
-                        }
+                        //}
                         k++;
                     }
 
@@ -328,7 +330,7 @@ void Presentation::call(char* a)
                         emit sign_set_joueur_protege((k+1)%w->nb_joueur, true);
                     }
                     k++;
-                }
+                } 
 
                 emit sign_set_joueur_protege((index_joueur_actuel+1)%w->nb_joueur, liste_joueur[index_joueur_actuel%w->nb_joueur]->estProtege());
 

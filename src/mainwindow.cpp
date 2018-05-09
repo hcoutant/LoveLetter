@@ -1166,6 +1166,11 @@ void MainWindow::on_btnRetourNbJoueur_clicked()
 
 void MainWindow::on_btnLancerPartie_clicked()
 {
+	for(int i = 1; i < 5; i++)
+	{
+		vider_main(i);
+		vider_defausse(i);
+	}
     std::regex regex_pseudo {"([A-Z]|[a-z]|[0-9])+"};
     bool pas_de_blanc = true;
 
